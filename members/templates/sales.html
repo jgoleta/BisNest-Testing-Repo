@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Payment Management</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Sen', sans-serif;
+            background: linear-gradient(135deg, #f5e6ca, #ffeaa7);
+            color: #333;
+        }
+
+        nav.navigation-top {
+            background: #d35400;
+            padding: 0 20px;
+        }
+
+        .navigation-div {
+            max-width: 1200px;
+            margin: auto;
+            height: 90px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-logo {
+            height: 60px;
+            border-radius: 50%;
+            background-color: white;
+            padding: 5px;
+        }
+
+        nav.navigation-top ul {
+            list-style: none;
+            display: flex;
+            gap: 30px;
+        }
+
+        nav.navigation-top li a {
+            color: #fff;
+            font-size: 16px;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        nav.navigation-top li a:hover {
+            color: #ffeaa7;
+        }
+
+        .nav-button {
+            background-color: #f39c12;
+            color: #fff;
+            border: none;
+            border-radius: 25px;
+            width: 130px;
+            height: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .nav-button:hover {
+            background-color: #e67e22;
+        }
+
+        .container {
+            display: flex;
+            height: calc(100vh - 90px);
+        }
+
+        .sidebar {
+            width: 220px;
+            background: linear-gradient(135deg, #f5e6ca, #ffeaa7);
+            color: black;
+            padding-top: 20px;
+        }
+
+        .sidebar ul {
+            list-style: none;
+        }
+
+        .sidebar ul li {
+            padding: 15px 20px;
+        }
+
+        .sidebar ul li a {
+            color: black;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .sidebar ul li:hover {
+            background: linear-gradient(135deg, white, #ffeaa7);
+            border-radius: 10px;
+            margin-left: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .sidebar img {
+            width: 30px;
+        }
+
+        .main-content {
+            flex: 1;
+            padding: 40px;
+            background: linear-gradient(135deg, white, #ffeaa7);
+        }
+
+        .sales-container {
+            overflow: auto;
+            max-width: 1100px;
+            height: 650px;
+            margin: 40px auto;
+            padding: 40px;
+            background-color: #fffdf6;
+            border-radius: 16px;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+        }
+
+        .form button:hover {
+            background-color: #b84300;
+            color: #ffffff;
+        }
+
+        h1 {
+            font-size: 35px;
+            margin-bottom: 20px;
+            text-align: center;
+            color: #d35400;
+        }
+
+        .form {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .form input,
+        .form select {
+            padding: 10px;
+            font-size: 14px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            flex: 1;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .form input:hover,
+        .form select:hover {
+            border-color: #d35400;
+            box-shadow: 0 0 5px rgba(211, 84, 0, 0.5);
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .form button {
+            background-color: #d35400;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            border-radius: 10px;
+            overflow: hidden;
+            background-color: #fff;
+            margin-top: 20px;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+        }
+
+        .table th,
+        .table td {
+            padding: 12px;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .table th {
+            background-color: #d35400;
+            color: #fff;
+        }
+
+        .delete-button {
+            background: white;
+            border: 1px solid #ccc;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .delete-button:hover {
+            background-color: #e74c3c;
+            color: white;
+            border: 1px solid #e74c3c;
+        }
+
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            border: 0;
+        }
+
+        @media (max-width: 600px) {
+            .form {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navigation-top">
+        <div class="navigation-div">
+            <img src="https://i.ibb.co/60c2V5M5/485022833-1021832163206590-2049955099638617889-n.png" class="nav-logo"
+                alt="Logo" />
+            <ul>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <button class="nav-button" onclick="window.location.href='{% url 'webpage1' %}'">Sign Out</button>
+        </div>
+    </nav>
+
+    <div class="container">
+        <nav class="sidebar">
+            <ul>
+                <ul>
+                    <li><a href="{% url 'webpage3' %}"><img src="https://i.ibb.co/pvpZssRq/Home-logo.png"
+                                alt="">Home</a></li>
+                    <li><a href="{% url 'webpage2' %}"><img src="https://i.ibb.co/n8LVnKQC/Employee.png"
+                                alt="">Employee</a></li>
+                    <li><a href="{% url 'webpage7' %}"><img src="https://i.ibb.co/PZdTmb35/Customer.png"
+                                alt="">Customer</a></li>
+                    <li><a href="{% url 'webpage8' %}"><img src="https://i.ibb.co/rRx31wRN/Product.png"
+                                alt="">Product</a></li>
+                    <li><a href="{% url 'webpage5' %}"><img src="https://i.ibb.co/ZR2xsV1q/Order.png" alt="">Order</a>
+                    </li>
+                    <li><a href="{% url 'webpage4' %}"><img src="https://i.ibb.co/MKS50nw/Payment.png"
+                                alt="">Payment</a></li>
+                    <li><a href="{% url 'webpage9' %}"><img src="https://i.ibb.co/hFz1vbwj/Delivery.png"
+                                alt="">Delivery</a></li>
+                    <li><a href="{% url 'webpage11' %}"><img src="https://i.ibb.co/9Hhv1XT5/Supply.png"
+                                alt="">Supply</a></li>
+                    <li><a href="{% url 'webpage10' %}"><img src="https://i.ibb.co/bMgBFjcB/sales-logo.png" alt="">Sales
+                            Report</a></li>
+                </ul>
+        </nav>
+
+        <main class="main-content">
+            <section class="sales-container">
+                <h1>Sales Report</h1>
+                <form method="POST" class="form">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit">Submit</button>
+                </form>
+
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Product Name</th>
+                            <th>Kilos Sold</th>
+                            <th>Price (Kg)</th>
+                            <th>Total (₱)</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody class="table-body">
+                        {% for sale in sales %}
+                        <tr>
+                            <td>{{ sale.date }}</td>
+                            <td>{{ sale.product_name }}</td>
+                            <td>{{ sale.kilos_sold }} kg</td>
+                            <td>₱{{ sale.price_per_kilo }}</td>
+                            <td class="row-total">₱{{ sale.total }}</td>
+                            <td>
+                                <form method="POST" action="{% url 'delete_sale' sale.id %}">
+                                    {% csrf_token %}
+                                    <button type="submit" class="delete-button">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="4" style="text-align: right; font-weight: bold;">Grand Total:</td>
+                            <td id="grandTotal">₱0.00</td>
+                            <td></td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </section>
+        </main>
+        <script>
+            window.addEventListener('load', () => {
+                let total = 0;
+                document.querySelectorAll(".row-total").forEach(cell => {
+                    total += parseFloat(cell.textContent.replace(/[₱,]/g, '')) || 0;
+                });
+                document.getElementById("grandTotal").textContent = `₱${total.toFixed(2)}`;
+            });
+        </script>
+</body>
+
+</html>

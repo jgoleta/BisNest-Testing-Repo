@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SBMS Login</title>
+    <link href="https://fonts.googleapis.com/css2?family=Sen:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            overflow: hidden;
+            margin: 0px;
+            width: 100%;
+            height: 100%;
+            background: #ffffff;
+            
+        }
+
+        .page-design {
+            position: absolute;
+            width: 700px;
+            height: 700px;
+            top: 25%;
+            left: -4.2%;
+        }
+
+        .sbms_logo {
+            width: 500px;
+            height: 500px;
+            margin-top: 10%;
+            margin-bottom: 20px;
+            position: absolute;
+            left: 20%;
+        }
+
+        .signup-container {
+            position: absolute;
+            width: 500px;
+            height: 700px;
+            left: 65%;
+            top: 10%;
+            background-color: #222222;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .signup-header {
+            color: #FFFFFF;
+            font-size: 30px;
+            font-weight: bold;
+            margin-top: 50px;
+        }
+
+        .input-box {
+            width: 380px;
+            height: 45px;
+            margin-top: 30px;
+            border-radius: 10px;
+            border: none;
+            background: #F0F5FA;
+            font-size: 12px;
+            padding-left: 15px;
+        }
+
+        label {
+            display: block;
+            font-size: 10px;
+            color: #EEEEEE;
+            margin-top: 10px;
+            text-transform: uppercase;
+            position: absolute;
+            left: 55px;
+        }
+
+        .signup-button {
+            width: 395px;
+            height: 45px;
+            background: #FDE6D4;
+            color: #000000;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            border-radius: 10px;
+            border: none;
+            margin-top: 20px;
+            cursor: pointer;
+            font-family: 'Sen';
+        }
+
+        .signup-button:hover {
+            background: #fcd2b3;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Page Background Image -->
+    <img src="https://i.ibb.co/j9NGt9vM/page-background.png" class="page-design">
+
+    <!-- SBMS Logo -->
+    <img src="https://i.ibb.co/60c2V5M5/485022833-1021832163206590-2049955099638617889-n.png" class="sbms_logo">
+
+    <!-- Sign-Up Form -->
+    <div class="signup-container">
+        <h2 class="signup-header">Create an Account</h2>
+    
+        <label for="name">Name</label>
+        <input type="text" id="name" class="input-box" placeholder="Enter your name">
+    
+        <label for="email">Email</label>
+        <input type="email" id="email" class="input-box" placeholder="Enter your email">
+    
+        <label for="password">Password</label>
+        <input type="password" id="password" class="input-box" placeholder="Enter password">
+    
+        <label for="confirm-password">Confirm Password</label>
+        <input type="password" id="confirm-password" class="input-box" placeholder="Re-type your password">
+    
+        <a href="{% url 'webpage3' %}"><button class="signup-button">Sign Up</button></a>
+    </div>
+
+</body>
+</html>
