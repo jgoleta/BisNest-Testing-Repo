@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Product Management</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Sen', sans-serif;
+      background: linear-gradient(135deg, #f5e6ca, #ffeaa7);
+      color: #333;
+    }
+
+    nav.navigation-top {
+      background: #d35400;
+      padding: 0 20px;
+    }
+
+    .navigation-div {
+      max-width: 1200px;
+      margin: auto;
+      height: 90px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-logo {
+      height: 60px;
+      border-radius: 50%;
+      background-color: white;
+      padding: 5px;
+    }
+
+    nav.navigation-top ul {
+      list-style: none;
+      display: flex;
+      gap: 30px;
+    }
+
+    nav.navigation-top li a {
+      color: #fff;
+      font-size: 16px;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    nav.navigation-top li a:hover {
+      color: #ffeaa7;
+    }
+
+    .nav-button {
+      background-color: #f39c12;
+      color: #fff;
+      border: none;
+      border-radius: 25px;
+      width: 130px;
+      height: 40px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .nav-button:hover {
+      background-color: #e67e22;
+    }
+
+    .container {
+      display: flex;
+      height: calc(100vh - 90px);
+    }
+
+    .sidebar {
+      width: 220px;
+      background: linear-gradient(135deg, #f5e6ca, #ffeaa7);
+      color: black;
+      padding-top: 20px;
+    }
+
+    .sidebar ul {
+      list-style: none;
+    }
+
+    .sidebar ul li {
+      padding: 15px 20px;
+    }
+
+    .sidebar ul li a {
+      color: black;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .sidebar ul li:hover {
+      background: linear-gradient(135deg, white, #ffeaa7);
+      border-radius: 10px;
+      margin-left: 10px;
+      transition: all 0.3s ease;
+    }
+
+    .sidebar img {
+      width: 30px;
+    }
+
+    .main-content {
+      flex: 1;
+      padding: 40px;
+      background: linear-gradient(135deg, white, #ffeaa7);
+    }
+
+    .product-container {
+      position: relative;
+      flex-direction: column;
+      width: 70%;
+      min-height: 600px;
+      margin: 40px auto;
+      padding: 40px;
+      background: linear-gradient(135deg, #f5e6ca, #ffeaa7);
+      border-radius: 16px;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      font-size: 35px;
+      margin-bottom: 20px;
+      text-align: center;
+      color: #d35400;
+    }
+
+    .parts-logo {
+      width: 80px;
+      height: 80px;
+    }
+
+    .product-button-style {
+      width: 170px;
+      height: 155px;
+      border-radius: 24px;
+      padding: 16px 12px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background-color: #fff7e6;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+      transition: background 0.3s ease;
+      justify-content: center;
+      border: none;
+      cursor: pointer;
+    }
+
+    .product-button-style:hover {
+      background-color: #ffe0b3;
+    }
+
+    .product-button-container {
+      width: 170px;
+      height: 155px;
+      border-radius: 24px;
+      padding: 16px 12px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background-color: #fff7e6;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+      transition: background 0.3s ease;
+      justify-content: center;
+      border: none;
+      cursor: pointer;
+    }
+
+    .product-price-label {
+      margin-top: 10px;
+      font-weight: bold;
+      color: #d35400;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0, 0, 0, 0.6);
+    }
+
+    .modal-content {
+      background-color: #fff;
+      margin: 10% auto;
+      padding: 20px 30px;
+      border-radius: 12px;
+      width: 400px;
+      box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+      position: relative;
+      text-align: center;
+    }
+
+    .modal-content h2 {
+      margin-top: 0;
+      color: #ff6600;
+    }
+
+    .close-button {
+      position: absolute;
+      top: 10px;
+      right: 18px;
+      font-size: 22px;
+      font-weight: bold;
+      color: #333;
+      cursor: pointer;
+    }
+
+    #modal-product-price {
+      width: 80px;
+      padding: 5px;
+      font-size: 16px;
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="navigation-top">
+    <div class="navigation-div">
+      <img src="https://i.ibb.co/60c2V5M5/485022833-1021832163206590-2049955099638617889-n.png" class="nav-logo"
+        alt="Logo" />
+      <ul>
+        <li><a href="#about">About</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <button class="nav-button" onclick="window.location.href='{% url 'webpage1' %}'">Sign Out</button>
+    </div>
+  </nav>
+
+  <div class="container">
+    <nav class="sidebar">
+      <ul>
+        <ul>
+        <li><a href="{% url 'webpage3' %}"><img src="https://i.ibb.co/pvpZssRq/Home-logo.png" alt="">Home</a></li>
+        <li><a href="{% url 'webpage2' %}"><img src="https://i.ibb.co/n8LVnKQC/Employee.png" alt="">Employee</a></li>
+        <li><a href="{% url 'webpage7' %}"><img src="https://i.ibb.co/PZdTmb35/Customer.png" alt="">Customer</a></li>
+        <li><a href="{% url 'webpage8' %}"><img src="https://i.ibb.co/rRx31wRN/Product.png" alt="">Product</a></li>
+        <li><a href="{% url 'webpage5' %}"><img src="https://i.ibb.co/ZR2xsV1q/Order.png" alt="">Order</a></li>
+        <li><a href="{% url 'webpage4' %}"><img src="https://i.ibb.co/MKS50nw/Payment.png" alt="">Payment</a></li>
+        <li><a href="{% url 'webpage9' %}"><img src="https://i.ibb.co/hFz1vbwj/Delivery.png" alt="">Delivery</a></li>
+        <li><a href="{% url 'webpage11' %}"><img src="https://i.ibb.co/9Hhv1XT5/Supply.png" alt="">Supply</a></li>
+        <li><a href="{% url 'webpage10' %}"><img src="https://i.ibb.co/bMgBFjcB/sales-logo.png" alt="">Sales Report</a></li>
+      </ul>
+    </nav>
+
+    <main class="main-content">
+      <div class="product-container">
+        <h1>Product Management</h1>
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 2rem; margin-top: 50px;">
+          <div style="display: flex; gap: 2rem;">
+            <button class="product-button-style" aria-label="Edit Whole Chicken price" data-id="P01"
+              data-name="Whole Chicken" data-price="0">
+              <img src="https://i.ibb.co/n8tdsd0b/482687900-685762357467693-1724972982676235731-n.png"
+                class="parts-logo" alt="Whole Chicken">
+              <p class="product-price-label">₱0.00</p>
+              <p class="product-price-name">Whole Chicken</p>
+            </button>
+            <button class="product-button-style" aria-label="Edit Chicken Feet price" data-id="P02"
+              data-name="Chicken Feet" data-price="0">
+              <img src="https://i.ibb.co/spH4P3W2/Chicken-feet-logo.png" class="parts-logo" alt="Chicken Feet">
+              <p class="product-price-label">₱0.00</p>
+              <p class="product-price-name">Chicken Feet</p>
+            </button>
+            <button class="product-button-style" aria-label="Edit Chicken Head price" data-id="P03"
+              data-name="Chicken Head" data-price="0">
+              <img src="https://i.ibb.co/0pM0N6Bt/483127067-2029240714239309-238261137041540632-n.png"
+                class="parts-logo" alt="Chicken Head">
+              <p class="product-price-label">₱0.00</p>
+              <p class="product-price-name">Chicken Head</p>
+            </button>
+            <button class="product-button-style" aria-label="Edit Chicken Liver price" data-id="P04"
+              data-name="Chicken Liver" data-price="0">
+              <img src="https://i.ibb.co/Nd2g4Gcb/486236131-685628880584168-6900652020434416173-n.png"
+                class="parts-logo" alt="Chicken Liver">
+              <p class="product-price-label">₱0.00</p>
+              <p class="product-price-name">Chicken Liver</p>
+            </button>
+          </div>
+
+          <div style="display: flex; gap: 2rem;">
+            <button class="product-button-style" aria-label="Edit Chicken Intestine price" data-id="P05"
+              data-name="Chicken Intestine" data-price="0">
+              <img src="https://i.ibb.co/CKmDq7PC/Chicken-intestine-logo.png" class="parts-logo"
+                alt="Chicken Intestine">
+              <p class="product-price-label">₱0.00</p>
+              <p class="product-price-name">Chicken Intestine</p>
+            </button>
+            <button class="product-button-style" aria-label="Edit Chicken Blood price" data-id="P06"
+              data-name="Chicken Blood" data-price="0">
+              <img src="https://i.ibb.co/DHHLvDRp/486573747-662143466768923-8113425702960829436-n.png"
+                class="parts-logo" alt="Chicken Blood">
+              <p class="product-price-label">₱0.00</p>
+              <p class="product-price-name">Chicken Blood</p>
+            </button>
+            <button class="product-button-style" aria-label="Edit Chicken Gizzard price" data-id="P07"
+              data-name="Chicken Gizzard" data-price="0">
+              <img src="https://i.ibb.co/KnGm8sX/Chicken-gizzard-logo.png" class="parts-logo" alt="Chicken Gizzard">
+              <p class="product-price-label">₱0.00</p>
+              <p class="product-price-name">Chicken Gizzard</p>
+            </button>
+          </div>
+        </div>
+
+        <div id="product-modal" class="modal" role="dialog" aria-modal="true">
+          <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2 id="modal-product-name">Product Name</h2>
+            <p><strong>ID:</strong> <span id="modal-product-id"></span></p>
+            <p><strong>Price:</strong>
+              <input type="text" id="modal-product-price">
+            </p>
+            <button id="save-price-btn" class="nav-button" style="margin-top: 15px;">Save</button>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <script>
+      const modal = document.getElementById("product-modal");
+      const productNameEl = document.getElementById("modal-product-name");
+      const productIdEl = document.getElementById("modal-product-id");
+      const productPriceEl = document.getElementById("modal-product-price");
+      const closeBtn = document.querySelector(".close-button");
+      const saveBtn = document.getElementById("save-price-btn");
+
+      let currentButton = null;
+
+      document.querySelectorAll('.product-button-style').forEach(button => {
+        const id = button.getAttribute('data-id');
+        const savedPrice = localStorage.getItem(id);
+        if (savedPrice) {
+          button.setAttribute('data-price', savedPrice);
+          const priceLabel = button.querySelector('.product-price-label');
+          if (priceLabel) priceLabel.textContent = `₱${savedPrice}`;
+        }
+      });
+
+      document.querySelectorAll('.product-button-style').forEach(button => {
+        button.addEventListener('click', () => {
+          const id = button.getAttribute('data-id');
+          const name = button.getAttribute('data-name');
+          const price = button.getAttribute('data-price');
+
+          productNameEl.textContent = name;
+          productIdEl.textContent = id;
+          productPriceEl.value = price.replace('₱', '');
+          modal.style.display = "block";
+          currentButton = button;
+        });
+      });
+
+      closeBtn.addEventListener('click', () => {
+        modal.style.display = "none";
+      });
+
+      window.addEventListener('click', (event) => {
+        if (event.target === modal) {
+          modal.style.display = "none";
+        }
+      });
+
+      productPriceEl.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") {
+          e.preventDefault();
+          saveBtn.click();
+        }
+      });
+
+      saveBtn.addEventListener('click', () => {
+        const newPrice = productPriceEl.value.trim();
+        if (newPrice && !isNaN(newPrice)) {
+          const formatted = parseFloat(newPrice).toFixed(2);
+          currentButton.setAttribute('data-price', formatted);
+          const id = productIdEl.textContent;
+          localStorage.setItem(id, formatted);
+          const priceLabel = currentButton.querySelector('.product-price-label');
+          if (priceLabel) priceLabel.textContent = `₱${formatted}`;
+          modal.style.display = "none";
+        } else {
+          alert("Please enter a valid numeric price.");
+        }
+      });
+    </script>
+
+</body>
+
+</html>

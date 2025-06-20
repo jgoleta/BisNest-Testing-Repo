@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard Overview</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Arial', sans-serif;
+    }
+    
+    body {
+      background: linear-gradient(135deg, #f5e6ca, #ffeaa7);
+      color: #333;
+    }
+    
+    nav.navigation-top {
+      background: #d35400;
+      padding: 0 20px;
+      height: 90px;
+    }
+    
+    .navigation-div {
+      max-width: 1200px;
+      margin: 0 auto;
+      height: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .nav-logo {
+      height: 60px;
+      border-radius: 50%;
+      background-color: white;
+      padding: 5px;
+    }
+    
+    nav.navigation-top ul {
+      list-style: none;
+      display: flex;
+      gap: 30px;
+    }
+    
+    nav.navigation-top li a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 16px;
+    }
+    
+    .nav-button {
+      background-color: #f39c12;
+      color: #fff;
+      border: none;
+      border-radius: 25px;
+      width: 130px;
+      height: 40px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    
+    .container {
+      display: flex;
+      height: calc(100vh - 90px);
+    }
+    
+    .sidebar {
+      width: 220px;
+      background: linear-gradient(135deg, #f5e6ca, #ffeaa7);
+      padding-top: 20px;
+    }
+    
+    .sidebar ul {
+      list-style: none;
+    }
+    
+    .sidebar ul li {
+      padding: 15px 20px;
+    }
+    
+    .sidebar ul li a {
+      color: black;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .sidebar ul li:hover {
+      background: linear-gradient(135deg, white, #ffeaa7);
+      border-radius: 10px;
+      margin-left: 10px;
+      transition: all 0.3s ease;
+    }
+    
+    .sidebar img {
+      width: 30px;
+    }
+    
+    .main-content {
+      flex: 1;
+      padding: 40px;
+      background: linear-gradient(135deg, white, #ffeaa7);
+      overflow-y: auto;
+    }
+    
+    .dashboard-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+    }
+    
+    .page-title {
+      font-size: 28px;
+      color: #d35400;
+    }
+    
+    .quick-actions {
+      display: flex;
+      gap: 15px;
+    }
+    
+    .action-button {
+      background-color: #f39c12;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 25px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+    
+    .stat-card {
+      background-color: white;
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+    
+    .stat-value {
+      font-size: 32px;
+      font-weight: bold;
+      color: #d35400;
+      margin: 10px 0;
+    }
+    
+    .stat-note {
+      font-size: 14px;
+      color: #999;
+    }
+    
+    .chart-container {
+      background-color: white;
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      margin-bottom: 30px;
+      height: 300px;
+    }
+    
+    .activity-card {
+      background-color: white;
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    
+    .activity-item {
+      padding: 10px 0;
+      border-bottom: 1px solid #eee;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .activity-item:last-child {
+      border-bottom: none;
+    }
+    
+    .activity-icon {
+      width: 24px;
+      height: 24px;
+    }
+  </style>
+</head>
+<body>
+  <nav class="navigation-top">
+    <div class="navigation-div">
+      <img src="https://i.ibb.co/60c2V5M5/485022833-1021832163206590-2049955099638617889-n.png" class="nav-logo"
+        alt="Logo" />
+      <ul>
+        <li><a href="#about">About</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <button class="nav-button" onclick="window.location.href='{% url 'webpage1' %}'">Sign Out</button>
+    </div>
+  </nav>
+
+  <div class="container">
+    <nav class="sidebar">
+      <ul>
+        <ul>
+        <li><a href="{% url 'webpage3' %}"><img src="https://i.ibb.co/pvpZssRq/Home-logo.png" alt="">Home</a></li>
+        <li><a href="{% url 'webpage2' %}"><img src="https://i.ibb.co/n8LVnKQC/Employee.png" alt="">Employee</a></li>
+        <li><a href="{% url 'webpage7' %}"><img src="https://i.ibb.co/PZdTmb35/Customer.png" alt="">Customer</a></li>
+        <li><a href="{% url 'webpage8' %}"><img src="https://i.ibb.co/rRx31wRN/Product.png" alt="">Product</a></li>
+        <li><a href="{% url 'webpage5' %}"><img src="https://i.ibb.co/ZR2xsV1q/Order.png" alt="">Order</a></li>
+        <li><a href="{% url 'webpage4' %}"><img src="https://i.ibb.co/MKS50nw/Payment.png" alt="">Payment</a></li>
+        <li><a href="{% url 'webpage9' %}"><img src="https://i.ibb.co/hFz1vbwj/Delivery.png" alt="">Delivery</a></li>
+        <li><a href="{% url 'webpage11' %}"><img src="https://i.ibb.co/9Hhv1XT5/Supply.png" alt="">Supply</a></li>
+        <li><a href="{% url 'webpage10' %}"><img src="https://i.ibb.co/bMgBFjcB/sales-logo.png" alt="">Sales Report</a></li>
+      </ul>
+    </nav>
+
+    <main class="main-content">
+      <div class="dashboard-header">
+        <h1 class="page-title">Dashboard Overview</h1>
+        <div class="quick-actions">
+          <button class="action-button" id="addOrderBtn">Add Order</button>
+          <button class="action-button" id="generateReportBtn">Generate Report</button>
+          <button class="action-button" id="refreshBtn">Refresh Data</button>
+        </div>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div>Total Sales</div>
+          <div class="stat-value" id="totalSales">₱0</div>
+          <div class="stat-note">No data yet</div>
+        </div>
+        <div class="stat-card">
+          <div>Orders</div>
+          <div class="stat-value" id="totalOrders">0</div>
+          <div class="stat-note">No data yet</div>
+        </div>
+        <div class="stat-card">
+          <div>New Customers</div>
+          <div class="stat-value" id="newCustomers">0</div>
+          <div class="stat-note">No data yet</div>
+        </div>
+        <div class="stat-card">
+          <div>Inventory</div>
+          <div class="stat-value" id="inventoryLevel">0%</div>
+          <div class="stat-note">No data yet</div>
+        </div>
+      </div>
+
+      <div class="chart-container">
+        <h2>Monthly Sales Trend</h2>
+        <canvas id="salesChart"></canvas>
+      </div>
+
+      <div class="activity-card">
+        <h2>Recent Activity</h2>
+        <div id="activityFeed">
+          <div class="activity-item">
+            <img src="https://i.ibb.co/PZdTmb35/Customer.png" class="activity-icon" alt="activity">
+            <span>Welcome to your dashboard! Activities will appear here.</span>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    if (!localStorage.getItem('dashboardData')) {
+      localStorage.setItem('dashboardData', JSON.stringify({
+        totalSales: 0,
+        orders: [],
+        customers: [],
+        inventory: 0,
+        monthlySales: Array(12).fill(0),
+        activities: []
+      }));
+    }
+
+    const ctx = document.getElementById('salesChart').getContext('2d');
+    const salesChart = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+        datasets: [{
+          label: 'Monthly Sales (₱)',
+          data: Array(12).fill(0),
+          backgroundColor: 'rgba(241, 196, 15, 0.2)',
+          borderColor: 'rgba(211, 84, 0, 1)',
+          borderWidth: 2,
+          tension: 0.4,
+          fill: true
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+          y: {
+            beginAtZero: true,
+            ticks: {
+              callback: function(value) {
+                return '₱' + value.toLocaleString();
+              }
+            }
+          }
+        }
+      }
+    });
+
+    function loadDashboard() {
+      const data = JSON.parse(localStorage.getItem('dashboardData'));
+      
+      document.getElementById('totalSales').textContent = '₱' + data.totalSales.toLocaleString();
+      document.getElementById('totalOrders').textContent = data.orders.length;
+      document.getElementById('newCustomers').textContent = data.customers.length;
+      document.getElementById('inventoryLevel').textContent = data.inventory + '%';
+      
+      salesChart.data.datasets[0].data = data.monthlySales;
+      salesChart.update();
+      
+      const activityFeed = document.getElementById('activityFeed');
+      activityFeed.innerHTML = '';
+      
+      if (data.activities.length === 0) {
+        activityFeed.innerHTML = `
+          <div class="activity-item">
+            <img src="https://i.ibb.co/PZdTmb35/Customer.png" class="activity-icon" alt="activity">
+            <span>Welcome to your dashboard! Activities will appear here.</span>
+          </div>
+        `;
+      } else {
+        data.activities.forEach(activity => {
+          const item = document.createElement('div');
+          item.className = 'activity-item';
+          item.innerHTML = `
+            <img src="https://i.ibb.co/PZdTmb35/Customer.png" class="activity-icon" alt="${activity.type}">
+            <span>${activity.message} <small>(${activity.time})</small></span>
+          `;
+          activityFeed.appendChild(item);
+        });
+      }
+    }
+
+    document.getElementById('addOrderBtn').addEventListener('click', () => {
+      window.location.href = 'order.html';
+    });
+    
+    document.getElementById('generateReportBtn').addEventListener('click', () => {
+      alert('Report generation would be implemented here');
+    });
+    
+    document.getElementById('refreshBtn').addEventListener('click', () => {
+      loadDashboard();
+    });
+
+    loadDashboard();
+
+    window.addEventListener('storage', () => {
+      loadDashboard();
+    });
+  </script>
+</body>
+</html>
