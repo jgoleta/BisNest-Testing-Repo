@@ -79,7 +79,7 @@ WSGI_APPLICATION = 'goletan1am.wsgi.application'
 
 DATABASES = {
     'default': dj_database_url.parse(
-        'postgresql://postgres:QGqJnfuoHUJAYzbGylkRYEawbxsLWrEv@gondola.proxy.rlwy.net:59199/railway'
+        'postgresql://postgres:GVoVBsMMqaRfsTduBKaaopNFnoQUgzVN@centerbeam.proxy.rlwy.net:25401/railway'
     )
 }
 
