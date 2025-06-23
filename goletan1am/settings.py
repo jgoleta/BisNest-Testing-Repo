@@ -79,7 +79,7 @@ WSGI_APPLICATION = 'goletan1am.wsgi.application'
 
 DATABASES = {
     'default': dj_database_url.parse(
-        'postgresql://postgres:GVoVBsMMqaRfsTduBKaaopNFnoQUgzVN@centerbeam.proxy.rlwy.net:25401/railway'
+        'postgresql://postgres.abmwucxxdegeadehqlfw:bawalnetcamella08@aws-0-ap-southeast-1.pooler.supabase.com:6543/postgres'
     )
 }
 
