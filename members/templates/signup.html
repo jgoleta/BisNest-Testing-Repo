@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,7 +13,7 @@
             width: 100%;
             height: 100%;
             background: #ffffff;
-            
+
         }
 
         .page-design {
@@ -91,6 +92,7 @@
         }
     </style>
 </head>
+
 <body>
 
     <!-- Page Background Image -->
@@ -102,21 +104,22 @@
     <!-- Sign-Up Form -->
     <div class="signup-container">
         <h2 class="signup-header">Create an Account</h2>
-    
+
         <label for="name">Name</label>
         <input type="text" id="name" class="input-box" placeholder="Enter your name">
-    
+
         <label for="email">Email</label>
         <input type="email" id="email" class="input-box" placeholder="Enter your email">
-    
+
         <label for="password">Password</label>
         <input type="password" id="password" class="input-box" placeholder="Enter password">
-    
+
         <label for="confirm-password">Confirm Password</label>
         <input type="password" id="confirm-password" class="input-box" placeholder="Re-type your password">
-    
+
         <a href="{% url 'webpage3' %}"><button class="signup-button">Sign Up</button></a>
     </div>
 
 </body>
+
 </html>

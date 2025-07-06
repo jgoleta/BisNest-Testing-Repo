@@ -12,6 +12,12 @@
       padding: 0;
     }
 
+    html,
+    body {
+      height: 100%;
+      overflow: hidden;
+    }
+
     body {
       font-family: 'Sen', sans-serif;
       background: linear-gradient(135deg, #111, #fff);
@@ -21,6 +27,14 @@
     nav.navigation-top {
       background: #111;
       padding: 0 20px;
+    }
+
+    .navigation-top {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1001;
     }
 
     .navigation-div {
@@ -76,15 +90,12 @@
 
     .container {
       display: flex;
-      height: calc(100vh - 90px);
-    }
-
-    .sidebar {
-      width: 220px;
-      background: #f5f5f5;
-      color: #111;
-      padding-top: 20px;
-      border-right: 1px solid #e0e0e0;
+      position: absolute;
+      top: 90px;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      overflow: hidden;
     }
 
     .sidebar ul {
@@ -113,17 +124,20 @@
     .sidebar img {
       width: 30px;
     }
+
     .main-content {
       flex: 1;
+      overflow-y: auto;
       padding: 40px;
-      background: linear-gradient(135deg, white, #ffeaa7);
+      background: #fff;
+      height: 100%;
     }
 
     .payment-container {
       overflow: auto;
       max-width: 1100px;
-      height: 650px;
-      margin: 40px auto;
+      height: 600px;
+      margin: 60px auto;
       padding: 40px;
       background-color: #fff;
       border-radius: 16px;
@@ -255,16 +269,98 @@
         display: none;
       }
     }
+
+    .burger {
+      width: 30px;
+      height: 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: fixed;
+      top: 35px;
+      left: 50px;
+      z-index: 2001;
+      cursor: pointer;
+      padding: 0;
+      background: none;
+      border: none;
+    }
+
+    .burger span {
+      height: 4px;
+      width: 100%;
+      background: #fff;
+      border-radius: 2px;
+      transition: 0.3s;
+      transform-origin: center;
+    }
+
+    /* Animate lines when sidebar is open */
+    #sidebarToggle:checked+.burger span:nth-child(1) {
+      transform: rotate(45deg) translate(5px, 5px);
+    }
+
+    #sidebarToggle:checked+.burger span:nth-child(2) {
+      opacity: 0;
+    }
+
+    #sidebarToggle:checked+.burger span:nth-child(3) {
+      transform: rotate(-45deg) translate(6px, -6px);
+    }
+
+
+    .sidebar {
+      position: fixed;
+      top: 90px;
+      left: -250px;
+      width: 220px;
+      height: calc(100% - 90px);
+      background-color: #f5f5f5;
+      overflow-y: auto;
+      transition: left 0.3s ease;
+      z-index: 2000;
+    }
+
+    #sidebarToggle:checked~.sidebar {
+      left: 0;
+    }
+
+    .overlay {
+      display: none;
+      position: fixed;
+      top: 90px;
+      left: 0;
+      width: 100%;
+      height: calc(100% - 90px);
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 1500;
+      opacity: 0;
+      transition: all 0.3s;
+      visibility: hidden;
+    }
+
+    #sidebarToggle:checked~.overlay {
+      display: block;
+      opacity: 1;
+      visibility: visible;
+    }
   </style>
 </head>
 
 <body>
+  <input type="checkbox" id="sidebarToggle" style="display: none;">
+  <label for="sidebarToggle" class="burger">
+    <span></span>
+    <span></span>
+    <span></span>
+  </label>
+  <label for="sidebarToggle" class="overlay"></label>
+
   <nav class="navigation-top">
     <div class="navigation-div">
       <img src="https://i.ibb.co/60c2V5M5/485022833-1021832163206590-2049955099638617889-n.png" class="nav-logo"
         alt="Logo" />
       <ul>
-        <li><a href="{% url 'webpage3' %}">Home</a></li>
         <li><a href="#about">About</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
@@ -272,112 +368,111 @@
     </div>
   </nav>
 
-  <div class="container">
-    <nav class="sidebar">
-      <ul>
-        <li><a href="{% url 'webpage3' %}"><img src="https://i.ibb.co/pvpZssRq/Home-logo.png" alt="">Home</a></li>
-        <li><a href="{% url 'webpage2' %}"><img src="https://i.ibb.co/n8LVnKQC/Employee.png" alt="">Employee</a></li>
-        <li><a href="{% url 'webpage7' %}"><img src="https://i.ibb.co/PZdTmb35/Customer.png" alt="">Customer</a></li>
-        <li><a href="{% url 'webpage8' %}"><img src="https://i.ibb.co/rRx31wRN/Product.png" alt="">Product</a></li>
-        <li><a href="{% url 'webpage5' %}"><img src="https://i.ibb.co/ZR2xsV1q/Order.png" alt="">Order</a></li>
-        <li><a href="{% url 'webpage4' %}"><img src="https://i.ibb.co/MKS50nw/Payment.png" alt="">Payment</a></li>
-        <li><a href="{% url 'webpage9' %}"><img src="https://i.ibb.co/hFz1vbwj/Delivery.png" alt="">Delivery</a></li>
-        <li><a href="{% url 'webpage11' %}"><img src="https://i.ibb.co/9Hhv1XT5/Supply.png" alt="">Supply</a></li>
-        <li><a href="{% url 'webpage10' %}"><img src="https://i.ibb.co/bMgBFjcB/sales-logo.png" alt="">Sales Report</a>
-        </li>
-      </ul>
-    </nav>
+  <nav class="sidebar">
+    <ul>
+      <li><a href="{% url 'webpage3' %}"><img src="https://i.ibb.co/pvpZssRq/Home-logo.png" alt="">Home</a></li>
+      <li><a href="{% url 'webpage2' %}"><img src="https://i.ibb.co/n8LVnKQC/Employee.png" alt="">Employee</a></li>
+      <li><a href="{% url 'webpage7' %}"><img src="https://i.ibb.co/PZdTmb35/Customer.png" alt="">Customer</a></li>
+      <li><a href="{% url 'webpage8' %}"><img src="https://i.ibb.co/rRx31wRN/Product.png" alt="">Product</a></li>
+      <li><a href="{% url 'webpage5' %}"><img src="https://i.ibb.co/ZR2xsV1q/Order.png" alt="">Order</a></li>
+      <li><a href="{% url 'webpage4' %}"><img src="https://i.ibb.co/MKS50nw/Payment.png" alt="">Payment</a></li>
+      <li><a href="{% url 'webpage9' %}"><img src="https://i.ibb.co/hFz1vbwj/Delivery.png" alt="">Delivery</a></li>
+      <li><a href="{% url 'webpage11' %}"><img src="https://i.ibb.co/9Hhv1XT5/Supply.png" alt="">Supply</a></li>
+      <li><a href="{% url 'webpage10' %}"><img src="https://i.ibb.co/bMgBFjcB/sales-logo.png" alt="">Sales Report</a>
+      </li>
+    </ul>
+  </nav>
 
-    <main class="main-content">
-      <div class="payment-container">
-        <h1 class="section-title">Payment Management</h1>
+  <main class="main-content">
+    <div class="payment-container">
+      <h1 class="section-title">Payment Management</h1>
 
-        <div class="table-container">
-          <div class="table-header">
-            <div>Payment ID</div>
-            <div>Customer ID</div>
-            <div>Amount</div>
-            <div>Date</div>
-            <div>Payment Method</div>
-            <div>Action</div>
-          </div>
-          <div class="table-body">
-            <form method="POST" class="table-body" style="margin-top: 20px;">
-              {% csrf_token %}
-              <div class="table-row">
-                <div>{{ form.payment_id }}</div>
-                <div>{{ form.customer_id }}</div>
-                <div>{{ form.amount }}</div>
-                <div>{{ form.date }}</div>
-                <div>{{ form.method }}</div>
-                <div>
-                  <button type="submit" class="submit-button">Submit</button>
-                </div>
-              </div>
-            </form>
-
-          </div>
+      <div class="table-container">
+        <div class="table-header">
+          <div>Payment ID</div>
+          <div>Customer ID</div>
+          <div>Amount</div>
+          <div>Date</div>
+          <div>Payment Method</div>
+          <div>Action</div>
         </div>
-
-        <div class="submitted-payments">
-          <div class="table-header">
-            <div>Payment ID</div>
-            <div>Customer ID</div>
-            <div>Amount</div>
-            <div>Date</div>
-            <div>Payment Method</div>
-            <div>Action</div>
-          </div>
-          <div class="table-body">
-            {% for p in payments %}
+        <div class="table-body">
+          <form method="POST" class="table-body" style="margin-top: 20px;">
+            {% csrf_token %}
             <div class="table-row">
-              <div>{{ p.payment_id }}</div>
-              <div>{{ p.customer_id }}</div>
-              <div>₱{{ p.amount }}</div>
-              <div>{{ p.date }}</div>
-              <div>{{ p.method }}</div>
+              <div>{{ form.payment_id }}</div>
+              <div>{{ form.customer_id }}</div>
+              <div>{{ form.amount }}</div>
+              <div>{{ form.date }}</div>
+              <div>{{ form.method }}</div>
               <div>
-                <form method="POST" action="{% url 'delete_payment' p.id %}">
-                  {% csrf_token %}
-                  <button type="submit" class="delete-button">Delete</button>
-                </form>
+                <button type="submit" class="submit-button">Submit</button>
               </div>
             </div>
-            {% endfor %}
-          </div>
+          </form>
+
         </div>
-
       </div>
-    </main>
-    <script>
-      let paymentIDCounter = 1;
-      const reusableIDs = [];
 
-      function submitPayment() {
-        const customerID = document.getElementById('customerID').value.trim();
-        const amount = parseFloat(document.getElementById('amount').value);
-        const date = document.getElementById('date').value;
-        const method = document.getElementById('paymentMethod').value;
+      <div class="submitted-payments">
+        <div class="table-header">
+          <div>Payment ID</div>
+          <div>Customer ID</div>
+          <div>Amount</div>
+          <div>Date</div>
+          <div>Payment Method</div>
+          <div>Action</div>
+        </div>
+        <div class="table-body">
+          {% for p in payments %}
+          <div class="table-row">
+            <div>{{ p.payment_id }}</div>
+            <div>{{ p.customer_id }}</div>
+            <div>₱{{ p.amount }}</div>
+            <div>{{ p.date }}</div>
+            <div>{{ p.method }}</div>
+            <div>
+              <form method="POST" action="{% url 'delete_payment' p.id %}">
+                {% csrf_token %}
+                <button type="submit" class="delete-button">Delete</button>
+              </form>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
 
-        if (!customerID || amount <= 0 || !date || !method) {
-          alert("Please fill out all fields with valid values.");
-          return;
-        }
+    </div>
+  </main>
+  <script>
+    let paymentIDCounter = 1;
+    const reusableIDs = [];
 
-        let paymentID;
-        if (reusableIDs.length > 0) {
-          reusableIDs.sort();
-          paymentID = reusableIDs.shift();
-        } else {
-          paymentID = `P${String(paymentIDCounter).padStart(4, '0')}`;
-          paymentIDCounter++;
-        }
+    function submitPayment() {
+      const customerID = document.getElementById('customerID').value.trim();
+      const amount = parseFloat(document.getElementById('amount').value);
+      const date = document.getElementById('date').value;
+      const method = document.getElementById('paymentMethod').value;
 
-        const submittedTable = document.getElementById('submittedTable');
-        const newRow = document.createElement('div');
-        newRow.classList.add('table-row');
-        newRow.setAttribute('data-payment-id', paymentID);
-        newRow.innerHTML = `
+      if (!customerID || amount <= 0 || !date || !method) {
+        alert("Please fill out all fields with valid values.");
+        return;
+      }
+
+      let paymentID;
+      if (reusableIDs.length > 0) {
+        reusableIDs.sort();
+        paymentID = reusableIDs.shift();
+      } else {
+        paymentID = `P${String(paymentIDCounter).padStart(4, '0')}`;
+        paymentIDCounter++;
+      }
+
+      const submittedTable = document.getElementById('submittedTable');
+      const newRow = document.createElement('div');
+      newRow.classList.add('table-row');
+      newRow.setAttribute('data-payment-id', paymentID);
+      newRow.innerHTML = `
         <div>${paymentID}</div>
         <div>${customerID}</div>
         <div>₱${amount.toFixed(2)}</div>
@@ -385,35 +480,35 @@
         <div>${method}</div>
         <div><button class="delete-button" onclick="deleteRow(this)">Delete</button></div>
       `;
-        submittedTable.appendChild(newRow);
+      submittedTable.appendChild(newRow);
 
-        document.getElementById('customerID').value = '';
-        document.getElementById('amount').value = '';
-        document.getElementById('date').value = '';
-        document.getElementById('paymentMethod').value = '';
+      document.getElementById('customerID').value = '';
+      document.getElementById('amount').value = '';
+      document.getElementById('date').value = '';
+      document.getElementById('paymentMethod').value = '';
 
-        updateNextPaymentID();
+      updateNextPaymentID();
+    }
+
+    function deleteRow(button) {
+      const row = button.closest('.table-row');
+      const paymentID = row.getAttribute('data-payment-id');
+      row.remove();
+      reusableIDs.push(paymentID);
+      updateNextPaymentID();
+    }
+
+    function updateNextPaymentID() {
+      let nextID;
+      if (reusableIDs.length > 0) {
+        reusableIDs.sort();
+        nextID = reusableIDs[0];
+      } else {
+        nextID = `P${String(paymentIDCounter).padStart(4, '0')}`;
       }
-
-      function deleteRow(button) {
-        const row = button.closest('.table-row');
-        const paymentID = row.getAttribute('data-payment-id');
-        row.remove();
-        reusableIDs.push(paymentID);
-        updateNextPaymentID();
-      }
-
-      function updateNextPaymentID() {
-        let nextID;
-        if (reusableIDs.length > 0) {
-          reusableIDs.sort();
-          nextID = reusableIDs[0];
-        } else {
-          nextID = `P${String(paymentIDCounter).padStart(4, '0')}`;
-        }
-        document.getElementById('paymentID').value = nextID;
-      }
-    </script>
+      document.getElementById('paymentID').value = nextID;
+    }
+  </script>
 </body>
 
 </html>

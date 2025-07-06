@@ -12,6 +12,11 @@
       padding: 0;
     }
 
+    body, html {
+      height: 100%;
+      overflow: hidden;
+    }
+
     body {
       font-family: 'Sen', sans-serif;
       background: linear-gradient(135deg, #111, #fff);
@@ -21,6 +26,14 @@
     nav.navigation-top {
       background: #111;
       padding: 0 20px;
+    }
+
+    .navigation-top {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1001;
     }
 
     .navigation-div {
@@ -76,15 +89,24 @@
 
     .container {
       display: flex;
-      height: calc(100vh - 90px);
+      position: absolute;
+      top: 90px;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      overflow: hidden;
     }
 
     .sidebar {
+      position: fixed;
+      top: 90px;
+      left: -250px;
       width: 220px;
-      background: #f5f5f5;
-      color: #111;
-      padding-top: 20px;
-      border-right: 1px solid #e0e0e0;
+      height: calc(100% - 90px);
+      background-color: #f5f5f5;
+      overflow-y: auto;
+      transition: left 0.3s ease;
+      z-index: 2000;
     }
 
     .sidebar ul {
@@ -116,12 +138,12 @@
 
     .main-content {
       flex: 1;
-      padding: 40px;
-      background: linear-gradient(135deg, white, #ffeaa7);
       overflow-y: auto;
+      padding: 40px;
+      background: #fff;
+      height: 100%;
     }
 
-    
     .page-header {
       display: flex;
       justify-content: space-between;
@@ -312,14 +334,68 @@
     .notification.error {
       background-color: #ff0000;
     }
+
+    .burger {
+      font-size: 30px;
+      cursor: pointer;
+      padding: 10px 15px;
+      color: #fff;
+      display: block;
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      z-index: 2001;
+      background-color: #111;
+      border-radius: 5px;
+    }
+
+    .sidebar {
+      position: fixed;
+      top: 90px;
+      left: -250px;
+      width: 220px;
+      height: calc(100% - 90px);
+      background-color: #f5f5f5;
+      overflow-y: auto;
+      transition: left 0.3s ease;
+      z-index: 2000;
+    }
+
+    #sidebarToggle:checked ~ .sidebar {
+      left: 0;
+    }
+
+    .overlay {
+      display: none;
+      position: fixed;
+      top: 90px;
+      left: 0;
+      width: 100%;
+      height: calc(100% - 90px);
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 1500;
+      opacity: 0;
+      transition: all 0.3s;
+      visibility: hidden;
+    }
+
+    #sidebarToggle:checked ~ .overlay {
+      display: block;
+      opacity: 1;
+      visibility: visible;
+    }
+
   </style>
 </head>
 
 <body>
+  <input type="checkbox" id="sidebarToggle" style="display: none;" />
+  <label for="sidebarToggle" class="burger">&#9776;</label>
+  <label for="sidebarToggle" class="overlay"></label>
+  
   <nav class="navigation-top">
     <div class="navigation-div">
-      <img src="https://i.ibb.co/60c2V5M5/485022833-1021832163206590-2049955099638617889-n.png" class="nav-logo"
-        alt="Logo" />
+      <img src="https://i.ibb.co/60c2V5M5/485022833-1021832163206590-2049955099638617889-n.png" class="nav-logo" alt="Logo" />
       <ul>
         <li><a href="#about">About</a></li>
         <li><a href="#contact">Contact</a></li>
@@ -327,24 +403,22 @@
       <button class="nav-button" onclick="window.location.href='{% url 'webpage1' %}'">Sign Out</button>
     </div>
   </nav>
-
+  
+  <nav class="sidebar">
+    <ul>
+      <li><a href="{% url 'webpage3' %}"><img src="https://i.ibb.co/pvpZssRq/Home-logo.png" alt="">Home</a></li>
+      <li><a href="{% url 'webpage2' %}"><img src="https://i.ibb.co/n8LVnKQC/Employee.png" alt="">Employee</a></li>
+      <li><a href="{% url 'webpage7' %}"><img src="https://i.ibb.co/PZdTmb35/Customer.png" alt="">Customer</a></li>
+      <li><a href="{% url 'webpage8' %}"><img src="https://i.ibb.co/rRx31wRN/Product.png" alt="">Product</a></li>
+      <li><a href="{% url 'webpage5' %}"><img src="https://i.ibb.co/ZR2xsV1q/Order.png" alt="">Order</a></li>
+      <li><a href="{% url 'webpage4' %}"><img src="https://i.ibb.co/MKS50nw/Payment.png" alt="">Payment</a></li>
+      <li><a href="{% url 'webpage9' %}"><img src="https://i.ibb.co/hFz1vbwj/Delivery.png" alt="">Delivery</a></li>
+      <li><a href="{% url 'webpage11' %}"><img src="https://i.ibb.co/9Hhv1XT5/Supply.png" alt="">Supply</a></li>
+      <li><a href="{% url 'webpage10' %}"><img src="https://i.ibb.co/bMgBFjcB/sales-logo.png" alt="">Sales Report</a></li>
+    </ul>
+  </nav>
+  
   <div class="container">
-    <nav class="sidebar">
-      <ul>
-        <ul>
-          <li><a href="{% url 'webpage3' %}"><img src="https://i.ibb.co/pvpZssRq/Home-logo.png" alt="">Home</a></li>
-          <li><a href="{% url 'webpage2' %}"><img src="https://i.ibb.co/n8LVnKQC/Employee.png" alt="">Employee</a></li>
-          <li><a href="{% url 'webpage7' %}"><img src="https://i.ibb.co/PZdTmb35/Customer.png" alt="">Customer</a></li>
-          <li><a href="{% url 'webpage8' %}"><img src="https://i.ibb.co/rRx31wRN/Product.png" alt="">Product</a></li>
-          <li><a href="{% url 'webpage5' %}"><img src="https://i.ibb.co/ZR2xsV1q/Order.png" alt="">Order</a></li>
-          <li><a href="{% url 'webpage4' %}"><img src="https://i.ibb.co/MKS50nw/Payment.png" alt="">Payment</a></li>
-          <li><a href="{% url 'webpage9' %}"><img src="https://i.ibb.co/hFz1vbwj/Delivery.png" alt="">Delivery</a></li>
-          <li><a href="{% url 'webpage11' %}"><img src="https://i.ibb.co/9Hhv1XT5/Supply.png" alt="">Supply</a></li>
-          <li><a href="{% url 'webpage10' %}"><img src="https://i.ibb.co/bMgBFjcB/sales-logo.png" alt="">Sales
-              Report</a></li>
-        </ul>
-    </nav>
-
     <main class="main-content">
       <div class="page-header">
         <h1 class="page-title">Delivery Management</h1>

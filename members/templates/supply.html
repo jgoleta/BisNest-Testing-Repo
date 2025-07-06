@@ -12,7 +12,13 @@
       padding: 0;
     }
 
-     body {
+    html,
+    body {
+      height: 100%;
+      overflow: hidden;
+    }
+
+    body {
       font-family: 'Sen', sans-serif;
       background: #fff;
       color: #111;
@@ -21,6 +27,14 @@
     nav.navigation-top {
       background: #111;
       padding: 0 20px;
+    }
+
+    .navigation-top {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1001;
     }
 
     .navigation-div {
@@ -76,7 +90,12 @@
 
     .container {
       display: flex;
-      height: calc(100vh - 90px);
+      position: absolute;
+      top: 90px;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      overflow: hidden;
     }
 
     .sidebar {
@@ -114,15 +133,17 @@
     .sidebar img {
       width: 30px;
     }
-    
+
     .main-content {
       flex: 1;
-      padding: 40px;
-      background: linear-gradient(135deg, white, #ffeaa7);
       overflow-y: auto;
+      padding: 40px;
+      background: #fff;
+      height: 100%;
+      width: 50%;
+      margin: 70px auto;
     }
 
-   
     .page-header {
       display: flex;
       justify-content: space-between;
@@ -287,10 +308,93 @@
     .notification.error {
       background-color: #ff0000;
     }
+
+    .burger {
+      width: 30px;
+      height: 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: fixed;
+      top: 35px;
+      left: 50px;
+      z-index: 2001;
+      cursor: pointer;
+      padding: 0;
+      background: none;
+      border: none;
+    }
+
+    .burger span {
+      height: 4px;
+      width: 100%;
+      background: #fff;
+      border-radius: 2px;
+      transition: 0.3s;
+      transform-origin: center;
+    }
+
+    /* Animate lines when sidebar is open */
+    #sidebarToggle:checked+.burger span:nth-child(1) {
+      transform: rotate(45deg) translate(5px, 5px);
+    }
+
+    #sidebarToggle:checked+.burger span:nth-child(2) {
+      opacity: 0;
+    }
+
+    #sidebarToggle:checked+.burger span:nth-child(3) {
+      transform: rotate(-45deg) translate(6px, -6px);
+    }
+
+
+    .sidebar {
+      position: fixed;
+      top: 90px;
+      left: -250px;
+      width: 220px;
+      height: calc(100% - 90px);
+      background-color: #f5f5f5;
+      overflow-y: auto;
+      transition: left 0.3s ease;
+      z-index: 2000;
+    }
+
+    #sidebarToggle:checked~.sidebar {
+      left: 0;
+    }
+
+    .overlay {
+      display: none;
+      position: fixed;
+      top: 90px;
+      left: 0;
+      width: 100%;
+      height: calc(100% - 90px);
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 1500;
+      opacity: 0;
+      transition: all 0.3s;
+      visibility: hidden;
+    }
+
+    #sidebarToggle:checked~.overlay {
+      display: block;
+      opacity: 1;
+      visibility: visible;
+    }
   </style>
 </head>
 
 <body>
+  <input type="checkbox" id="sidebarToggle" style="display: none;">
+  <label for="sidebarToggle" class="burger">
+    <span></span>
+    <span></span>
+    <span></span>
+  </label>
+  <label for="sidebarToggle" class="overlay"></label>
+
   <nav class="navigation-top">
     <div class="navigation-div">
       <img src="https://i.ibb.co/60c2V5M5/485022833-1021832163206590-2049955099638617889-n.png" class="nav-logo"
@@ -303,107 +407,106 @@
     </div>
   </nav>
 
-  <div class="container">
-    <nav class="sidebar">
-      <ul>
-        <ul>
-          <li><a href="{% url 'webpage3' %}"><img src="https://i.ibb.co/pvpZssRq/Home-logo.png" alt="">Home</a></li>
-          <li><a href="{% url 'webpage2' %}"><img src="https://i.ibb.co/n8LVnKQC/Employee.png" alt="">Employee</a></li>
-          <li><a href="{% url 'webpage7' %}"><img src="https://i.ibb.co/PZdTmb35/Customer.png" alt="">Customer</a></li>
-          <li><a href="{% url 'webpage8' %}"><img src="https://i.ibb.co/rRx31wRN/Product.png" alt="">Product</a></li>
-          <li><a href="{% url 'webpage5' %}"><img src="https://i.ibb.co/ZR2xsV1q/Order.png" alt="">Order</a></li>
-          <li><a href="{% url 'webpage4' %}"><img src="https://i.ibb.co/MKS50nw/Payment.png" alt="">Payment</a></li>
-          <li><a href="{% url 'webpage9' %}"><img src="https://i.ibb.co/hFz1vbwj/Delivery.png" alt="">Delivery</a></li>
-          <li><a href="{% url 'webpage11' %}"><img src="https://i.ibb.co/9Hhv1XT5/Supply.png" alt="">Supply</a></li>
-          <li><a href="{% url 'webpage10' %}"><img src="https://i.ibb.co/bMgBFjcB/sales-logo.png" alt="">Sales
-              Report</a></li>
-        </ul>
-    </nav>
+  <nav class="sidebar">
+    <ul>
+      <li><a href="{% url 'webpage3' %}"><img src="https://i.ibb.co/pvpZssRq/Home-logo.png" alt="">Home</a></li>
+      <li><a href="{% url 'webpage2' %}"><img src="https://i.ibb.co/n8LVnKQC/Employee.png" alt="">Employee</a></li>
+      <li><a href="{% url 'webpage7' %}"><img src="https://i.ibb.co/PZdTmb35/Customer.png" alt="">Customer</a></li>
+      <li><a href="{% url 'webpage8' %}"><img src="https://i.ibb.co/rRx31wRN/Product.png" alt="">Product</a></li>
+      <li><a href="{% url 'webpage5' %}"><img src="https://i.ibb.co/ZR2xsV1q/Order.png" alt="">Order</a></li>
+      <li><a href="{% url 'webpage4' %}"><img src="https://i.ibb.co/MKS50nw/Payment.png" alt="">Payment</a></li>
+      <li><a href="{% url 'webpage9' %}"><img src="https://i.ibb.co/hFz1vbwj/Delivery.png" alt="">Delivery</a></li>
+      <li><a href="{% url 'webpage11' %}"><img src="https://i.ibb.co/9Hhv1XT5/Supply.png" alt="">Supply</a></li>
+      <li><a href="{% url 'webpage10' %}"><img src="https://i.ibb.co/bMgBFjcB/sales-logo.png" alt="">Sales Report</a>
+      </li>
+    </ul>
+  </nav>
 
-    <main class="main-content">
-      <div class="page-header">
-        <h1 class="page-title">Supply Management</h1>
-        <button class="action-button" id="addNewSupplyBtn">+ Add New Supply</button>
-      </div>
+  <main class="main-content">
+    <div class="page-header">
+      <h1 class="page-title">Supply Management</h1>
+      <button class="action-button" id="addNewSupplyBtn">+ Add New Supply</button>
+    </div>
 
-      <div class="search-bar">
-        <input type="text" class="search-input" id="searchInput" placeholder="Search supplier or product...">
-        <button class="search-button" id="searchBtn">Search</button>
-      </div>
+    <div class="search-bar">
+      <input type="text" class="search-input" id="searchInput" placeholder="Search supplier or product...">
+      <button class="search-button" id="searchBtn">Search</button>
+    </div>
 
-      <table class="supply-table" id="supplyTable">
-        <thead>
-          <tr>
-            <th>Supply ID</th>
-            <th>Supplier</th>
-            <th>Product</th>
-            <th>Quantity</th>
-            <th>Date</th>
-            <th>Price</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody id="supplyTableBody">
-          {% for s in supplies %}
-          <tr>
-            <td>{{ s.supply_id }}</td>
-            <td>{{ s.supplier }}</td>
-            <td>{{ s.product }}</td>
-            <td>{{ s.quantity }}</td>
-            <td>{{ s.date }}</td>
-            <td>₱{{ s.price }}</td>
-            <td>
-              <form method="POST" action="{% url 'delete_supply' s.id %}" style="display:inline;">
-                {% csrf_token %}
-                <button type="submit" class="action-btn delete-btn">Delete</button>
-              </form>
-            </td>
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
+    <table class="supply-table" id="supplyTable">
+      <thead>
+        <tr>
+          <th>Supply ID</th>
+          <th>Supplier</th>
+          <th>Product</th>
+          <th>Quantity</th>
+          <th>Date</th>
+          <th>Price</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody id="supplyTableBody">
+        {% for s in supplies %}
+        <tr>
+          <td>{{ s.supply_id }}</td>
+          <td>{{ s.supplier }}</td>
+          <td>{{ s.product }}</td>
+          <td>{{ s.quantity }}</td>
+          <td>{{ s.date }}</td>
+          <td>₱{{ s.price }}</td>
+          <td>
+            <form method="POST" action="{% url 'delete_supply' s.id %}" style="display:inline;">
+              {% csrf_token %}
+              <button type="submit" class="action-btn delete-btn">Delete</button>
+            </form>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
 
-      <div class="form-container hidden" id="supplyForm">
-        <h2 class="form-title" id="formTitle">Supply Details</h2>
-        <form method="POST">
-          {% csrf_token %}
-          <div class="form-row">
-            <div class="form-group">
-              <label for="{{ form.supply_id.id_for_label }}">Supply ID</label>
-              {{ form.supply_id }}
-            </div>
-            <div class="form-group">
-              <label for="{{ form.supplier.id_for_label }}">Supplier</label>
-              {{ form.supplier }}
-            </div>
+    <div class="form-container hidden" id="supplyForm">
+      <h2 class="form-title" id="formTitle">Supply Details</h2>
+      <form method="POST">
+        {% csrf_token %}
+        <div class="form-row">
+          <div class="form-group">
+            <label for="{{ form.supply_id.id_for_label }}">Supply ID</label>
+            {{ form.supply_id }}
           </div>
-          <div class="form-row">
-            <div class="form-group">
-              <label for="{{ form.product.id_for_label }}">Product</label>
-              {{ form.product }}
-            </div>
-            <div class="form-group">
-              <label for="{{ form.quantity.id_for_label }}">Quantity (Kg)</label>
-              {{ form.quantity }}
-            </div>
+          <div class="form-group">
+            <label for="{{ form.supplier.id_for_label }}">Supplier</label>
+            {{ form.supplier }}
           </div>
-          <div class="form-row">
-            <div class="form-group">
-              <label for="{{ form.date.id_for_label }}">Delivery Date</label>
-              {{ form.date }}
-            </div>
-            <div class="form-group">
-              <label for="{{ form.price.id_for_label }}">Total Price (₱)</label>
-              {{ form.price }}
-            </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="{{ form.product.id_for_label }}">Product</label>
+            {{ form.product }}
           </div>
-          <div class="form-actions">
-            <button type="button" class="action-button" style="background-color: #95a5a6;" onclick="window.location.href='{% url 'webpage11' %}'">Cancel</button>
-            <button type="submit" class="action-button">Save</button>
+          <div class="form-group">
+            <label for="{{ form.quantity.id_for_label }}">Quantity (Kg)</label>
+            {{ form.quantity }}
           </div>
-        </form>
-      </div>
-    </main>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="{{ form.date.id_for_label }}">Delivery Date</label>
+            {{ form.date }}
+          </div>
+          <div class="form-group">
+            <label for="{{ form.price.id_for_label }}">Total Price (₱)</label>
+            {{ form.price }}
+          </div>
+        </div>
+        <div class="form-actions">
+          <button type="button" class="action-button" style="background-color: #95a5a6;"
+            onclick="window.location.href='{% url 'webpage11' %}'">Cancel</button>
+          <button type="submit" class="action-button">Save</button>
+        </div>
+      </form>
+    </div>
+  </main>
   </div>
 
   <div class="notification" id="notification"></div>
@@ -419,7 +522,7 @@
     document.getElementById('searchBtn').addEventListener('click', () => {
       const searchTerm = document.getElementById('searchInput').value.toLowerCase();
       const rows = document.querySelectorAll('#supplyTableBody tr');
-      
+
       rows.forEach(row => {
         const text = row.textContent.toLowerCase();
         row.style.display = text.includes(searchTerm) ? '' : 'none';
