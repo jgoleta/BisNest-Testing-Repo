@@ -14,12 +14,12 @@
 
     body {
       font-family: 'Sen', sans-serif;
-      background: linear-gradient(135deg, #f5e6ca, #ffeaa7);
-      color: #333;
+      background: linear-gradient(135deg, #111, #fff);
+      color: #111;
     }
 
     nav.navigation-top {
-      background: #d35400;
+      background: #111;
       padding: 0 20px;
     }
 
@@ -53,23 +53,24 @@
     }
 
     nav.navigation-top li a:hover {
-      color: #ffeaa7;
+      color: #bbb;
     }
 
     .nav-button {
-      background-color: #f39c12;
-      color: #fff;
-      border: none;
+      background-color: #fff;
+      color: #111;
+      border: 1px solid #fff;
       border-radius: 25px;
       width: 130px;
       height: 40px;
       font-weight: bold;
       cursor: pointer;
-      transition: background 0.3s ease;
     }
 
     .nav-button:hover {
-      background-color: #e67e22;
+      background-color: #8b8a8a;
+      color: #111;
+      border: 1px solid #111;
     }
 
     .container {
@@ -79,9 +80,10 @@
 
     .sidebar {
       width: 220px;
-      background: linear-gradient(135deg, #f5e6ca, #ffeaa7);
-      color: black;
+      background: #f5f5f5;
+      color: #111;
       padding-top: 20px;
+      border-right: 1px solid #e0e0e0;
     }
 
     .sidebar ul {
@@ -93,7 +95,7 @@
     }
 
     .sidebar ul li a {
-      color: black;
+      color: #111;
       text-decoration: none;
       display: flex;
       align-items: center;
@@ -101,10 +103,9 @@
     }
 
     .sidebar ul li:hover {
-      background: linear-gradient(135deg, white, #ffeaa7);
+      background: linear-gradient(165deg, #fff, #979191);
       border-radius: 10px;
       margin-left: 10px;
-      transition: all 0.3s ease;
     }
 
     .sidebar img {
@@ -114,16 +115,15 @@
     .main-content {
       flex: 1;
       padding: 40px;
-      background: linear-gradient(135deg, white, #ffeaa7);
+      background: #fff;
+      overflow-y: auto;
     }
 
     .payment-container {
-      overflow: auto;
       max-width: 1100px;
-      height: 650px;
-      margin: 40px auto;
+      margin: 0 auto;
       padding: 40px;
-      background-color: #fffdf6;
+      background-color: #fff;
       border-radius: 16px;
       box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
     }
@@ -132,98 +132,71 @@
       font-size: 35px;
       margin-bottom: 20px;
       text-align: center;
-      color: #d35400;
+      color: #111;
     }
 
-    .section-title {
-      font-size: 34px;
-      font-weight: bold;
-      margin-bottom: 20px;
-      text-align: center;
-    }
-
-    .submitted-payments .table-header,
-    .submitted-payments .table-row {
-      text-align: center;
-    }
-
-    .table-container {
-      width: 100%;
-      margin-top: 40px;
-      border-radius: 8px;
-      overflow: hidden;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    }
-
-    .table-row div,
-    .table-header div {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .table-header {
-      display: grid;
-      grid-template-columns: repeat(6, 1fr);
-      background-color: #d35400;
-      color: white;
-      padding: 12px 0;
-      text-align: center;
-      font-weight: bold;
-      border-radius: 10px;
-    }
-
-    .table-body {
-      display: flex;
-      flex-direction: column;
-    }
-
-    .table-row {
+    .table-header, .table-row {
       display: grid;
       grid-template-columns: repeat(6, 1fr);
       padding: 12px;
-      border-bottom: 1px solid #ddd;
       align-items: center;
+      text-align: center;
     }
 
-    .table-row select,
-    .table-row input {
-      width: 90%;
-      padding: 8px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      font-family: 'Sen', sans-serif;
+    .table-header {
+      background-color: #111;
+      color: #fff;
+      font-weight: bold;
+      border-radius: 8px;
+    }
+
+    .table-row {
+      border-bottom: 1px solid #ddd;
     }
 
     .table-row:nth-child(even) {
-      background-color: #f9f9f9;
+      background-color: #f5f5f5;
+    }
+
+    .form-control {
+      width: 90%;
+      padding: 8px;
+      border: 1px solid #111;
+      border-radius: 5px;
+      font-family: 'Sen', sans-serif;
+      background-color: #fff;
+      color: #111;
     }
 
     .submit-button {
-      padding: 10px 15px;
-      background-color: #d35400;
+      background-color: #111;
       color: white;
       border: none;
+      padding: 8px 16px;
       border-radius: 5px;
-      font-size: 16px;
       font-weight: bold;
       cursor: pointer;
-      transition: background 0.3s ease;
     }
 
     .submit-button:hover {
-      background: #b84300;
+      background-color: #fff;
+      color: #111;
+      border: 1px solid #111;
     }
 
     .delete-button {
-      background-color: red;
-      color: white;
-      border: none;
+      background-color: white;
+      color: #111;
+      border: 1px solid #111;
+      padding: 6px 12px;
       border-radius: 5px;
-      padding: 5px 10px;
       cursor: pointer;
     }
 
+    .delete-button:hover {
+      background-color: #111;
+      color: #fff;
+    }
 
     .submitted-payments {
       margin-top: 40px;
@@ -231,14 +204,12 @@
 
     .submitted-payments h2 {
       font-size: 22px;
-      font-weight: bold;
       margin-bottom: 10px;
+      text-align: center;
     }
 
     @media (max-width: 768px) {
-
-      .table-header,
-      .table-row {
+      .table-header, .table-row {
         grid-template-columns: repeat(5, 1fr);
       }
 
@@ -249,7 +220,7 @@
     }
   </style>
 </head>
-
+  
 <body>
   <nav class="navigation-top">
     <div class="navigation-div">
