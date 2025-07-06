@@ -14,12 +14,12 @@
 
     body {
       font-family: 'Sen', sans-serif;
-      background: linear-gradient(135deg, #111, #fff);
-      color: #111;
+      background: linear-gradient(135deg, #f5e6ca, #ffeaa7);
+      color: #333;
     }
 
     nav.navigation-top {
-      background: #111;
+      background: #d35400;
       padding: 0 20px;
     }
 
@@ -53,24 +53,23 @@
     }
 
     nav.navigation-top li a:hover {
-      color: #bbb;
+      color: #ffeaa7;
     }
 
     .nav-button {
-      background-color: #fff;
-      color: #111;
-      border: 1px solid #fff;
+      background-color: #f39c12;
+      color: #fff;
+      border: none;
       border-radius: 25px;
       width: 130px;
       height: 40px;
       font-weight: bold;
       cursor: pointer;
+      transition: background 0.3s ease;
     }
 
     .nav-button:hover {
-      background-color: #8b8a8a;
-      color: #111;
-      border: 1px solid #111;
+      background-color: #e67e22;
     }
 
     .container {
@@ -80,10 +79,9 @@
 
     .sidebar {
       width: 220px;
-      background: #f5f5f5;
-      color: #111;
+      background: linear-gradient(135deg, #f5e6ca, #ffeaa7);
+      color: black;
       padding-top: 20px;
-      border-right: 1px solid #e0e0e0;
     }
 
     .sidebar ul {
@@ -95,7 +93,7 @@
     }
 
     .sidebar ul li a {
-      color: #111;
+      color: black;
       text-decoration: none;
       display: flex;
       align-items: center;
@@ -103,9 +101,10 @@
     }
 
     .sidebar ul li:hover {
-      background: linear-gradient(165deg, #fff, #979191);
+      background: linear-gradient(135deg, white, #ffeaa7);
       border-radius: 10px;
       margin-left: 10px;
+      transition: all 0.3s ease;
     }
 
     .sidebar img {
@@ -115,15 +114,16 @@
     .main-content {
       flex: 1;
       padding: 40px;
-      background: #fff;
-      overflow-y: auto;
+      background: linear-gradient(135deg, white, #ffeaa7);
     }
 
     .payment-container {
+      overflow: auto;
       max-width: 1100px;
-      margin: 0 auto;
+      height: 650px;
+      margin: 40px auto;
       padding: 40px;
-      background-color: #fff;
+      background-color: #fffdf6;
       border-radius: 16px;
       box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
     }
@@ -132,71 +132,98 @@
       font-size: 35px;
       margin-bottom: 20px;
       text-align: center;
-      color: #111;
+      color: #d35400;
     }
 
-    .table-header, .table-row {
-      display: grid;
-      grid-template-columns: repeat(6, 1fr);
-      padding: 12px;
-      align-items: center;
+    .section-title {
+      font-size: 34px;
+      font-weight: bold;
+      margin-bottom: 20px;
       text-align: center;
     }
 
-    .table-header {
-      background-color: #111;
-      color: #fff;
-      font-weight: bold;
+    .submitted-payments .table-header,
+    .submitted-payments .table-row {
+      text-align: center;
+    }
+
+    .table-container {
+      width: 100%;
+      margin-top: 40px;
       border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .table-row div,
+    .table-header div {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .table-header {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      background-color: #d35400;
+      color: white;
+      padding: 12px 0;
+      text-align: center;
+      font-weight: bold;
+      border-radius: 10px;
+    }
+
+    .table-body {
+      display: flex;
+      flex-direction: column;
     }
 
     .table-row {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      padding: 12px;
       border-bottom: 1px solid #ddd;
+      align-items: center;
+    }
+
+    .table-row select,
+    .table-row input {
+      width: 90%;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-family: 'Sen', sans-serif;
     }
 
     .table-row:nth-child(even) {
-      background-color: #f5f5f5;
-    }
-
-    .form-control {
-      width: 90%;
-      padding: 8px;
-      border: 1px solid #111;
-      border-radius: 5px;
-      font-family: 'Sen', sans-serif;
-      background-color: #fff;
-      color: #111;
+      background-color: #f9f9f9;
     }
 
     .submit-button {
-      background-color: #111;
+      padding: 10px 15px;
+      background-color: #d35400;
       color: white;
       border: none;
-      padding: 8px 16px;
       border-radius: 5px;
+      font-size: 16px;
       font-weight: bold;
       cursor: pointer;
+      transition: background 0.3s ease;
     }
 
     .submit-button:hover {
-      background-color: #fff;
-      color: #111;
-      border: 1px solid #111;
+      background: #b84300;
     }
 
     .delete-button {
-      background-color: white;
-      color: #111;
-      border: 1px solid #111;
-      padding: 6px 12px;
+      background-color: red;
+      color: white;
+      border: none;
       border-radius: 5px;
+      padding: 5px 10px;
       cursor: pointer;
     }
 
-    .delete-button:hover {
-      background-color: #111;
-      color: #fff;
-    }
 
     .submitted-payments {
       margin-top: 40px;
@@ -204,12 +231,14 @@
 
     .submitted-payments h2 {
       font-size: 22px;
+      font-weight: bold;
       margin-bottom: 10px;
-      text-align: center;
     }
 
     @media (max-width: 768px) {
-      .table-header, .table-row {
+
+      .table-header,
+      .table-row {
         grid-template-columns: repeat(5, 1fr);
       }
 
@@ -220,7 +249,7 @@
     }
   </style>
 </head>
-  
+
 <body>
   <nav class="navigation-top">
     <div class="navigation-div">
