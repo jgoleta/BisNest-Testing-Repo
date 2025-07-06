@@ -9,16 +9,17 @@
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: 'Arial', sans-serif;
+      font-family: 'Sen', sans-serif;
     }
     
     body {
-      background: linear-gradient(135deg, #f5e6ca, #ffeaa7);
-      color: #333;
+      font-family: 'Sen', sans-serif;
+      background: #fff;
+      color: #111;
     }
     
     nav.navigation-top {
-      background: #d35400;
+      background: #111;
       padding: 0 20px;
       height: 90px;
     }
@@ -35,7 +36,7 @@
     .nav-logo {
       height: 60px;
       border-radius: 50%;
-      background-color: white;
+      background-color: #fff;
       padding: 5px;
     }
     
@@ -52,15 +53,26 @@
       font-size: 16px;
     }
     
+    nav.navigation-top li a:hover {
+      color: #bbb;
+    }
+    
     .nav-button {
-      background-color: #f39c12;
-      color: #fff;
-      border: none;
+      background-color: #fff;
+      color: #111;
+      border: 1px solid #fff;
       border-radius: 25px;
       width: 130px;
       height: 40px;
       font-weight: bold;
       cursor: pointer;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    .nav-button:hover {
+      background-color: #8b8a8a;
+      color: #111;
+      border: 1px solid #111;
     }
     
     .container {
@@ -70,8 +82,10 @@
     
     .sidebar {
       width: 220px;
-      background: linear-gradient(135deg, #f5e6ca, #ffeaa7);
+      background: #f5f5f5;
+      color: #111;
       padding-top: 20px;
+      border-right: 1px solid #e0e0e0;
     }
     
     .sidebar ul {
@@ -83,7 +97,7 @@
     }
     
     .sidebar ul li a {
-      color: black;
+      color: #111;
       text-decoration: none;
       display: flex;
       align-items: center;
@@ -91,7 +105,7 @@
     }
     
     .sidebar ul li:hover {
-      background: linear-gradient(135deg, white, #ffeaa7);
+      background: linear-gradient(165deg, #fff, #979191);
       border-radius: 10px;
       margin-left: 10px;
       transition: all 0.3s ease;
@@ -104,7 +118,7 @@
     .main-content {
       flex: 1;
       padding: 40px;
-      background: linear-gradient(135deg, white, #ffeaa7);
+      background: #fff;
       overflow-y: auto;
     }
     
@@ -117,7 +131,7 @@
     
     .page-title {
       font-size: 28px;
-      color: #d35400;
+      color: #111;
     }
     
     .quick-actions {
@@ -126,8 +140,8 @@
     }
     
     .action-button {
-      background-color: #f39c12;
-      color: white;
+      background-color: #111;
+      color: #fff;
       border: none;
       padding: 10px 20px;
       border-radius: 25px;
@@ -146,14 +160,14 @@
       background-color: white;
       border-radius: 10px;
       padding: 20px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      box-shadow: 0 2px 4px #111;
       text-align: center;
     }
     
     .stat-value {
       font-size: 32px;
       font-weight: bold;
-      color: #d35400;
+      color: #111;
       margin: 10px 0;
     }
     
@@ -166,7 +180,7 @@
       background-color: white;
       border-radius: 10px;
       padding: 20px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      box-shadow: 0 2px 4px #111;
       margin-bottom: 30px;
       height: 300px;
     }
@@ -175,7 +189,7 @@
       background-color: white;
       border-radius: 10px;
       padding: 20px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      box-shadow: 0 2px 4px #111;
     }
     
     .activity-item {
@@ -193,6 +207,81 @@
     .activity-icon {
       width: 24px;
       height: 24px;
+    }
+    
+    .container-box, .dashboard-container {
+      background-color: #fff;
+      box-shadow: 0 2px 4px #111;
+      border: 1px solid #e0e0e0;
+    }
+    
+    h1, .page-title {
+      color: #111;
+    }
+    
+    .toggle-form-button, .delete-button {
+      background-color: #fff;
+      color: #111;
+      border: 1px solid #111;
+      transition: background 0.3s, color 0.3s;
+    }
+    
+    .toggle-form-button:hover, .delete-button:hover {
+      background-color: #111;
+      color: #fff;
+    }
+    
+    .search-bar input {
+      background: #fff;
+      color: #111;
+      border: 1px solid #bbb;
+    }
+    
+    .form-container {
+      background: #fff;
+      box-shadow: 0 2px 4px #111;
+      border: 1px solid #e0e0e0;
+    }
+    
+    .form label {
+      color: #111;
+    }
+    
+    .form input, .form textarea {
+      background: #fff;
+      color: #111;
+      border: 1px solid #bbb;
+    }
+    
+    .submit-button {
+      background-color: #111;
+      color: #fff;
+      border: 1px solid #111;
+      transition: background 0.3s, color 0.3s;
+    }
+    
+    .submit-button:hover {
+      background-color: #fff;
+      color: #111;
+    }
+    
+    table {
+      background: #fff;
+      color: #111;
+    }
+    
+    th, td {
+      border: 1px solid #e0e0e0;
+    }
+    
+    tr:hover {
+      background-color: #f5f5f5;
+    }
+    
+    tr.selected {
+      background-color: #777;
+      color: #fff;
+      font-weight: bold;
     }
   </style>
 </head>
