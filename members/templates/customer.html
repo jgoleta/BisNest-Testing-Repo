@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Payment Management</title>
+  <title>Customer Management</title>
   <style>
     * {
       box-sizing: border-box;
@@ -14,12 +14,12 @@
 
     body {
       font-family: 'Sen', sans-serif;
-      background: linear-gradient(135deg, #f5e6ca, #ffeaa7);
-      color: #333;
+      background: linear-gradient(135deg, #111, #fff);
+      color: #111;
     }
 
     nav.navigation-top {
-      background: #d35400;
+      background: #111;
       padding: 0 20px;
     }
 
@@ -35,7 +35,7 @@
     .nav-logo {
       height: 60px;
       border-radius: 50%;
-      background-color: white;
+      background-color: #fff;
       padding: 5px;
     }
 
@@ -53,23 +53,25 @@
     }
 
     nav.navigation-top li a:hover {
-      color: #ffeaa7;
+      color: #bbb;
     }
 
     .nav-button {
-      background-color: #f39c12;
-      color: #fff;
-      border: none;
+      background-color: #fff;
+      color: #111;
+      border: 1px solid #fff;
       border-radius: 25px;
       width: 130px;
       height: 40px;
       font-weight: bold;
       cursor: pointer;
-      transition: background 0.3s ease;
+      transition: background 0.3s, color 0.3s;
     }
 
     .nav-button:hover {
-      background-color: #e67e22;
+      background-color: #8b8a8a;
+      color: #111;
+      border: 1px solid #111;
     }
 
     .container {
@@ -79,9 +81,10 @@
 
     .sidebar {
       width: 220px;
-      background: linear-gradient(135deg, #f5e6ca, #ffeaa7);
-      color: black;
+      background: #f5f5f5;
+      color: #111;
       padding-top: 20px;
+      border-right: 1px solid #e0e0e0;
     }
 
     .sidebar ul {
@@ -93,7 +96,7 @@
     }
 
     .sidebar ul li a {
-      color: black;
+      color: #111;
       text-decoration: none;
       display: flex;
       align-items: center;
@@ -101,7 +104,7 @@
     }
 
     .sidebar ul li:hover {
-      background: linear-gradient(135deg, white, #ffeaa7);
+      background: linear-gradient(165deg, #fff, #979191);
       border-radius: 10px;
       margin-left: 10px;
       transition: all 0.3s ease;
@@ -114,7 +117,7 @@
     .main-content {
       flex: 1;
       padding: 40px;
-      background: linear-gradient(135deg, white, #ffeaa7);
+      background: #fff;
     }
 
     .customer-container {
@@ -123,16 +126,17 @@
       height: 650px;
       margin: 40px auto;
       padding: 40px;
-      background-color: #fffdf6;
+      background-color: #fff;
       border-radius: 16px;
-      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+      box-shadow: 2px 2px 8px #111;
+      border: 1px solid #e0e0e0;
     }
 
     h1 {
       font-size: 35px;
       margin-bottom: 20px;
       text-align: center;
-      color: #d35400;
+      color: #111;
     }
 
     .button-container {
@@ -140,21 +144,32 @@
     }
 
     .toggle-form-button,
+    .add-button,
+    .delete-btn,
+    .submit-button,
+    .search-button,
+    .reset-button,
     .delete-button {
       padding: 12px 20px;
       font-weight: bold;
-      border: none;
-      border-radius: 8px;
-      background-color: #d35400;
-      color: white;
+      border: 1px solid #fff;
+      border-radius: 50px;
+      background-color: #111;
+      color: #fff;
       cursor: pointer;
-      transition: background 0.3s ease;
+      transition: background 0.3s, color 0.3s;
     }
 
     .toggle-form-button:hover,
+    .add-button:hover,
+    .delete-btn:hover,
+    .submit-button:hover,
+    .search-button:hover,
+    .reset-button:hover,
     .delete-button:hover {
-      background-color: #b84300;
-      color: #ffffff;
+      background-color: #fff;
+      color: #111;
+      border: 1px solid #111;
     }
 
     .search-bar {
@@ -166,28 +181,52 @@
 
     .search-bar input {
       padding: 10px 14px;
-      border: 1px solid #cbd5e1;
+      border: 1px solid #bbb;
       border-radius: 8px;
       font-size: 15px;
       max-width: 300px;
       flex: 1;
+      background: #fff;
+      color: #111;
     }
 
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0,0,0,0.4);
+      z-index: 1001;
+      display: none;
+    }
     .customer-form-container {
       display: none;
-      background: #fffdf6;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 1002;
+      background: #fff;
       padding: 25px;
       border-radius: 10px;
-      margin: 20px 0;
-      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.07);
+      border: 1px solid #e0e0e0;
+      width: 750px;
+      max-width: 90vw;
     }
-
+    @media (max-width: 800px) {
+      .customer-form-container {
+        width: 95vw;
+        padding: 10px;
+      }
+    }
     .customer-form label {
       display: block;
       margin-top: 12px;
       font-weight: 600;
+      color: #111;
     }
-
     .customer-form input,
     .customer-form textarea {
       width: 100%;
@@ -196,58 +235,57 @@
       border-radius: 6px;
       border: 1px solid #bbb;
       background: #fff;
+      color: #111;
     }
-
-    .submit-button {
-      margin-top: 20px;
-      padding: 12px;
-      background-color: #d35400;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      font-size: 16px;
-      font-weight: bold;
-      cursor: pointer;
-      transition: background 0.3s ease;
-    }
-
-    .submit-button:hover {
-      background-color: #b84300;
-    }
-
     .submit-wrapper {
       text-align: right;
     }
-
     table {
       width: 100%;
       border-collapse: collapse;
       font-family: 'Sen', sans-serif;
+      background: #fff;
     }
-
     th,
     td {
       padding: 14px 16px;
-      border: 1px solid #e2e8f0;
+      border: 1px solid #e0e0e0;
       text-align: left;
       font-size: 15px;
+      color: #111;
     }
-
     tr:hover {
-      background-color: #fffbe6;
+      background-color: #f5f5f5;
     }
-
     tr.selected {
-      background-color: #ffefd5;
+      background-color: #777;
+      color: #fff;
       font-weight: bold;
     }
-
     th.asc::after {
       content: ' ▲';
     }
-
     th.desc::after {
       content: ' ▼';
+    }
+    .notification {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      padding: 15px 25px;
+      background-color: #2ecc71;
+      color: #fff;
+      border-radius: 5px;
+      box-shadow: 0 2px 4px #111;
+      z-index: 1000;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+    .notification.show {
+      opacity: 1;
+    }
+    .notification.error {
+      background-color: #ff0000;
     }
   </style>
 </head>
