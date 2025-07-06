@@ -14,12 +14,12 @@
 
     body {
       font-family: 'Sen', sans-serif;
-      background: linear-gradient(135deg, #f5e6ca, #ffeaa7);
-      color: #333;
+      background: linear-gradient(135deg, #111, #fff);
+      color: #111;
     }
 
     nav.navigation-top {
-      background: #d35400;
+      background: #111;
       padding: 0 20px;
     }
 
@@ -35,7 +35,7 @@
     .nav-logo {
       height: 60px;
       border-radius: 50%;
-      background-color: white;
+      background-color: #fff;
       padding: 5px;
     }
 
@@ -53,23 +53,25 @@
     }
 
     nav.navigation-top li a:hover {
-      color: #ffeaa7;
+      color: #bbb;
     }
 
     .nav-button {
-      background-color: #f39c12;
-      color: #fff;
-      border: none;
+      background-color: #fff;
+      color: #111;
+      border: 1px solid #fff;
       border-radius: 25px;
       width: 130px;
       height: 40px;
       font-weight: bold;
       cursor: pointer;
-      transition: background 0.3s ease;
+      transition: background 0.3s, color 0.3s;
     }
 
     .nav-button:hover {
-      background-color: #e67e22;
+      background-color: #8b8a8a;
+      color: #111;
+      border: 1px solid #111;
     }
 
     .container {
@@ -79,9 +81,10 @@
 
     .sidebar {
       width: 220px;
-      background: linear-gradient(135deg, #f5e6ca, #ffeaa7);
-      color: black;
+      background: #f5f5f5;
+      color: #111;
       padding-top: 20px;
+      border-right: 1px solid #e0e0e0;
     }
 
     .sidebar ul {
@@ -93,7 +96,7 @@
     }
 
     .sidebar ul li a {
-      color: black;
+      color: #111;
       text-decoration: none;
       display: flex;
       align-items: center;
@@ -101,7 +104,7 @@
     }
 
     .sidebar ul li:hover {
-      background: linear-gradient(135deg, white, #ffeaa7);
+      background: linear-gradient(165deg, #fff, #979191);
       border-radius: 10px;
       margin-left: 10px;
       transition: all 0.3s ease;
@@ -114,11 +117,11 @@
     .main-content {
       flex: 1;
       padding: 40px;
-      background: linear-gradient(135deg, white, #ffeaa7);
+      background: #fff;
       overflow-y: auto;
     }
 
-    
+    /* Delivery Page Specific Styles */
     .page-header {
       display: flex;
       justify-content: space-between;
@@ -128,12 +131,12 @@
 
     .page-title {
       font-size: 28px;
-      color: #d35400;
+      color: #111;
     }
 
     .action-button {
-      background-color: #f39c12;
-      color: white;
+      background-color: #111;
+      color: #fff;
       border: none;
       padding: 10px 20px;
       border-radius: 25px;
@@ -143,7 +146,9 @@
     }
 
     .action-button:hover {
-      background-color: #e67e22;
+      background-color: #fff;
+      color: #111;
+      border: 1px solid #111;
     }
 
     .search-bar {
@@ -155,14 +160,16 @@
     .search-input {
       flex: 1;
       padding: 10px 15px;
-      border: 1px solid #ddd;
+      border: 1px solid #bbb;
       border-radius: 25px;
       font-size: 16px;
+      background: #fff;
+      color: #111;
     }
 
     .search-button {
-      background-color: #d35400;
-      color: white;
+      background-color: #111;
+      color: #fff;
       border: none;
       padding: 10px 20px;
       border-radius: 25px;
@@ -170,38 +177,41 @@
       font-weight: bold;
     }
 
-    .delivery-table {
+    .table {
       width: 100%;
       border-collapse: collapse;
-      background-color: white;
       border-radius: 10px;
       overflow: hidden;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      background-color: #fff;
+      margin-top: 20px;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.07);
+      color: #111;
     }
 
-    .delivery-table th {
-      background-color: #d35400;
-      color: white;
-      padding: 15px;
-      text-align: left;
+    .table th,
+    .table td {
+      padding: 12px;
+      text-align: center;
+      border-bottom: 1px solid #e0e0e0;
     }
 
-    .delivery-table td {
-      padding: 12px 15px;
-      border-bottom: 1px solid #eee;
+    .table th {
+      background-color: #000000;
+      color: #fff;
     }
 
-    .delivery-table tr:last-child td {
-      border-bottom: none;
+    .table tr:hover {
+      background-color: #f5f5f5;
     }
 
-    .delivery-table tr:hover {
-      background-color: #fff9e6;
+    .table tr.selected {
+      background-color: #222;
+      color: #fff;
     }
 
     .action-btn {
-      background-color: #f39c12;
-      color: white;
+      background-color: #111;
+      color: #fff;
       border: none;
       padding: 5px 10px;
       border-radius: 15px;
@@ -210,27 +220,31 @@
       margin-right: 5px;
     }
 
-    .delete-btn {
-      background-color: red;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      padding: 5px 10px;
-      cursor: pointer;
+    .delete-btn, .delete-button {
+      background-color: #fff;
+      color: #111;
+      border: 1px solid #111;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    .delete-btn:hover, .delete-button:hover {
+      background-color: #111;
+      color: #fff;
     }
 
     .form-container {
-      background-color: white;
+      background: #fff;
       border-radius: 10px;
       padding: 20px;
       margin-top: 30px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 6px 18px rgba(0,0,0,0.07);
+      border: 1px solid #e0e0e0;
     }
 
     .form-title {
       font-size: 20px;
       margin-bottom: 20px;
-      color: #d35400;
+      color: #111;
     }
 
     .form-row {
@@ -247,34 +261,16 @@
       display: block;
       margin-bottom: 5px;
       font-weight: bold;
+      color: #111;
     }
 
     .form-control {
       width: 100%;
       padding: 10px;
-      border: 1px solid #ddd;
+      border: 1px solid #111;
       border-radius: 5px;
-    }
-
-    .status-select {
-      width: 100%;
-      padding: 10px;
-      border: 1px solid #ddd;
-      border-radius: 5px;
-      background-color: white;
-      cursor: pointer;
-    }
-
-    .status-delivered {
-      color: #2ecc71;
-    }
-
-    .status-pending {
-      color: #f39c12;
-    }
-
-    .status-cancelled {
-      color: #e74c3c;
+      background: #fff;
+      color: #111;
     }
 
     .form-actions {
@@ -296,7 +292,7 @@
       background-color: #2ecc71;
       color: white;
       border-radius: 5px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
       z-index: 1000;
       opacity: 0;
       transition: opacity 0.5s ease;
@@ -307,7 +303,62 @@
     }
 
     .notification.error {
-      background-color: #e74c3c;
+      background-color: #ff0000;
+    }
+
+    h1 {
+      color: #111;
+    }
+
+    .toggle-form-button, .delete-button {
+      background-color: #fff;
+      color: #111;
+      border: 1px solid #111;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    .toggle-form-button:hover, .delete-button:hover {
+      background-color: #111;
+      color: #fff;
+    }
+
+    .submit-button {
+      background-color: #111;
+      color: #fff;
+      border: 1px solid #111;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    .submit-button:hover {
+      background-color: #fff;
+      color: #111;
+    }
+
+    table {
+      background: #fff;
+      color: #111;
+    }
+
+    tr:hover { 
+      background-color: #f5f5f5;
+    }
+
+    tr.selected {
+      background-color: #777;
+      color: #fff;
+      font-weight: bold;
+    }
+
+    .delivery-container {
+      overflow: auto;
+      max-width: 1100px;
+      height: 650px;
+      margin: 40px auto;
+      padding: 40px;
+      background-color: #fff;
+      border-radius: 16px;
+      box-shadow: 2px 2px 8px #111;
+      border: 1px solid #e0e0e0;
     }
   </style>
 </head>
