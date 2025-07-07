@@ -527,139 +527,231 @@
   <main class="main-content">
     <div class="product-container">
       <h1>Product Management</h1>
-      <div style="display: flex; flex-direction: column; align-items: center; gap: 2rem; margin-top: 50px;">
-        <div style="display: flex; gap: 2rem;">
-          <button class="product-button-style" aria-label="Edit Whole Chicken price" data-id="P01"
-            data-name="Whole Chicken" data-price="0">
-            <img src="https://i.ibb.co/n8tdsd0b/482687900-685762357467693-1724972982676235731-n.png" class="parts-logo"
-              alt="Whole Chicken">
-            <p class="product-price-label">₱0.00</p>
-            <p class="product-price-name">Whole Chicken</p>
-          </button>
-          <button class="product-button-style" aria-label="Edit Chicken Feet price" data-id="P02"
-            data-name="Chicken Feet" data-price="0">
-            <img src="https://i.ibb.co/spH4P3W2/Chicken-feet-logo.png" class="parts-logo" alt="Chicken Feet">
-            <p class="product-price-label">₱0.00</p>
-            <p class="product-price-name">Chicken Feet</p>
-          </button>
-          <button class="product-button-style" aria-label="Edit Chicken Head price" data-id="P03"
-            data-name="Chicken Head" data-price="0">
-            <img src="https://i.ibb.co/0pM0N6Bt/483127067-2029240714239309-238261137041540632-n.png" class="parts-logo"
-              alt="Chicken Head">
-            <p class="product-price-label">₱0.00</p>
-            <p class="product-price-name">Chicken Head</p>
-          </button>
-          <button class="product-button-style" aria-label="Edit Chicken Liver price" data-id="P04"
-            data-name="Chicken Liver" data-price="0">
-            <img src="https://i.ibb.co/Nd2g4Gcb/486236131-685628880584168-6900652020434416173-n.png" class="parts-logo"
-              alt="Chicken Liver">
-            <p class="product-price-label">₱0.00</p>
-            <p class="product-price-name">Chicken Liver</p>
-          </button>
-        </div>
+      <div style="display: flex; justify-content: flex-end; margin-bottom: 20px; gap: 10px;">
+        <button id="add-product-btn" class="toggle-form-button">Add Product</button>
+      </div>
+      <div id="product-list" style="display: flex; flex-direction: column; align-items: center; gap: 2rem; margin-top: 30px;"></div>
 
-        <div style="display: flex; gap: 2rem;">
-          <button class="product-button-style" aria-label="Edit Chicken Intestine price" data-id="P05"
-            data-name="Chicken Intestine" data-price="0">
-            <img src="https://i.ibb.co/CKmDq7PC/Chicken-intestine-logo.png" class="parts-logo" alt="Chicken Intestine">
-            <p class="product-price-label">₱0.00</p>
-            <p class="product-price-name">Chicken Intestine</p>
-          </button>
-          <button class="product-button-style" aria-label="Edit Chicken Blood price" data-id="P06"
-            data-name="Chicken Blood" data-price="0">
-            <img src="https://i.ibb.co/DHHLvDRp/486573747-662143466768923-8113425702960829436-n.png" class="parts-logo"
-              alt="Chicken Blood">
-            <p class="product-price-label">₱0.00</p>
-            <p class="product-price-name">Chicken Blood</p>
-          </button>
-          <button class="product-button-style" aria-label="Edit Chicken Gizzard price" data-id="P07"
-            data-name="Chicken Gizzard" data-price="0">
-            <img src="https://i.ibb.co/KnGm8sX/Chicken-gizzard-logo.png" class="parts-logo" alt="Chicken Gizzard">
-            <p class="product-price-label">₱0.00</p>
-            <p class="product-price-name">Chicken Gizzard</p>
-          </button>
+      <!-- Add Product Modal -->
+      <div id="add-product-modal" class="modal" role="dialog" aria-modal="true">
+        <div class="modal-content">
+          <span class="close-add-modal close-button">&times;</span>
+          <h2>Add Product</h2>
+          <div class="modal-divider"></div>
+          <form id="add-product-form">
+            <div style="margin-bottom: 18px; text-align: left;">
+              <label for="add-product-name">Product Name:</label>
+              <input type="text" id="add-product-name" required style="width: 100%; padding: 10px; margin-top: 6px; border-radius: 8px; border: 1px solid #bbb; font-size: 1rem;">
+            </div>
+            <div style="margin-bottom: 18px; text-align: left;">
+              <label for="add-product-image">Image URL:</label>
+              <input type="text" id="add-product-image" required style="width: 100%; padding: 10px; margin-top: 6px; border-radius: 8px; border: 1px solid #bbb; font-size: 1rem;">
+            </div>
+            <div style="margin-bottom: 18px; text-align: left;">
+              <label for="add-product-price">Price (₱):</label>
+              <input type="number" id="add-product-price" required min="0" step="0.01" style="width: 100%; padding: 10px; margin-top: 6px; border-radius: 8px; border: 1px solid #bbb; font-size: 1rem;">
+            </div>
+            <button type="submit" class="submit-button" style="margin-top: 18px; min-width: 120px; font-size: 1.1rem; float: right;">Add</button>
+          </form>
         </div>
       </div>
 
       <div id="product-modal" class="modal" role="dialog" aria-modal="true">
         <div class="modal-content">
-          <span class="close-button">&times;</span>
+          <span class="close-button" id="close-edit-modal">&times;</span>
           <h2 id="modal-product-name">Product Name</h2>
+          <div class="modal-divider"></div>
           <p><strong>ID:</strong> <span id="modal-product-id"></span></p>
           <p><strong>Price:</strong>
             <input type="text" id="modal-product-price">
           </p>
-          <button id="save-price-btn" class="nav-button" style="margin-top: 15px;">Save</button>
+          <div class="modal-actions">
+            <button id="save-price-btn" class="submit-button">Save</button>
+            <button id="delete-modal-btn" class="delete-modal-btn">Delete</button>
+          </div>
         </div>
       </div>
     </div>
   </main>
 
+  <div class="notification" id="notification"></div>
+
   <script>
+    function getProducts() {
+      const data = localStorage.getItem('products');
+      if (data) return JSON.parse(data);
+      return [
+        { id: 'P01', name: 'Whole Chicken', image: 'https://i.ibb.co/n8tdsd0b/482687900-685762357467693-1724972982676235731-n.png', price: 0 },
+        { id: 'P02', name: 'Chicken Feet', image: 'https://i.ibb.co/spH4P3W2/Chicken-feet-logo.png', price: 0 },
+        { id: 'P03', name: 'Chicken Head', image: 'https://i.ibb.co/0pM0N6Bt/483127067-2029240714239309-238261137041540632-n.png', price: 0 },
+        { id: 'P04', name: 'Chicken Liver', image: 'https://i.ibb.co/Nd2g4Gcb/486236131-685628880584168-6900652020434416173-n.png', price: 0 },
+        { id: 'P05', name: 'Chicken Intestine', image: 'https://i.ibb.co/CKmDq7PC/Chicken-intestine-logo.png', price: 0 },
+        { id: 'P06', name: 'Chicken Blood', image: 'https://i.ibb.co/DHHLvDRp/486573747-662143466768923-8113425702960829436-n.png', price: 0 },
+        { id: 'P07', name: 'Chicken Gizzard', image: 'https://i.ibb.co/KnGm8sX/Chicken-gizzard-logo.png', price: 0 }
+      ];
+    }
+    function saveProducts(products) {
+      localStorage.setItem('products', JSON.stringify(products));
+    }
+
+    function renderProducts() {
+      const products = getProducts();
+      const list = document.getElementById('product-list');
+      list.innerHTML = '';
+      let row = null;
+      products.forEach((product, idx) => {
+        if (idx % 4 === 0) {
+          row = document.createElement('div');
+          row.style.display = 'flex';
+          row.style.gap = '2rem';
+          row.style.marginBottom = '2rem';
+          list.appendChild(row);
+        }
+        const btn = document.createElement('button');
+        btn.className = 'product-button-style';
+        btn.setAttribute('data-id', product.id);
+        btn.setAttribute('data-name', product.name);
+        btn.setAttribute('data-price', product.price);
+        btn.setAttribute('data-image', product.image);
+        btn.innerHTML = `
+          <img src="${product.image}" class="parts-logo" alt="${product.name}">
+          <p class="product-price-label">₱${parseFloat(product.price).toFixed(2)}</p>
+          <p class="product-price-name">${product.name}</p>
+        `;
+        btn.addEventListener('click', function(e) {
+          document.querySelectorAll('.product-button-style.selected').forEach(el => el.classList.remove('selected'));
+          btn.classList.add('selected');
+          if (!e.target.classList.contains('delete-product-btn')) {
+            openEditModal(product, btn);
+          }
+        });
+        row.appendChild(btn);
+      });
+    }
+
+    let selectedProductId = null;
+    document.addEventListener('click', function(e) {
+      if (e.target.classList.contains('product-button-style')) {
+        selectedProductId = e.target.getAttribute('data-id');
+      } else if (e.target.closest('.product-button-style')) {
+        selectedProductId = e.target.closest('.product-button-style').getAttribute('data-id');
+      }
+    });
+
+    const addProductBtn = document.getElementById('add-product-btn');
+    const addProductModal = document.getElementById('add-product-modal');
+    const closeAddModal = document.querySelector('.close-add-modal');
+    const addProductForm = document.getElementById('add-product-form');
+
+    addProductBtn.addEventListener('click', () => {
+      addProductModal.style.display = 'block';
+    });
+    closeAddModal.addEventListener('click', () => {
+      addProductModal.style.display = 'none';
+      addProductForm.reset();
+    });
+    window.addEventListener('click', (event) => {
+      if (event.target === addProductModal) {
+        addProductModal.style.display = 'none';
+        addProductForm.reset();
+      }
+    });
+    addProductForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const name = document.getElementById('add-product-name').value.trim();
+      const image = document.getElementById('add-product-image').value.trim();
+      const price = parseFloat(document.getElementById('add-product-price').value.trim()).toFixed(2);
+      if (!name || !image || isNaN(price)) return;
+      let products = getProducts();
+      let maxId = 0;
+      products.forEach(p => {
+        const num = parseInt(p.id.replace('P', ''));
+        if (num > maxId) maxId = num;
+      });
+      const newId = 'P' + String(maxId + 1).padStart(2, '0');
+      products.push({ id: newId, name, image, price });
+      saveProducts(products);
+      renderProducts();
+      addProductModal.style.display = 'none';
+      addProductForm.reset();
+      showNotification('Product added successfully!');
+    });
+
     const modal = document.getElementById("product-modal");
     const productNameEl = document.getElementById("modal-product-name");
     const productIdEl = document.getElementById("modal-product-id");
     const productPriceEl = document.getElementById("modal-product-price");
-    const closeBtn = document.querySelector(".close-button");
-    const saveBtn = document.getElementById("save-price-btn");
-
+    const closeEditModalBtn = document.getElementById("close-edit-modal");
     let currentButton = null;
-
-    document.querySelectorAll('.product-button-style').forEach(button => {
-      const id = button.getAttribute('data-id');
-      const savedPrice = localStorage.getItem(id);
-      if (savedPrice) {
-        button.setAttribute('data-price', savedPrice);
-        const priceLabel = button.querySelector('.product-price-label');
-        if (priceLabel) priceLabel.textContent = `₱${savedPrice}`;
-      }
-    });
-
-    document.querySelectorAll('.product-button-style').forEach(button => {
-      button.addEventListener('click', () => {
-        const id = button.getAttribute('data-id');
-        const name = button.getAttribute('data-name');
-        const price = button.getAttribute('data-price');
-
-        productNameEl.textContent = name;
-        productIdEl.textContent = id;
-        productPriceEl.value = price.replace('₱', '');
-        modal.style.display = "block";
-        currentButton = button;
-      });
-    });
-
-    closeBtn.addEventListener('click', () => {
+    function openEditModal(product, btn) {
+      productNameEl.textContent = product.name;
+      productIdEl.textContent = product.id;
+      productPriceEl.value = product.price;
+      modal.style.display = "block";
+      currentButton = btn;
+    }
+    closeEditModalBtn.addEventListener('click', () => {
       modal.style.display = "none";
     });
-
     window.addEventListener('click', (event) => {
       if (event.target === modal) {
         modal.style.display = "none";
       }
     });
-
     productPriceEl.addEventListener("keydown", (e) => {
       if (e.key === "Enter") {
         e.preventDefault();
         saveBtn.click();
       }
     });
-
+    const saveBtn = document.getElementById("save-price-btn");
     saveBtn.addEventListener('click', () => {
       const newPrice = productPriceEl.value.trim();
       if (newPrice && !isNaN(newPrice)) {
         const formatted = parseFloat(newPrice).toFixed(2);
-        currentButton.setAttribute('data-price', formatted);
         const id = productIdEl.textContent;
-        localStorage.setItem(id, formatted);
-        const priceLabel = currentButton.querySelector('.product-price-label');
-        if (priceLabel) priceLabel.textContent = `₱${formatted}`;
-        modal.style.display = "none";
+        let products = getProducts();
+        const idx = products.findIndex(p => p.id === id);
+        if (idx !== -1) {
+          products[idx].price = formatted;
+          saveProducts(products);
+          renderProducts();
+          modal.style.display = "none";
+        }
       } else {
         alert("Please enter a valid numeric price.");
       }
     });
+
+    const deleteModalBtn = document.getElementById('delete-modal-btn');
+    deleteModalBtn.addEventListener('click', () => {
+      const id = productIdEl.textContent;
+      deleteProduct(id);
+      modal.style.display = "none";
+    });
+
+    function deleteProduct(id) {
+      let products = getProducts();
+      products = products.filter(p => p.id !== id);
+      saveProducts(products);
+      renderProducts();
+      showNotification('Product deleted successfully!');
+    }
+
+    renderProducts();
+
+    function showNotification(message, error = false) {
+      const notification = document.getElementById('notification');
+      notification.textContent = message;
+      notification.classList.add('show');
+      if (error) {
+        notification.classList.add('error');
+      }
+      setTimeout(() => {
+        notification.classList.remove('show');
+        notification.classList.remove('error');
+      }, 3000);
+    }
   </script>
 
 </body>
