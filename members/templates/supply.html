@@ -383,6 +383,60 @@
       opacity: 1;
       visibility: visible;
     }
+    .table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      border-radius: 12px;
+      overflow: hidden;
+      background-color: #fff;
+      margin-top: 20px;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.07);
+      color: #111;
+    }
+    .table th,
+    .table td {
+      padding: 14px 16px;
+      text-align: center;
+      border: none;
+      font-size: 15px;
+    }
+    .table th {
+      background-color: #000;
+      color: #fff;
+      font-size: 16px;
+    }
+    .table tr:last-child td {
+      border-bottom: none;
+    }
+    .delete-button {
+      background-color: #fff;
+      color: #111;
+      border: 1px solid #111;
+      padding: 8px 18px;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s, color 0.3s;
+    }
+    .delete-button:hover {
+      background-color: #111;
+      color: #fff;
+    }
+    .black-button {
+      background-color: #111;
+      color: #fff;
+      border: 1px solid #111;
+      border-radius: 25px;
+      padding: 10px 20px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s, color 0.3s;
+    }
+    .black-button:hover {
+      background-color: #fff;
+      color: #111;
+    }
   </style>
 </head>
 
@@ -425,15 +479,12 @@
   <main class="main-content">
     <div class="page-header">
       <h1 class="page-title">Supply Management</h1>
-      <button class="action-button" id="addNewSupplyBtn">+ Add New Supply</button>
+      <button class="black-button" id="addNewSupplyBtn">+ Add New Supply</button>
     </div>
 
-    <div class="search-bar">
-      <input type="text" class="search-input" id="searchInput" placeholder="Search supplier or product...">
-      <button class="search-button" id="searchBtn">Search</button>
-    </div>
+    <!-- Remove search bar -->
 
-    <table class="supply-table" id="supplyTable">
+    <table class="table" id="supplyTable">
       <thead>
         <tr>
           <th>Supply ID</th>
@@ -457,7 +508,7 @@
           <td>
             <form method="POST" action="{% url 'delete_supply' s.id %}" style="display:inline;">
               {% csrf_token %}
-              <button type="submit" class="action-btn delete-btn">Delete</button>
+              <button type="submit" class="delete-button">Delete</button>
             </form>
           </td>
         </tr>
@@ -500,9 +551,8 @@
           </div>
         </div>
         <div class="form-actions">
-          <button type="button" class="action-button" style="background-color: #95a5a6;"
-            onclick="window.location.href='{% url 'webpage11' %}'">Cancel</button>
-          <button type="submit" class="action-button">Save</button>
+          <button type="button" class="black-button" onclick="window.location.href='{% url 'webpage11' %}'">Cancel</button>
+          <button type="submit" class="black-button">Save</button>
         </div>
       </form>
     </div>
@@ -517,16 +567,6 @@
 
     addNewBtn.addEventListener('click', () => {
       formContainer.classList.remove('hidden');
-    });
-
-    document.getElementById('searchBtn').addEventListener('click', () => {
-      const searchTerm = document.getElementById('searchInput').value.toLowerCase();
-      const rows = document.querySelectorAll('#supplyTableBody tr');
-
-      rows.forEach(row => {
-        const text = row.textContent.toLowerCase();
-        row.style.display = text.includes(searchTerm) ? '' : 'none';
-      });
     });
   </script>
 </body>
