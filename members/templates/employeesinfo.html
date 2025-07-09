@@ -266,20 +266,31 @@
       color: #111;
     }
 
-    table {
+    .table {
       width: 100%;
-      border-collapse: collapse;
-      margin-top: 10px;
-      background: #fff;
-    }
-
-    th,
-    td {
-      padding: 14px 16px;
-      border: 1px solid #e0e0e0;
-      text-align: left;
-      font-size: 15px;
+      border-collapse: separate;
+      border-spacing: 0;
+      border-radius: 12px;
+      overflow: hidden;
+      background-color: #fff;
+      margin-top: 20px;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.07);
       color: #111;
+    }
+    .table th,
+    .table td {
+      padding: 14px 16px;
+      text-align: center;
+      border: none;
+      font-size: 15px;
+    }
+    .table th {
+      background-color: #000;
+      color: #fff;
+      font-size: 16px;
+    }
+    .table tr:last-child td {
+      border-bottom: none;
     }
 
     tr:hover {
@@ -459,7 +470,7 @@
         </form>
       </div>
 
-      <table id="employee-table">
+      <table class="table">
         <thead>
           <tr>
             <th>Employee ID</th>
@@ -467,7 +478,7 @@
             <th>Position</th>
             <th>Schedule</th>
             <th>Daily Salary</th>
-            <th>Action</th> <!-- 🆕 -->
+            <th>Action</th>
           </tr>
         </thead>
         <tbody>
@@ -481,7 +492,7 @@
             <td>
               <form action="{% url 'delete_employee' emp.id %}" method="post" style="display:inline;">
                 {% csrf_token %}
-                <button type="submit" class="submit-button" style="background-color:red;">Delete</button>
+                <button type="submit" class="delete-button">Delete</button>
               </form>
             </td>
           </tr>
