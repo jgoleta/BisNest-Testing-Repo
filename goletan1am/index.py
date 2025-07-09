@@ -28,17 +28,20 @@ def update_delivery_status(request, delivery_id):
 
 def login_view(request):
     if request.method == 'POST':
-        username = request.POST.get('username')
+        email = request.POST.get('email')
         password = request.POST.get('password')
-
-        user = authenticate(request, username=username, password=password)
-
+        from django.contrib.auth.models import User
+        try:
+            user_obj = User.objects.get(email=email)
+            username = user_obj.username
+        except User.DoesNotExist:
+            username = None
+        user = authenticate(request, username=username, password=password) if username else None
         if user is not None:
             login(request, user)
             return redirect('webpage3')  
         else:
-            messages.error(request, 'Invalid username or password.')
-
+            messages.error(request, 'Invalid email or password.')
     return render(request, 'login.html')
 
 def logout_view(request):
@@ -223,6 +226,9 @@ def webpage11(request):
         'form': form,
         'supplies': supplies
     })
+
+def webpage12(request):
+    return render(request, 'about.html')
 
 def delete_supply(request, supply_id):
     supply = get_object_or_404(Supply, pk=supply_id)

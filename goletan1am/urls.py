@@ -32,6 +32,7 @@ urlpatterns = [
     path('delivery', index.webpage9, name='webpage9'),
     path('sales', index.webpage10, name='webpage10'),
     path('supply', index.webpage11, name='webpage11'),
+    path('about', index.webpage12, name='webpage12'),
     path('employee-info/', index.webpage2, name='employee_info'),
     path('employee-info/delete/<int:employee_id>/', index.delete_employee, name='delete_employee'),
     path('customer/delete/<int:customer_id>/', index.delete_customer, name='delete_customer'),
