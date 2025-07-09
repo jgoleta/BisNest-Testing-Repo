@@ -317,41 +317,6 @@
     }
 
 
-    .burger {
-      font-size: 30px;
-      cursor: pointer;
-      padding: 10px 15px;
-      color: #fff;
-      display: block;
-      top: 20px;
-      left: 20px;
-      z-index: 2001;
-      background-color: #111;
-      border-radius: 5px;
-      position: fixed;
-    }
-    .burger span {
-      height: 4px;
-      width: 100%;
-      background: #fff;
-      border-radius: 2px;
-      transition: 0.3s;
-      transform-origin: center;
-    }
-
-   /* Animate lines when sidebar is open */
-    #sidebarToggle:checked+.burger span:nth-child(1) {
-      transform: rotate(45deg) translate(5px, 5px);
-    }
-
-    #sidebarToggle:checked+.burger span:nth-child(2) {
-      opacity: 0;
-    }
-
-    #sidebarToggle:checked+.burger span:nth-child(3) {
-      transform: rotate(-45deg) translate(6px, -6px);
-    }
-
     .container {
       display: flex;
       position: absolute;
@@ -383,7 +348,57 @@
     }
 
 
-    #sidebarToggle:checked ~ .sidebar {
+    .burger {
+      width: 30px;
+      height: 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: fixed;
+      top: 35px;
+      left: 50px;
+      z-index: 2001;
+      cursor: pointer;
+      padding: 0;
+      background: none;
+      border: none;
+    }
+
+    .burger span {
+      height: 4px;
+      width: 100%;
+      background: #fff;
+      border-radius: 2px;
+      transition: 0.3s;
+      transform-origin: center;
+    }
+
+    /* Animate lines when sidebar is open */
+    #sidebarToggle:checked+.burger span:nth-child(1) {
+      transform: rotate(45deg) translate(5px, 5px);
+    }
+
+    #sidebarToggle:checked+.burger span:nth-child(2) {
+      opacity: 0;
+    }
+
+    #sidebarToggle:checked+.burger span:nth-child(3) {
+      transform: rotate(-45deg) translate(6px, -6px);
+    }
+
+    .sidebar {
+      position: fixed;
+      top: 90px;
+      left: -250px;
+      width: 220px;
+      height: calc(100% - 90px);
+      background-color: #f5f5f5;
+      overflow-y: auto;
+      transition: left 0.3s ease;
+      z-index: 2000;
+    }
+
+    #sidebarToggle:checked~.sidebar {
       left: 0;
     }
 
@@ -407,38 +422,7 @@
       visibility: visible;
     }
 
-    .sidebar {
-      position: fixed;
-      top: 90px;
-      left: -250px;
-      width: 220px;
-      height: calc(100% - 90px);
-      background-color: #f5f5f5;
-      overflow-y: auto;
-      transition: left 0.3s ease;
-      z-index: 2000;
-    }
-    #sidebarToggle:checked~.sidebar {
-      left: 0;
-    }
-    .overlay {
-      display: none;
-      position: fixed;
-      top: 90px;
-      left: 0;
-      width: 100%;
-      height: calc(100% - 90px);
-      background: rgba(0, 0, 0, 0.5);
-      z-index: 1500;
-      opacity: 0;
-      transition: all 0.3s;
-      visibility: hidden;
-    }
-    #sidebarToggle:checked~.overlay {
-      display: block;
-      opacity: 1;
-      visibility: visible;
-    }
+  
   </style>
 </head>
 
@@ -546,7 +530,7 @@
     deleteButton.addEventListener('click', () => {
       const selectedRow = document.querySelector('tr.selected');
       if (selectedRow) {
-        // Find the delete form in the selected row and submit it
+
         const deleteForm = selectedRow.querySelector('form');
         if (deleteForm) {
           deleteForm.submit();
