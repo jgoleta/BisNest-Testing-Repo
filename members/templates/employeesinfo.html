@@ -469,7 +469,7 @@
           </div>
         </form>
       </div>
-
+      <div class="modal-overlay" id="modalOverlay" style="display: none;"></div>
       <table class="table">
         <thead>
           <tr>
@@ -501,21 +501,27 @@
       </table>
 
     </div>
-
+    <div class="notification" id="notification"></div>
     <script>
-      document.addEventListener("DOMContentLoaded", () => {
-        const formContainer = document.getElementById('formContainer');
-        const toggleBtn = document.querySelector('.toggle-form-button');
+  document.addEventListener("DOMContentLoaded", () => {
+    const formContainer = document.getElementById('formContainer');
+    const toggleBtn = document.querySelector('.toggle-form-button');
+    const modalOverlay = document.getElementById('modalOverlay');
 
-        toggleBtn.addEventListener('click', () => {
-          if (formContainer.style.display === 'block') {
-            formContainer.style.display = 'none';
-          } else {
-            formContainer.style.display = 'block';
-          }
-        });
-      });
-    </script>
+    function toggleForm() {
+      const isHidden = formContainer.style.display === 'none' || formContainer.style.display === '';
+      formContainer.style.display = isHidden ? 'block' : 'none';
+      modalOverlay.style.display = isHidden ? 'block' : 'none';
+    }
+
+    toggleBtn.addEventListener('click', toggleForm);
+
+    modalOverlay.addEventListener('click', () => {
+      formContainer.style.display = 'none';
+      modalOverlay.style.display = 'none';
+    });
+  });
+</script>
 
 </body>
 
