@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Login / Signup</title>
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
   <style>
@@ -46,7 +47,9 @@
       margin: 15px 0;
     }
 
-    form { width: 100%; }
+    form {
+      width: 100%;
+    }
 
     .form-box {
       position: absolute;
@@ -67,8 +70,13 @@
       right: 50%;
     }
 
-    .form-box.register { visibility: hidden; }
-    .container.active .form-box.register { visibility: visible; }
+    .form-box.register {
+      visibility: hidden;
+    }
+
+    .container.active .form-box.register {
+      visibility: visible;
+    }
 
     .input-box {
       position: relative;
@@ -97,6 +105,12 @@
       top: 50%;
       transform: translateY(-50%);
       font-size: 20px;
+    }
+
+    .indicator {
+      display: flex;
+      align-items: flex-start;
+      font-weight: bold;
     }
 
     .forgot-link {
@@ -257,7 +271,10 @@
         height: 30%;
       }
 
-      .toggle-panel.toggle-left { top: 0; }
+      .toggle-panel.toggle-left {
+        top: 0;
+      }
+
       .toggle-panel.toggle-right {
         right: 0;
         bottom: -30%;
@@ -269,17 +286,23 @@
     }
 
     @media screen and (max-width: 400px) {
-      .form-box { padding: 20px; }
-      .toggle-panel h1 { font-size: 28px; }
+      .form-box {
+        padding: 20px;
+      }
+
+      .toggle-panel h1 {
+        font-size: 28px;
+      }
     }
   </style>
 </head>
+
 <body>
   {% if messages %}
   <div class="messages" style="position: fixed; top: 20px; right: 20px; z-index: 1000;">
     {% for message in messages %}
-    <div class="message {% if message.tags %}{{ message.tags }}{% endif %}" 
-         style="padding: 15px; margin-bottom: 10px; border-radius: 5px; 
+    <div class="message {% if message.tags %}{{ message.tags }}{% endif %}"
+      style="padding: 15px; margin-bottom: 10px; border-radius: 5px; 
                 {% if message.tags == 'error' %}background-color: #ff6b6b; color: white;{% else %}background-color: #51cf66; color: white;{% endif %}">
       {{ message }}
     </div>
@@ -290,12 +313,14 @@
     <div class="form-box login">
       <form method="POST" action="{% url 'login_view' %}">
         {% csrf_token %}
-        <h1>🐔 Login</h1>
+        <h1>Login</h1>
         <div class="input-box">
-          <input type="text" name="username" placeholder="Username" required />
+          <div class="indicator">Email Address:</div>
+          <input type="text" name="email" placeholder="Email" required />
           <i class='bx bxs-user'></i>
         </div>
         <div class="input-box">
+          <div class="indicator">Password:</div>
           <input type="password" name="password" placeholder="Password" required />
           <i class='bx bxs-lock-alt'></i>
         </div>
@@ -314,20 +339,24 @@
     <div class="form-box register">
       <form method="POST" action="{% url 'register_view' %}">
         {% csrf_token %}
-        <h1>🐣 Registration</h1>
+        <h1>Registration</h1>
         <div class="input-box">
+          <div class="indicator">Username:</div>
           <input type="text" name="username" placeholder="Username" required />
           <i class='bx bxs-user'></i>
         </div>
         <div class="input-box">
+          <div class="indicator">Email Address:</div>
           <input type="email" name="email" placeholder="Email" required />
           <i class='bx bxs-envelope'></i>
         </div>
         <div class="input-box">
+          <div class="indicator">Password:</div>
           <input type="password" name="password1" placeholder="Password" required />
           <i class='bx bxs-lock-alt'></i>
         </div>
         <div class="input-box">
+          <div class="indicator">Confirm Password:</div>
           <input type="password" name="password2" placeholder="Confirm Password" required />
           <i class='bx bxs-lock-alt'></i>
         </div>
@@ -341,14 +370,15 @@
 
     <div class="toggle-box">
       <div class="toggle-panel toggle-left">
-        <h1>🐓 Hello, Welcome!</h1>
+        <h1>Hello, Welcome!</h1>
         <p>Don't have an account?</p>
         <button class="btn register-btn">Register</button>
       </div>
       <div class="toggle-panel toggle-right">
-        <h1>🥚 Welcome Back!</h1>
+        <h1>Welcome Back!</h1>
         <p style="margin-top: 20px;">Already have an account? </p>
-        <button class="btn login-btn" style="background: transparent; border: 2px solid #fff; width: 160px; height: 46px;">Login</button>
+        <button class="btn login-btn"
+          style="background: transparent; border: 2px solid #fff; width: 160px; height: 46px;">Login</button>
       </div>
     </div>
   </div>
@@ -367,4 +397,5 @@
     });
   </script>
 </body>
+
 </html>
