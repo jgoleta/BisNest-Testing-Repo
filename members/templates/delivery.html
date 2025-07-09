@@ -86,19 +86,7 @@
       color: #111;
       border: 1px solid #111;
     }
-    /* Animate lines when sidebar is open */
-    #sidebarToggle:checked+.burger span:nth-child(1) {
-      transform: rotate(45deg) translate(5px, 5px);
-    }
 
-    #sidebarToggle:checked+.burger span:nth-child(2) {
-      opacity: 0;
-    }
-
-    #sidebarToggle:checked+.burger span:nth-child(3) {
-      transform: rotate(-45deg) translate(6px, -6px);
-    }
-    
     .container {
       display: flex;
       position: absolute;
@@ -171,16 +159,18 @@
     .action-button {
       background-color: #111;
       color: #fff;
-      border: none;
+      border: 1px solid #111;
       padding: 10px 20px;
       border-radius: 25px;
       cursor: pointer;
       font-weight: bold;
-      transition: background 0.3s ease;
+      transition: background 0.3s, color 0.3s;
     }
 
     .action-button:hover {
-      background-color: #e67e22;
+      background-color: #fff;
+      color: #111;
+      border: 1px solid #111;
     }
 
     .search-bar {
@@ -236,24 +226,20 @@
       background-color: #f5f5f5;
     }
 
-    .action-btn {
+    .delete-button {
       background-color: #111;
       color: #fff;
-      border: none;
-      padding: 5px 10px;
-      border-radius: 15px;
+      border: 1px solid #111;
+      padding: 8px 18px;
+      border-radius: 6px;
+      font-weight: bold;
       cursor: pointer;
-      font-size: 14px;
-      margin-right: 5px;
+      transition: background 0.3s, color 0.3s;
     }
-
-    .delete-btn {
+    .delete-button:hover {
       background-color: #fff;
       color: #111;
-      border: none;
-      border-radius: 5px;
-      padding: 5px 10px;
-      cursor: pointer;
+      border: 1px solid #111;
     }
 
     .form-container {
@@ -421,17 +407,43 @@
       visibility: visible;
     }
 
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.4);
+      z-index: 1001;
+      display: none;
+    }
+    .form-container {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 1002;
+      background: #fff;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.07);
+      border: 1px solid #e0e0e0;
+      width: 750px;
+      max-width: 90vw;
+    }
+
   </style>
 </head>
 
 <body>
-  <input type="checkbox" id="sidebarToggle" style="display: none;">
+  <input type="checkbox" id="sidebarToggle" style="display: none;" />
   <label for="sidebarToggle" class="burger">
     <span></span>
     <span></span>
     <span></span>
-  </label>
-  <label for="sidebarToggle" class="overlay"></label>
+    </label>
+  
   
   <nav class="navigation-top">
     <div class="navigation-div">
@@ -465,10 +477,7 @@
         <button class="action-button" id="addNewDeliveryBtn">+ Add New Delivery</button>
       </div>
 
-      <div class="search-bar">
-        <input type="text" class="search-input" id="searchInput" placeholder="Search customer or order...">
-        <button class="search-button" id="searchBtn">Search</button>
-      </div>
+      <div class="modal-overlay" id="modalOverlay"></div>
 
       <table class="delivery-table" id="deliveryTable">
         <thead>
@@ -500,7 +509,7 @@
             <td>
               <form action="{% url 'delete_delivery' d.id %}" method="post" style="display:inline;">
                 {% csrf_token %}
-                <button type="submit" class="action-btn delete-btn">Delete</button>
+                <button type="submit" class="delete-button">Delete</button>
               </form>
             </td>
           </tr>
@@ -522,7 +531,7 @@
             </select>
           </div>
           <div class="form-actions">
-            <button class="action-button" type="reset" style="background-color: #95a5a6;">Cancel</button>
+            <button class="action-button" type="button" id="cancelBtn">Cancel</button>
             <button type="submit" class="action-button">Save</button>
           </div>
         </form>
@@ -578,8 +587,25 @@
       console.error('Error:', error);
     });
   }
-</script>
+  </script>
 
+  <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const addBtn = document.getElementById('addNewDeliveryBtn');
+    const formContainer = document.getElementById('deliveryForm');
+    const modalOverlay = document.getElementById('modalOverlay');
+    const cancelBtn = document.getElementById('cancelBtn');
+
+    function toggleForm() {
+      const isHidden = formContainer.style.display === 'none' || formContainer.style.display === '';
+      formContainer.style.display = isHidden ? 'block' : 'none';
+      modalOverlay.style.display = isHidden ? 'block' : 'none';
+    }
+    addBtn.addEventListener('click', toggleForm);
+    modalOverlay.addEventListener('click', toggleForm);
+    cancelBtn.addEventListener('click', toggleForm);
+  });
+  </script>
 
 
 </body>
