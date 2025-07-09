@@ -259,20 +259,31 @@
       text-align: right;
     }
 
-    table {
+    .table {
       width: 100%;
-      border-collapse: collapse;
-      font-family: 'Sen', sans-serif;
-      background: #fff;
-    }
-
-    th,
-    td {
-      padding: 14px 16px;
-      border: 1px solid #e0e0e0;
-      text-align: left;
-      font-size: 15px;
+      border-collapse: separate;
+      border-spacing: 0;
+      border-radius: 12px;
+      overflow: hidden;
+      background-color: #fff;
+      margin-top: 20px;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.07);
       color: #111;
+    }
+    .table th,
+    .table td {
+      padding: 14px 16px;
+      text-align: center;
+      border: none;
+      font-size: 15px;
+    }
+    .table th {
+      background-color: #000;
+      color: #fff;
+      font-size: 16px;
+    }
+    .table tr:last-child td {
+      border-bottom: none;
     }
 
     tr:hover {
@@ -432,11 +443,7 @@
     <div class="order-container">
       <h1>Order Management</h1>
       <div class="search-bar">
-        <input type="text" id="search-order-id" placeholder="Search Order ID:">
-        <input type="text" id="search-product" placeholder="Search Product Name:">
-        <input type="date" id="search-date">
-        <button class="search-button" onclick="filterTable()">Search</button>
-        <button class="reset-button" onclick="resetFilters()">Reset</button>
+        <input type="text" id="search-order-id" placeholder="Search Customer or Employee:">
         <div class="button-container">
           <button class="add-button" onclick="toggleForm()">Add Order</button>
         </div>
@@ -450,9 +457,9 @@
           </div>
         </form>
       </div>
-
+      <div class="modal-overlay" id="modalOverlay" style="display: none;"></div>
       <div class="order-table-container">
-        <table id="order-table">
+        <table class="table">
           <thead>
             <tr>
               <th>Order ID</th>
@@ -462,6 +469,7 @@
               <th>Product Name</th>
               <th>Amount</th>
               <th>Date</th>
+              <th>Action</th>
             </tr>
           </thead>
           <tbody>
@@ -490,15 +498,21 @@
   </div>
 
   <script>
+  document.addEventListener("DOMContentLoaded", () => {
     const formContainer = document.querySelector('.order-form-container');
     const searchOrderId = document.getElementById('search-order-id');
     const searchProduct = document.getElementById('search-product');
     const searchDate = document.getElementById('search-date');
     const orderTableBody = document.querySelector('#order-table tbody');
+    const modalOverlay = document.getElementById('modalOverlay');
 
     function toggleForm() {
-      formContainer.style.display = formContainer.style.display === 'none' || formContainer.style.display === '' ? 'block' : 'none';
+      const isHidden = formContainer.style.display === 'none' || formContainer.style.display === '';
+      formContainer.style.display = isHidden ? 'block' : 'none';
+      modalOverlay.style.display = isHidden ? 'block' : 'none';
     }
+
+    window.toggleForm = toggleForm;
 
     function filterTable() {
       const idQuery = searchOrderId.value.trim().toUpperCase();
@@ -517,6 +531,8 @@
       });
     }
 
+    window.filterTable = filterTable;
+
     function resetFilters() {
       searchOrderId.value = '';
       searchProduct.value = '';
@@ -524,6 +540,8 @@
       const rows = orderTableBody.querySelectorAll('tr');
       rows.forEach(row => row.style.display = '');
     }
+
+    window.resetFilters = resetFilters;
 
     document.querySelectorAll('tr').forEach(row => {
       row.addEventListener('click', () => {
@@ -547,7 +565,13 @@
         rows.forEach(row => orderTableBody.appendChild(row));
       });
     });
-  </script>
+
+    modalOverlay.addEventListener('click', () => {
+      formContainer.style.display = 'none';
+      modalOverlay.style.display = 'none';
+    });
+  });
+</script>
 </body>
 
 </html>
