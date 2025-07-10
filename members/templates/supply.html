@@ -606,7 +606,7 @@
           </div>
         </div>
         <div class="form-actions">
-          <button type="button" class="black-button" onclick="window.location.href='{% url 'webpage11' %}'">Cancel</button>
+          <button type="button" class="black-button" id="cancelNewSupplyBtn">Cancel</button>
           <button type="submit" class="black-button">Save</button>
         </div>
       </form>
@@ -618,10 +618,15 @@
 
   <script>
     const addNewBtn = document.getElementById('addNewSupplyBtn');
+    const cancelNewBtn = document.getElementById('cancelNewSupplyBtn');
     const formContainer = document.getElementById('supplyForm');
 
     addNewBtn.addEventListener('click', () => {
       formContainer.classList.remove('hidden');
+    });
+
+    cancelNewBtn.addEventListener('click', () => {
+      formContainer.classList.add('hidden');
     });
   </script>
 </body>
