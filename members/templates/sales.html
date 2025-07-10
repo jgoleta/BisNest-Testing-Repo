@@ -459,8 +459,8 @@
                     <tr>
                         <th>Date</th>
                         <th>Product Name</th>
-                        <th>Kilos Sold</th>
-                        <th>Price (Kg)</th>
+                        <th>Quantity</th>
+                        <th>Price</th>
                         <th>Total (₱)</th>
                         <th>Action</th>
                     </tr>
@@ -470,7 +470,7 @@
                     <tr>
                         <td>{{ sale.date }}</td>
                         <td>{{ sale.product_name }}</td>
-                        <td>{{ sale.kilos_sold }} kg</td>
+                        <td>{{ sale.kilos_sold }}</td>
                         <td>₱{{ sale.price_per_kilo }}</td>
                         <td class="row-total">₱{{ sale.total }}</td>
                         <td>
