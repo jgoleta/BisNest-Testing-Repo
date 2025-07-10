@@ -97,7 +97,19 @@
       bottom: 0;
       overflow: hidden;
     }
-
+    
+    .content-container {
+      overflow: auto;
+      max-width: 1100px;
+      height: 600px;
+      margin: 60px auto;
+      padding: 40px;
+      background-color: #fff;
+      border-radius: 16px;
+      box-shadow: 2px 2px 8px #111;
+      border: 1px solid #e0e0e0;
+    }
+    
     .sidebar {
       width: 220px;
       background: #f5f5f5;
@@ -207,7 +219,7 @@
     .supply-table th {
       background-color: black;
       color: white;
-      padding: 15px;
+      padding: 40px;
       text-align: left;
     }
 
@@ -532,12 +544,11 @@
   </nav>
 
   <main class="main-content">
+    <div class="content-container">
     <div class="page-header">
       <h1 class="page-title">Supply Management</h1>
       <button class="black-button" id="addNewSupplyBtn">+ Add New Supply</button>
     </div>
-
-    <!-- Remove search bar -->
 
     <table class="table" id="supplyTable">
       <thead>
@@ -610,6 +621,7 @@
           <button type="submit" class="black-button">Save</button>
         </div>
       </form>
+    </div>
     </div>
   </main>
   </div>
