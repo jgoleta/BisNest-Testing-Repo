@@ -432,7 +432,51 @@
       width: 750px;
       max-width: 90vw;
     }
+   
+    .dropdown {
+      position: relative;
+    }
 
+    .dropdown-label {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 10px;
+      cursor: pointer;
+    }
+
+    .dropdown-label .arrow {
+      transition: transform 0.3s ease;
+      font-size: 30px;
+    }
+
+
+    .dropdown-toggle:checked + .dropdown-label .arrow {
+      transform: rotate(180deg);
+    }
+
+    .dropdown-menu {
+      display: none;
+      flex-direction: column;
+      background: #f2f0f0;
+      padding-left: 0px;
+    }
+
+    .dropdown-menu li a {
+      padding: 10px 0;
+      color: #111;
+      text-decoration: none;
+      display: block;
+    }
+
+    .dropdown-toggle:checked + .dropdown-label + .dropdown-menu {
+      display: flex;
+    }
+
+    .dropdown-menu li a:hover {
+      color: #000;
+      font-weight: bold;
+    }
   </style>
 </head>
 
@@ -462,9 +506,19 @@
       <li><a href="{% url 'webpage2' %}"><img src="https://i.ibb.co/n8LVnKQC/Employee.png" alt="">Employee</a></li>
       <li><a href="{% url 'webpage7' %}"><img src="https://i.ibb.co/PZdTmb35/Customer.png" alt="">Customer</a></li>
       <li><a href="{% url 'webpage8' %}"><img src="https://i.ibb.co/rRx31wRN/Product.png" alt="">Product</a></li>
-      <li><a href="{% url 'webpage5' %}"><img src="https://i.ibb.co/ZR2xsV1q/Order.png" alt="">Order</a></li>
-      <li><a href="{% url 'webpage4' %}"><img src="https://i.ibb.co/MKS50nw/Payment.png" alt="">Payment</a></li>
-      <li><a href="{% url 'webpage9' %}"><img src="https://i.ibb.co/hFz1vbwj/Delivery.png" alt="">Delivery</a></li>
+      <li class="dropdown">
+        <input type="checkbox" id="orderDropdown" class="dropdown-toggle" hidden>
+        <label for="orderDropdown" class="dropdown-label">
+          <img src="https://i.ibb.co/ZR2xsV1q/Order.png" alt="">
+          <span class="label-text">Order</span>
+          <span class="arrow">&#9662;</span>
+        </label>
+        <ul class="dropdown-menu">
+          <li><a href="{% url 'webpage5' %}"><img src="https://i.ibb.co/ZR2xsV1q/Order.png" alt="">Order</a></li>
+          <li><a href="{% url 'webpage4' %}"><img src="https://i.ibb.co/MKS50nw/Payment.png" alt="">Payment</a></li>
+          <li><a href="{% url 'webpage9' %}"><img src="https://i.ibb.co/hFz1vbwj/Delivery.png" alt="">Delivery</a></li>
+        </ul>
+      </li>
       <li><a href="{% url 'webpage11' %}"><img src="https://i.ibb.co/9Hhv1XT5/Supply.png" alt="">Supply</a></li>
       <li><a href="{% url 'webpage10' %}"><img src="https://i.ibb.co/bMgBFjcB/sales-logo.png" alt="">Sales Report</a></li>
     </ul>
