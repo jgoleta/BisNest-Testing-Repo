@@ -40,7 +40,7 @@ class PaymentForm(forms.ModelForm):
         fields = '__all__'
         widgets = {
             'payment_id': forms.TextInput(attrs={'readonly': True}),
-            'customer_id': forms.TextInput(attrs={'placeholder': 'Customer ID'}),
+            'customer_id': forms.TextInput(attrs={'placeholder': 'Customer Name'}),
             'amount': forms.NumberInput(attrs={'placeholder': 'Amount'}),
             'date': forms.DateInput(attrs={'type': 'date'}),
             'method': forms.Select(choices=[('', 'Select Method'), ('Bank Transfer', 'Bank Transfer'), ('Cash', 'Cash')]),
