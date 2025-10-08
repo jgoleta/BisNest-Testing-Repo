@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Customer Management</title>
   <style>
+    @import url("./palette.css");
     * {
       box-sizing: border-box;
       margin: 0;
@@ -20,13 +21,8 @@
 
     body {
       font-family: 'Sen', sans-serif;
-      background: linear-gradient(135deg, #111, #fff);
-      color: #111;
-    }
-
-    nav.navigation-top {
-      background: #111;
-      padding: 0 20px;
+      background-color: var(--page-bg);
+      color: var(--palette-text);
     }
 
     .navigation-top {
@@ -53,57 +49,8 @@
       padding: 5px;
     }
 
-    nav.navigation-top ul {
-      list-style: none;
-      display: flex;
-      gap: 30px;
-    }
-
-    nav.navigation-top li a {
-      color: #fff;
-      font-size: 16px;
-      text-decoration: none;
-      font-weight: 600;
-    }
-
-    nav.navigation-top li a:hover {
-      color: #bbb;
-    }
-
-    .nav-button {
-      background-color: #fff;
-      color: #111;
-      border: 1px solid #fff;
-      border-radius: 25px;
-      width: 130px;
-      height: 40px;
-      font-weight: bold;
-      cursor: pointer;
-      transition: background 0.3s, color 0.3s;
-    }
-
-    .nav-button:hover {
-      background-color: #8b8a8a;
-      color: #111;
-      border: 1px solid #111;
-    }
-
-    .container {
-      display: flex;
-      position: absolute;
-      top: 90px;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      overflow: hidden;
-    }
-
-    .sidebar ul {
-      list-style: none;
-    }
-
     .sidebar ul li {
-      padding: 15px 20px;
+      padding: 5px 30px;
     }
 
     .sidebar ul li a {
@@ -114,35 +61,8 @@
       gap: 10px;
     }
 
-    .sidebar ul li:hover {
-      background: linear-gradient(165deg, #fff, #979191);
-      border-radius: 10px;
-      margin-left: 10px;
-      transition: all 0.3s ease;
-    }
-
     .sidebar img {
       width: 30px;
-    }
-
-    .main-content {
-      flex: 1;
-      overflow-y: auto;
-      padding: 40px;
-      background: #fff;
-      height: 100%;
-    }
-
-    .customer-container {
-      overflow: auto;
-      max-width: 1100px;
-      height: 600px;
-      margin: 60px auto;
-      padding: 40px;
-      background-color: #fff;
-      border-radius: 16px;
-      box-shadow: 2px 2px 8px #111;
-      border: 1px solid #e0e0e0;
     }
 
     h1 {
@@ -150,40 +70,6 @@
       margin-bottom: 20px;
       text-align: center;
       color: #111;
-    }
-
-    .button-container {
-      margin-left: auto;
-    }
-
-    .toggle-form-button,
-    .add-button,
-    .delete-btn,
-    .submit-button,
-    .search-button,
-    .reset-button,
-    .delete-button {
-      padding: 12px 20px;
-      font-weight: bold;
-      border: 1px solid #fff;
-      border-radius: 50px;
-      background-color: #111;
-      color: #fff;
-      cursor: pointer;
-      transition: background 0.3s, color 0.3s;
-    }
-
-
-    .toggle-form-button:hover,
-    .add-button:hover,
-    .delete-btn:hover,
-    .submit-button:hover,
-    .search-button:hover,
-    .reset-button:hover,
-    .delete-button:hover {
-      background-color: #fff;
-      color: #111;
-      border: 1px solid #111;
     }
 
     .search-bar {
@@ -198,10 +84,14 @@
       border: 1px solid #bbb;
       border-radius: 8px;
       font-size: 15px;
-      max-width: 300px;
+      max-width: 500px;
       flex: 1;
       background: #fff;
       color: #111;
+    }
+
+    .customer-form label, .customer-form input, .customer-form textarea, .search-button, .reset-button {
+      display: none !important;
     }
 
     .modal-overlay {
@@ -210,7 +100,7 @@
       left: 0;
       width: 100vw;
       height: 100vh;
-      background: rgba(0, 0, 0, 0.4);
+      background: rgba(0,0,0,0.4);
       z-index: 1001;
       display: none;
     }
@@ -235,14 +125,13 @@
         padding: 10px;
       }
     }
-    .customer-form label {
+    .customer-form-container label {
       display: block;
       margin-top: 12px;
       font-weight: 600;
       color: #111;
     }
-    .customer-form input,
-    .customer-form textarea {
+    .customer-form-container input {
       width: 100%;
       margin-top: 6px;
       padding: 10px;
@@ -251,14 +140,31 @@
       background: #fff;
       color: #111;
     }
-    .submit-wrapper {
+    .customer-form-container .submit-wrapper {
       text-align: right;
+      margin-top: 18px;
     }
+    .customer-form-container button {
+      padding: 10px 24px;
+      font-weight: bold;
+      border: 1px solid #111;
+      border-radius: 8px;
+      background-color: #111;
+      color: #fff;
+      cursor: pointer;
+      transition: background 0.3s, color 0.3s;
+      font-size: 15px;
+    }
+    .customer-form-container button:hover {
+      background-color: #fff;
+      color: #111;
+      border: 1px solid #111;
+    }
+
     .table {
       width: 100%;
-      border-collapse: separate;
-      border-spacing: 0;
-      border-radius: 12px;
+      border-collapse: collapse;
+      border-radius: 10px;
       overflow: hidden;
       background-color: #fff;
       margin-top: 20px;
@@ -269,8 +175,7 @@
     .table td {
       padding: 14px 16px;
       text-align: center;
-      /* Remove borders */
-      border: none;
+      border-bottom: 1px solid #e0e0e0;
       font-size: 15px;
     }
     .table th {
@@ -281,19 +186,30 @@
     .table tr:last-child td {
       border-bottom: none;
     }
-    tr:hover {
-      background-color: #f5f5f5;
-    }
-    tr.selected {
-      background-color: #777;
-      color: #fff;
+    .delete-button {
+      background-color: #fff;
+      color: #111;
+      border: 1px solid #111;
+      padding: 8px 18px;
+      border-radius: 6px;
       font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s, color 0.3s;
     }
-    th.asc::after {
-      content: ' ▲';
+    .delete-button:hover {
+      background-color: #111;
+      color: #fff;
     }
-    th.desc::after {
-      content: ' ▼';
+    @media (max-width: 700px) {
+      .form {
+        flex-direction: column;
+        gap: 10px;
+        padding: 12px 6px 8px 6px;
+      }
+      .table th, .table td {
+        padding: 8px 6px;
+        font-size: 13px;
+      }
     }
     .notification {
       position: fixed;
@@ -312,15 +228,15 @@
       opacity: 1;
     }
     .notification.error {
-      background-color: #0e0202;
+      background-color: #ff0000;
     }
 
-
+    
     body, html {
       height: 100%;
       overflow: hidden;
     }
-
+    
     .navigation-top {
       position: fixed;
       top: 0;
@@ -329,25 +245,6 @@
       z-index: 1001;
     }
 
-
-
-    .container {
-      display: flex;
-      position: absolute;
-      top: 90px;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      overflow: hidden;
-    }
-    
-    .main-content {
-      flex: 1;
-      overflow-y: auto;
-      padding: 40px;
-      background: #fff;
-      height: 100%;
-    }
 
     .burger {
       width: 30px;
@@ -373,102 +270,6 @@
       transition: 0.3s;
       transform-origin: center;
     }
-
-    /* Animate lines when sidebar is open */
-    #sidebarToggle:checked+.burger span:nth-child(1) {
-      transform: rotate(45deg) translate(5px, 5px);
-    }
-
-    #sidebarToggle:checked+.burger span:nth-child(2) {
-      opacity: 0;
-    }
-
-    #sidebarToggle:checked+.burger span:nth-child(3) {
-      transform: rotate(-45deg) translate(6px, -6px);
-    }
-
-    .sidebar {
-      position: fixed;
-      top: 90px;
-      left: -250px;
-      width: 220px;
-      height: calc(100% - 90px);
-      background-color: #f5f5f5;
-      overflow-y: auto;
-      transition: left 0.3s ease;
-      z-index: 2000;
-    }
-
-    #sidebarToggle:checked~.sidebar {
-      left: 0;
-    }
-
-    .overlay {
-      display: none;
-      position: fixed;
-      top: 90px;
-      left: 0;
-      width: 100%;
-      height: calc(100% - 90px);
-      background: rgba(0, 0, 0, 0.5);
-      z-index: 1500;
-      opacity: 0;
-      transition: all 0.3s;
-      visibility: hidden;
-    }
-
-    #sidebarToggle:checked~.overlay {
-      display: block;
-      opacity: 1;
-      visibility: visible;
-    }
-
-    .dropdown {
-      position: relative;
-    }
-
-    .dropdown-label {
-      display: flex;
-      align-items: center;
-      justify-content: flex-start;
-      gap: 10px;
-      cursor: pointer;
-    }
-
-    .dropdown-label .arrow {
-      transition: transform 0.3s ease;
-      font-size: 30px;
-    }
-
-
-    .dropdown-toggle:checked + .dropdown-label .arrow {
-      transform: rotate(180deg);
-    }
-
-    .dropdown-menu {
-      display: none;
-      flex-direction: column;
-      background: #f2f0f0;
-      padding-left: 0px;
-      background-color: transparent;
-    }
-
-    .dropdown-menu li a {
-      padding: 10px 0;
-      color: #111;
-      text-decoration: none;
-      display: block;
-    }
-
-    .dropdown-toggle:checked + .dropdown-label + .dropdown-menu {
-      display: flex;
-    }
-
-    .dropdown-menu li a:hover {
-      color: #000;
-      font-weight: bold;
-    }
-
   </style>
 </head>
 
