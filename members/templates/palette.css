@@ -5,7 +5,7 @@
   --palette-accent: #6366f1;
   --palette-accent-dark: #4f46e5;
   --palette-bg-light: #f8fafc;
-  --page-bg: #eeeeee; /* slightly warmer/darker for better contrast */
+  --page-bg: #ffffff; /* slightly warmer/darker for better contrast */
   --palette-text: #111827;
   --elev-1: 0 10px 30px rgba(16, 24, 40, 0.06);
   --elev-2: 0 18px 40px rgba(16, 24, 40, 0.09);
