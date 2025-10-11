@@ -5,10 +5,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Customer Management</title>
-  <link rel="stylesheet" href="palette.css">
   <style>
     @import url("./palette.css");
-
     * {
       box-sizing: border-box;
       margin: 0;
@@ -23,48 +21,8 @@
 
     body {
       font-family: 'Sen', sans-serif;
-      background-color: var(--page-bg);
-      color: var(--palette-text);
-    }
-
-    .navigation-top {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      z-index: 1001;
-    }
-
-    .navigation-div {
-      max-width: 1200px;
-      margin: auto;
-      height: 90px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .nav-logo {
-      height: 60px;
-      border-radius: 50%;
-      background-color: #fff;
-      padding: 5px;
-    }
-
-    .sidebar ul li {
-      padding: 5px 30px;
-    }
-
-    .sidebar ul li a {
+      background: linear-gradient(135deg, #111, #fff);
       color: #111;
-      text-decoration: none;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .sidebar img {
-      width: 30px;
     }
 
     h1 {
@@ -74,30 +32,15 @@
       color: #111;
     }
 
+    .button-container {
+      margin-left: auto;
+    }
+
     .search-bar {
       margin: 20px 0;
       display: flex;
       gap: 10px;
       flex-wrap: wrap;
-    }
-
-    .search-bar input {
-      padding: 10px 14px;
-      border: 1px solid #bbb;
-      border-radius: 8px;
-      font-size: 15px;
-      max-width: 500px;
-      flex: 1;
-      background: #fff;
-      color: #111;
-    }
-
-    .customer-form label,
-    .customer-form input,
-    .customer-form textarea,
-    .search-button,
-    .reset-button {
-      display: none !important;
     }
 
     .modal-overlay {
@@ -110,7 +53,6 @@
       z-index: 1001;
       display: none;
     }
-
     .customer-form-container {
       display: none;
       position: fixed;
@@ -126,22 +68,20 @@
       width: 750px;
       max-width: 90vw;
     }
-
     @media (max-width: 800px) {
       .customer-form-container {
         width: 95vw;
         padding: 10px;
       }
     }
-
-    .customer-form-container label {
+    .customer-form label {
       display: block;
       margin-top: 12px;
       font-weight: 600;
       color: #111;
     }
-
-    .customer-form-container input {
+    .customer-form input,
+    .customer-form textarea {
       width: 100%;
       margin-top: 6px;
       padding: 10px;
@@ -150,89 +90,50 @@
       background: #fff;
       color: #111;
     }
-
-    .customer-form-container .submit-wrapper {
+    .submit-wrapper {
       text-align: right;
-      margin-top: 18px;
     }
-
-    .customer-form-container button {
-      padding: 10px 24px;
-      font-weight: bold;
-      border: 1px solid #111;
-      border-radius: 8px;
-      background-color: #111;
-      color: #fff;
-      cursor: pointer;
-      transition: background 0.3s, color 0.3s;
-      font-size: 15px;
-    }
-
-    .customer-form-container button:hover {
-      background-color: #fff;
-      color: #111;
-      border: 1px solid #111;
-    }
-
     .table {
       width: 100%;
-      border-collapse: collapse;
-      border-radius: 10px;
+      border-collapse: separate;
+      border-spacing: 0;
+      border-radius: 12px;
       overflow: hidden;
       background-color: #fff;
       margin-top: 20px;
       box-shadow: 0 6px 18px rgba(0, 0, 0, 0.07);
       color: #111;
     }
-
     .table th,
     .table td {
       padding: 14px 16px;
       text-align: center;
-      border-bottom: 1px solid #e0e0e0;
+      /* Remove borders */
+      border: none;
       font-size: 15px;
     }
-
     .table th {
       background-color: #000;
       color: #fff;
       font-size: 16px;
     }
-
     .table tr:last-child td {
       border-bottom: none;
     }
-
-    .delete-button {
-      background-color: #fff;
-      color: #111;
-      border: 1px solid #111;
-      padding: 8px 18px;
-      border-radius: 6px;
-      font-weight: bold;
-      cursor: pointer;
-      transition: background 0.3s, color 0.3s;
+    tr:hover {
+      background-color: #f5f5f5;
     }
-
-    .delete-button:hover {
-      background-color: #111;
+    tr.selected {
+      background-color: #777;
       color: #fff;
+      font-weight: bold;
     }
-
-    @media (max-width: 700px) {
-      .form {
-        flex-direction: column;
-        gap: 10px;
-        padding: 12px 6px 8px 6px;
-      }
-
-      .table th,
-      .table td {
-        padding: 8px 6px;
-        font-size: 13px;
-      }
+    th.asc::after {
+      content: ' ▲';
     }
-
+    th.desc::after {
+      content: ' ▼';
+    }
     .notification {
       position: fixed;
       top: 20px;
@@ -246,55 +147,869 @@
       opacity: 0;
       transition: opacity 0.5s ease;
     }
-
     .notification.show {
       opacity: 1;
     }
-
     .notification.error {
-      background-color: #ff0000;
+      background-color: #0e0202;
     }
 
 
-    body,
-    html {
+    body, html {
       height: 100%;
       overflow: hidden;
     }
-
-    .navigation-top {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      z-index: 1001;
-    }
-
-
-    .burger {
-      width: 30px;
-      height: 24px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      position: fixed;
-      top: 35px;
-      left: 50px;
-      z-index: 2001;
-      cursor: pointer;
-      padding: 0;
-      background: none;
-      border: none;
-    }
-
-    .burger span {
-      height: 4px;
-      width: 100%;
+   
+    .main-content {
+      flex: 1;
+      overflow-y: auto;
+      padding: 40px;
       background: #fff;
-      border-radius: 2px;
-      transition: 0.3s;
-      transform-origin: center;
+      height: 100%;
     }
+
+    .dropdown {
+      position: relative;
+    }
+
+    .dropdown-label {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 10px;
+      cursor: pointer;
+    }
+
+    .dropdown-label .arrow {
+      transition: transform 0.3s ease;
+      font-size: 30px;
+    }
+
+
+    .dropdown-toggle:checked + .dropdown-label .arrow {
+      transform: rotate(180deg);
+    }
+
+    .dropdown-menu {
+      display: none;
+      flex-direction: column;
+      background: #f2f0f0;
+      padding-left: 0px;
+      background-color: transparent;
+    }
+
+    .dropdown-menu li a {
+      padding: 10px 0;
+      color: #111;
+      text-decoration: none;
+      display: block;
+    }
+
+    .dropdown-toggle:checked + .dropdown-label + .dropdown-menu {
+      display: flex;
+    }
+
+    .dropdown-menu li a:hover {
+      color: #000;
+      font-weight: bold;
+    }
+
+    /*Start*/
+    :root {
+  --palette-sidebar: #1e293b;
+  --palette-header: #ffffff;
+  --palette-accent: #6366f1;
+  --palette-accent-dark: #4f46e5;
+  --palette-bg-light: #f8fafc;
+  --page-bg: #74759c; /* slightly warmer/darker for better contrast */
+  --palette-text: #111827;
+  --elev-1: 0 10px 30px rgba(16, 24, 40, 0.06);
+  --elev-2: 0 18px 40px rgba(16, 24, 40, 0.09);
+  --muted: rgba(17,24,39,0.45);
+  --success: #16a34a;
+  --warning: #f59e0b;
+  --danger: #ef4444;
+}
+
+nav.navigation-top {
+  background: var(--palette-sidebar) !important;
+}
+.sidebar {
+  background: var(--palette-sidebar) !important;
+  color: var(--palette-header) !important;
+}
+.sidebar {
+  background: var(--palette-sidebar) !important;
+  color: var(--palette-header) !important;
+}
+.sidebar ul li a {
+  color: var(--palette-header) !important;
+}
+.nav-button,
+.toggle-form-button,
+.submit-button,
+.action-button,
+.action-btn,
+.btn,
+.product-button-style {
+  background-color: var(--palette-sidebar) !important;
+  color: var(--palette-header) !important;
+  border-color: var(--palette-sidebar) !important;
+}
+.nav-button:hover,
+.toggle-form-button:hover,
+.submit-button:hover,
+.action-button:hover,
+.action-btn:hover,
+.btn:hover {
+  background-color: var(--palette-accent) !important;
+  color: var(--palette-header) !important;
+}
+.main-content {
+  /* main content (cards/panels) keep white, page background uses --page-bg */
+  background: var(--palette-header) !important;
+  color: var(--palette-text) !important;
+}
+
+/* Page-level background token: used by pages' body to provide a subtle backdrop */
+body {
+  background-color: var(--page-bg);
+  color: var(--palette-text);
+  font-family: 'Sen', sans-serif;
+}
+.table th {
+  background: var(--palette-sidebar) !important;
+  color: var(--palette-header) !important;
+}
+.notification {
+  background: var(--palette-accent) !important;
+  color: var(--palette-header) !important;
+}
+
+.form-box {
+  background: var(--palette-header) !important;
+  color: var(--palette-text) !important;
+}
+.toggle-box::before {
+  background: var(--palette-sidebar) !important;
+}
+.toggle-panel h1,
+.toggle-panel p,
+.toggle-panel .btn {
+  color: var(--palette-header) !important;
+}
+
+.modal-content,
+.form-container,
+.employee-form-container,
+.customer-form-container {
+  border-color: rgba(20, 24, 31, 0.06) !important;
+  box-shadow: 0 8px 24px rgba(16, 24, 40, 0.06) !important;
+}
+
+.product-container,
+.delivery-container,
+.payment-container,
+.sales-container,
+.supply-container,
+.employee-container,
+.customer-container,
+.order-container {
+  box-shadow: 0px 8px 5px #1e293b !important;
+  border: 3px solid #1e293b !important;
+  position: relative !important;
+  flex-direction: column !important;
+  min-height: 700px !important;
+  margin: 40px auto !important;
+  padding: 40px !important;
+  background: #fff !important;
+  border-radius: 16px !important;
+  overflow: auto !important;
+  max-width: 1500px !important;
+}
+
+.search-bar input {
+  padding: 10px 14px;
+  border: 1px solid #bbb;
+  border-radius: 8px;
+  font-size: 15px;
+  max-width: 500px;
+  flex: 1;
+  background: #fff;
+  color: #111;
+}
+
+.modal-content .submit-button,
+.modal-content .delete-modal-btn,
+.modal-actions .submit-button,
+.modal-actions .delete-modal-btn {
+  background: var(--palette-accent-dark) !important;
+  border-color: var(--palette-accent-dark) !important;
+  color: var(--palette-header) !important;
+}
+
+.product-button-style.selected,
+.table tr.selected,
+.product-button-style.selected .product-price-label {
+  background: linear-gradient(
+    90deg,
+    var(--palette-accent) 0%,
+    var(--palette-accent-dark) 100%
+  ) !important;
+  color: var(--palette-header) !important;
+  border-color: var(--palette-accent-dark) !important;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none !important;
+  box-shadow: 0 6px 22px rgba(79,70,229,0.06), 0 0 0 4px rgba(79,70,229,0.08) !important;
+  border-color: var(--palette-accent-dark) !important;
+}
+
+.action-button.primary,
+.submit-button.primary,
+.nav-button.primary {
+  background: var(--palette-accent-dark) !important;
+  border-color: var(--palette-accent-dark) !important;
+  color: var(--palette-header) !important;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Sen", sans-serif;
+  background-color: linear-gradient(
+    135deg,
+    var(--palette-sidebar),
+    var(--palette-header)
+  ) !important;
+  color: var(--palette-text);
+}
+
+.navigation-top {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1001;
+}
+
+nav.navigation-top {
+  background: var(--palette-sidebar);
+  padding: 0 20px;
+  height: 90px;
+}
+
+.navigation-div {
+  max-width: 1200px;
+  margin: auto;
+  height: 90px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav-logo {
+  height: 60px;
+  border-radius: 50%;
+  background-color: var(--palette-header);
+  padding: 5px;
+}
+
+nav.navigation-top ul {
+  list-style: none;
+  display: flex;
+  gap: 30px;
+}
+
+nav.navigation-top li a {
+  color: var(--palette-header);
+  font-size: 16px;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+nav.navigation-top li a:hover {
+  color: #bbb;
+}
+
+.nav-button {
+  background-color: var(--palette-header);
+  color: var(--palette-text);
+  border: 1px solid var(--palette-header);
+  border-radius: 25px;
+  width: 130px;
+  height: 40px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s, color 0.3s;
+}
+
+.nav-button:hover {
+  background-color: #8b8a8a;
+  color: var(--palette-text);
+  border: 1px solid var(--palette-text);
+}
+
+.container {
+  display: flex;
+  position: absolute;
+  top: 90px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+  height: calc(100vh - 90px);
+}
+
+.main-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 40px;
+  background: var(--palette-header);
+  height: 100%;
+}
+
+.main-content {
+  border-left: none !important;
+}
+
+.sidebar {
+  position: fixed;
+  top: 90px;
+  left: -300px;
+  width: 300px;
+  height: calc(100% - 90px);
+  background-color: var(--palette-sidebar);
+  color: var(--palette-header);
+  overflow-y: auto;
+  transition: left 0.3s ease;
+  z-index: 2000;
+  /* remove any visible vertical border between sidebar and main content */
+  border-right: none !important;
+}
+
+#sidebarToggle:checked ~ .sidebar {
+  left: 0;
+}
+
+.overlay {
+  display: none;
+  position: fixed;
+  top: 90px;
+  left: 0;
+  width: 100%;
+  height: calc(100% - 90px);
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1500;
+  opacity: 0;
+  transition: all 0.3s;
+  visibility: hidden;
+}
+
+#sidebarToggle:checked ~ .overlay {
+  display: block;
+  opacity: 1;
+  visibility: visible;
+}
+
+.burger {
+  width: 30px;
+  height: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: fixed;
+  top: 35px;
+  left: 50px;
+  z-index: 2001;
+  cursor: pointer;
+  padding: 0;
+  background: none;
+  border: none;
+}
+
+.burger span {
+  height: 4px;
+  width: 100%;
+  background: var(--palette-header);
+  border-radius: 2px;
+  transition: 0.3s;
+  transform-origin: center;
+}
+
+#sidebarToggle:checked + .burger span:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+#sidebarToggle:checked + .burger span:nth-child(2) {
+  opacity: 0;
+}
+#sidebarToggle:checked + .burger span:nth-child(3) {
+  transform: rotate(-45deg) translate(6px, -6px);
+}
+
+table {
+  background: var(--palette-header);
+  color: var(--palette-text);
+}
+
+th,
+td {
+  border: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+tr:hover {
+  background-color: rgba(16, 24, 40, 0.02);
+}
+
+.product-button-style {
+  color: var(--palette-text);
+  background: var(--palette-header);
+  border-color: var(--palette-header);
+}
+
+.product-button-style.selected {
+  border: 1px solid var(--palette-text);
+  background: rgba(99, 102, 241, 0.08);
+}
+
+.notification {
+  background: var(--palette-accent);
+  color: var(--palette-header);
+}
+
+:root {
+  --fs-h1: 2.25rem;
+  --fs-h2: 1.75rem;
+  --fs-h3: 1.25rem;
+  --fs-base: 1rem;
+  --radius-md: 12px;
+}
+
+h1 {
+  font-size: var(--fs-h1);
+  color: var(--palette-text);
+  margin-bottom: 0.75rem;
+}
+
+h2 {
+  font-size: var(--fs-h2);
+  color: var(--palette-text);
+}
+
+h3 {
+  font-size: var(--fs-h3);
+  color: var(--palette-text);
+}
+
+p,
+label,
+input,
+select,
+button {
+  font-size: var(--fs-base);
+}
+
+.card {
+  background: var(--palette-header);
+  border-radius: var(--radius-md);
+  box-shadow: var(--elev-1);
+  border: 1px solid rgba(16, 24, 40, 0.04);
+  padding: 20px;
+}
+
+.card--elevated {
+  box-shadow: var(--elev-2) !important;
+  transform: translateY(-6px);
+}
+
+.btn {
+  padding: 10px 16px;
+  border-radius: 10px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-primary {
+  background: linear-gradient(
+    90deg,
+    var(--palette-accent),
+    var(--palette-accent-dark)
+  );
+  color: var(--palette-header);
+  border: none;
+}
+
+.btn-primary:hover {
+  filter: brightness(0.98);
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--palette-sidebar);
+  border: 1px solid rgba(16, 24, 40, 0.06);
+}
+
+/* Ensure product price text is clearly visible (white) across pages */
+.product-price-label,
+.product-price-name,
+#modal-product-price,
+.product-price-label * {
+  color: var(--palette-header) !important;
+}
+
+
+.btn-ghost {
+  background: transparent;
+  color: var(--palette-text);
+  border: none;
+}
+
+input,
+textarea,
+select {
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid rgba(16, 24, 40, 0.08);
+  background: var(--palette-header);
+  color: var(--palette-text);
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: rgba(17, 24, 39, 0.45);
+}
+
+.table {
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.table thead th {
+  background: linear-gradient(
+    90deg,
+    var(--palette-sidebar),
+    rgba(30, 41, 59, 0.9)
+  );
+  color: var(--palette-header);
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  letter-spacing: 0.6px;
+}
+
+.table tbody tr:nth-child(odd) {
+  background: rgba(16, 24, 40, 0.02);
+}
+
+.table td.numeric,
+.table th.numeric {
+  text-align: right;
+}
+
+.sidebar ul {
+  padding: 8px;
+  list-style: none;
+}
+
+.sidebar ul li {
+  border-radius: 10px;
+  margin: 6px 6px;
+  padding: 5px 30px;
+}
+
+.sidebar ul li a {
+  padding: 10px 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: inherit;
+}
+
+.sidebar ul li:hover {
+      background: linear-gradient(165deg, rgba(255,255,255,0.2), rgba(241,236,230,0.2));
+      border-radius: 10px;
+      margin-left: 4px;
+      transition: background 0.45s ease, transform 0.35s cubic-bezier(.2,.9,.3,1);
+      transform: translateX(6px);
+    }
+
+.sidebar ul li.active,
+.sidebar ul li a.active {
+  background: var(--palette-accent-dark) !important;
+  color: var(--palette-header) !important;
+  box-shadow: 0 8px 22px rgba(79, 70, 229, 0.16) !important;
+  border-left: 4px solid rgba(255,255,255,0.08) !important;
+}
+
+.sidebar ul li.selected {
+  background: var(--palette-accent-dark) !important;
+  color: var(--palette-header) !important;
+  box-shadow: 0 8px 22px rgba(79, 70, 229, 0.16) !important;
+  border-left: 4px solid rgba(255,255,255,0.08) !important;
+}
+
+.nav-icon {
+  width: 20px;
+  height: 20px;
+  display: inline-block;
+}
+
+.btn-signout {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  border: 1px solid var(--palette-header);
+  color: var(--palette-header);
+  min-width: 120px;
+  padding: 8px 12px;
+}
+
+.btn-signout .signout-icon {
+  width: 18px;
+  height: 18px;
+  display: inline-block;
+  vertical-align: middle;
+  fill: currentColor;
+}
+
+.btn-signout:hover {
+  background: rgba(255,255,255,0.2) !important;
+  color: var(--palette-text) !important;
+}
+
+#generateReportBtn,
+#refreshBtn {
+  background-color: var(--palette-sidebar) !important;
+  color: var(--palette-header) !important;
+  border: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+  border-color: transparent !important;
+}
+
+#generateReportBtn:hover,
+#refreshBtn:hover {
+  background-color: var(--palette-accent-dark) !important;
+  color: var(--palette-header) !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+@media (max-width: 900px) {
+  .navigation-div {
+    padding: 0 12px;
+  }
+  .sidebar {
+    width: 200px;
+  }
+  .nav-button {
+    width: 110px;
+  }
+}
+
+:root {
+  --btn-radius: 25px;
+  --btn-padding-y: 10px;
+  --btn-padding-x: 20px;
+  --btn-font-weight: 600;
+  --btn-pill-radius: 25px;
+}
+
+button,
+.btn,
+.nav-button,
+.submit-button,
+.toggle-form-button,
+.delete-button,
+.action-button,
+.action-btn,
+.product-button-style {
+  font-family: inherit;
+  font-weight: var(--btn-font-weight);
+  padding: var(--btn-padding-y) var(--btn-padding-x);
+  border-radius: var(--btn-radius);
+  border: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: transform 120ms ease, box-shadow 120ms ease, filter 120ms ease;
+}
+
+.submit-button,
+button[type="submit"],
+input[type="submit"],
+.add-button {
+  border-radius: var(--btn-pill-radius) !important;
+}
+
+.submit-button,
+button[type="submit"],
+input[type="submit"],
+.submit-button *,
+button[type="submit"] *,
+input[type="submit"] * {
+  border: none !important;
+  border-color: transparent !important;
+  box-shadow: none !important;
+  outline: none !important;
+  background-clip: padding-box !important;
+}
+
+button,
+.btn,
+.nav-button,
+.action-button,
+.action-btn,
+.submit-button,
+.toggle-form-button,
+.delete-button,
+.delete-btn,
+.add-button,
+.search-button,
+.reset-button,
+.btn-secondary,
+.product-button-style,
+.form button {
+  border: none !important;
+  border-color: transparent !important;
+  box-shadow: none !important;
+  outline: none !important;
+  background-clip: padding-box !important;
+}
+
+.add-button {
+  padding: 12px 20px;
+  font-weight: bold;
+  border-radius: 50px;
+  background-color: #111;
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.3s, color 0.3s;
+}
+
+.nav-button,
+.submit-button,
+.toggle-form-button,
+.action-button,
+.action-btn,
+.btn-primary,
+.nav-button {
+  background: #111 !important;
+  color: #fff !important;
+  border: none !important;
+  box-shadow: 0 6px 18px rgba(16,24,40,0.08);
+  padding: 12px 20px;
+      font-weight: bold;
+      border-radius: 50px;
+      background-color: #111;
+      color: #fff;
+      cursor: pointer;
+      transition: background 0.3s, color 0.3s;
+}
+
+.btn-secondary,
+.btn-ghost {
+  background: transparent;
+  color: var(--palette-text);
+  border: 1px solid rgba(16, 24, 40, 0.06);
+  box-shadow: none;
+}
+
+.delete-button,
+.delete-modal-btn {
+  background: #ef4444;
+  color: #fff;
+  border: 1px solid #ef4444;
+}
+
+.delete-button:hover,
+.delete-modal-btn:hover {
+  background: #fff;
+  color: #ef4444;
+  border: 1px solid #ef4444;
+}
+
+button:hover,
+.btn:hover,
+.nav-button:hover,
+.submit-button:hover {
+  transform: translateY(-3px) scale(1.01);
+  filter: brightness(1.02);
+  box-shadow: 0 14px 32px rgba(16, 24, 40, 0.12), 0 6px 12px rgba(79, 70, 229, 0.08);
+}
+
+button:active,
+.btn:active {
+  transform: translateY(-1px) scale(0.995);
+  box-shadow: 0 8px 18px rgba(16, 24, 40, 0.08);
+}
+
+button:focus,
+.btn:focus,
+.nav-button:focus,
+.submit-button:focus {
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.16), 0 10px 24px rgba(16,24,40,0.06);
+  transform: translateY(-2px) scale(1.005);
+}
+
+.btn-primary:hover,
+.nav-button.primary:hover,
+.submit-button.primary:hover,
+.action-button.primary:hover,
+.action-btn.primary:hover {
+  background: linear-gradient(90deg, var(--palette-accent-dark), var(--palette-accent));
+  filter: none;
+}
+
+.btn-add {
+  background: var(--palette-accent) !important;
+  color: var(--palette-header) !important;
+  border: none !important;
+  padding: var(--btn-padding-y) var(--btn-padding-x) !important;
+  border-radius: var(--btn-pill-radius) !important;
+  font-weight: var(--btn-font-weight) !important;
+  box-shadow: 0 6px 20px rgba(99,102,241,0.08) !important;
+  transition: transform 120ms ease, box-shadow 120ms ease, filter 120ms ease !important;
+}
+
+.btn-add:hover {
+  transform: translateY(-3px) scale(1.01) !important;
+  background: var(--palette-accent-dark) !important;
+  box-shadow: 0 18px 40px rgba(79,70,229,0.12) !important;
+  filter: none !important;
+}
+
+.btn-add:focus {
+  outline: none !important;
+  box-shadow: 0 0 0 4px rgba(79,70,229,0.18) !important;
+}
+
+.btn.icon-only:hover,
+button.icon-only:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 18px rgba(16,24,40,0.08);
+}
+
+.btn.icon-only,
+button.icon-only {
+  padding: 8px;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+}
+
   </style>
 </head>
 
@@ -315,207 +1030,176 @@
         <li><a href="{% url 'webpage12' %}">About</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
-      <button class="btn-signout" onclick="window.location.href='{% url 'webpage1' %}'">Sign Out</button>
+      <button class="nav-button" onclick="window.location.href='{% url 'webpage1' %}'">Sign Out</button>
     </div>
   </nav>
 
   <nav class="sidebar">
     <ul>
-      <li><a href="{% url 'webpage3' %}"><svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-            width="20" height="20" fill="currentColor" style="vertical-align:middle;margin-right:8px">
-            <path d="M3 11.5L12 4l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1v-8.5z" />
-          </svg>Home</a></li>
-      <li><a href="{% url 'webpage2' %}"><svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-            width="20" height="20" fill="currentColor" style="vertical-align:middle;margin-right:8px">
-            <path d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8zm0 2c-5 0-9 2.5-9 6v1h18v-1c0-3.5-4-6-9-6z" />
-          </svg>Employee</a></li>
-      <li><a href="{% url 'webpage7' %}"><svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-            width="20" height="20" fill="currentColor" style="vertical-align:middle;margin-right:8px">
-            <path
-              d="M16 11c1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3 1.34 3 3 3zM8 11c1.66 0 3-1.34 3-3S9.66 5 8 5 5 6.34 5 8s1.34 3 3 3zM8 13c-2.33 0-7 1.17-7 3.5V19h14v-2.5C15 14.17 10.33 13 8 13zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5C23 14.17 18.33 13 16 13z" />
-          </svg>Customer</a></li>
-      <li><a href="{% url 'webpage8' %}"><svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-            width="20" height="20" fill="currentColor" style="vertical-align:middle;margin-right:8px">
-            <path d="M21 8l-9-5-9 5v8l9 5 9-5V8zM12 3v18" />
-          </svg>Product</a></li>
-      <li><a href="{% url 'webpage5' %}"><svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-            width="20" height="20" fill="currentColor" style="vertical-align:middle;margin-right:8px">
-            <path d="M7 3h10v4H7zM7 9h10v12H7zM9 11h6v2H9zM9 15h6v2H9z" />
-          </svg>Order</a></li>
-      <li><a href="{% url 'webpage4' %}"><svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-            width="20" height="20" fill="currentColor" style="vertical-align:middle;margin-right:8px">
-            <rect x="2" y="5" width="20" height="14" rx="2" />
-            <path d="M2 10h20" fill="#fff" />
-          </svg>Payment</a></li>
-      <li><a href="{% url 'webpage9' %}"><svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-            width="20" height="20" fill="currentColor" style="vertical-align:middle;margin-right:8px">
-            <path d="M3 7h13l4 4v6h-2a3 3 0 0 1-6 0H8a3 3 0 0 1-6 0V7zM16 8v4h3" />
-          </svg>Delivery</a></li>
-      <li><a href="{% url 'webpage11' %}"><svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-            width="20" height="20" fill="currentColor" style="vertical-align:middle;margin-right:8px">
-            <path d="M21 16V8l-9-5-9 5v8l9 5 9-5z" />
-          </svg>Supply</a></li>
-      <li><a href="{% url 'webpage10' %}"><svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-            width="20" height="20" fill="currentColor" style="vertical-align:middle;margin-right:8px">
-            <rect x="3" y="11" width="4" height="10" />
-            <rect x="10" y="7" width="4" height="14" />
-            <rect x="17" y="3" width="4" height="18" />
-          </svg>Sales Report</a></li>
+      <li><a href="{% url 'webpage3' %}"><svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="currentColor" style="vertical-align:middle;margin-right:8px"><path d="M3 11.5L12 4l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1v-8.5z"/></svg>Home</a></li>
+      <li><a href="{% url 'webpage2' %}""><svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="currentColor" style="vertical-align:middle;margin-right:8px"><path d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8zm0 2c-5 0-9 2.5-9 6v1h18v-1c0-3.5-4-6-9-6z"/></svg>Employee</a></li>
+      <li><a href="{% url 'webpage7' %}"><svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="currentColor" style="vertical-align:middle;margin-right:8px"><path d="M16 11c1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3 1.34 3 3 3zM8 11c1.66 0 3-1.34 3-3S9.66 5 8 5 5 6.34 5 8s1.34 3 3 3zM8 13c-2.33 0-7 1.17-7 3.5V19h14v-2.5C15 14.17 10.33 13 8 13zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5C23 14.17 18.33 13 16 13z"/></svg>Customer</a></li>
+      <li><a href="{% url 'webpage8' %}"><svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="currentColor" style="vertical-align:middle;margin-right:8px"><path d="M21 8l-9-5-9 5v8l9 5 9-5V8zM12 3v18"/></svg>Product</a></li>
+      <li><a href="{% url 'webpage5' %}"><svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="currentColor" style="vertical-align:middle;margin-right:8px"><path d="M7 3h10v4H7zM7 9h10v12H7zM9 11h6v2H9zM9 15h6v2H9z"/></svg>Order</a></li>
+      <li><a href="{% url 'webpage4' %}"><svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="currentColor" style="vertical-align:middle;margin-right:8px"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20" fill="#fff"/></svg>Payment</a></li>
+      <li><a href="{% url 'webpage9' %}"><svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="currentColor" style="vertical-align:middle;margin-right:8px"><path d="M3 7h13l4 4v6h-2a3 3 0 0 1-6 0H8a3 3 0 0 1-6 0V7zM16 8v4h3"/></svg>Delivery</a></li>
+      <li><a href="{% url 'webpage11' %}"><svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="currentColor" style="vertical-align:middle;margin-right:8px"><path d="M21 16V8l-9-5-9 5v8l9 5 9-5z"/></svg>Supply</a></li>
+      <li><a href="{% url 'webpage10' %}"><svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="currentColor" style="vertical-align:middle;margin-right:8px"><rect x="3" y="11" width="4" height="10"/><rect x="10" y="7" width="4" height="14"/><rect x="17" y="3" width="4" height="18"/></svg>Sales Report</a></li>
     </ul>
   </nav>
 
-  <div class="container">
-    <main class="main-content">
-      <div class="customer-container">
-        <h1>Customer Management</h1>
-        <div class="search-bar">
-          <input type="text" id="searchInput" placeholder="Search Customer Name:" onkeyup="searchCustomer()">
-            <button class="toggle-form-button add-button btn btn-primary btn-add" id="addCustomerBtn" style="margin-left: auto;" onclick="toggleForm()">Add Customer</button>
-        </div>
-
-        <div class="modal-overlay" id="modalOverlay" style="display:none;"></div>
-        <div class="customer-form-container" id="formContainer">
-          <form class="customer-form" method="POST">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <div class="submit-wrapper">
-              <button type="submit" class="submit-button">Submit</button>
-            </div>
-          </form>
-        </div>
-
-        <div class="customer-table-container">
-          <table class="table">
-            <thead>
-              <tr>
-                <th>Customer ID</th>
-                <th>Name</th>
-                <th>Phone</th>
-                <th>Address</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody class="table-body">
-              {% for cust in customers %}
-              <tr>
-                <td>{{ cust.id }}</td>
-                <td>{{ cust.name }}</td>
-                <td>{{ cust.phone }}</td>
-                <td>{{ cust.address }}</td>
-                <td>
-                  <form action="{% url 'delete_customer' cust.id %}" method="post" style="display:inline;">
-                    {% csrf_token %}
-                    <button type="submit" class="delete-button">Delete</button>
-                  </form>
-                </td>
-              </tr>
-              {% endfor %}
-            </tbody>
-          </table>
+  <main class="main-content">
+    <div class="customer-container">
+      <h1>Customer Management</h1>
+      <div class="search-bar">
+        <input type="text" id="searchInput" placeholder="Search Customer Name:" onkeyup="searchCustomer()">
+        <div class="button-container">
+          <button class="toggle-form-button" onclick="toggleForm()">Add Customer</button>
         </div>
       </div>
 
-    <div class="notification" id="notification"></div>
-    <script>
-      const customerForm = document.querySelector('.customer-form');
-      const customerTableBody = document.querySelector('#customer-table tbody');
-      const deleteButton = document.querySelector('.delete-button');
-      const formContainer = document.querySelector('.customer-form-container');
-      const modalOverlay = document.getElementById('modalOverlay');
+      <div class="modal-overlay" id="modalOverlay" style="display:none;"></div>
+      <div class="customer-form-container" id="formContainer">
+        <form class="customer-form" method="POST">
+          {% csrf_token %}
+          {{ form.as_p }}
+          <div class="submit-wrapper">
+            <button type="submit" class="submit-button">Submit</button>
+          </div>
+        </form>
+      </div>
 
-      let customerData = [];
-      let freedIds = [];
-      let nextCustomerId = 1;
+      <div class="customer-table-container">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Customer ID</th>
+              <th>Name</th>
+              <th>Phone</th>
+              <th>Address</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody class="table-body">
+            {% for cust in customers %}
+            <tr>
+              <td>{{ cust.id }}</td>
+              <td>{{ cust.name }}</td>
+              <td>{{ cust.phone }}</td>
+              <td>{{ cust.address }}</td>
+              <td>
+                <form action="{% url 'delete_customer' cust.id %}" method="post" style="display:inline;">
+                  {% csrf_token %}
+                  <button type="submit" class="delete-button">Delete</button>
+                </form>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+  <div class="notification" id="notification"></div>
+  <script>
+    const customerForm = document.querySelector('.customer-form');
+    const customerTableBody = document.querySelector('#customer-table tbody');
+    const deleteButton = document.querySelector('.delete-button');
+    const formContainer = document.querySelector('.customer-form-container');
+    const modalOverlay = document.getElementById('modalOverlay');
 
-      function toggleForm() {
-        const isHidden = formContainer.style.display === 'none' || formContainer.style.display === '';
-        formContainer.style.display = isHidden ? 'block' : 'none';
-        modalOverlay.style.display = isHidden ? 'block' : 'none';
+    let customerData = [];
+    let freedIds = [];
+    let nextCustomerId = 1;
+
+    function toggleForm() {
+      const isHidden = formContainer.style.display === 'none' || formContainer.style.display === '';
+      formContainer.style.display = isHidden ? 'block' : 'none';
+      modalOverlay.style.display = isHidden ? 'block' : 'none';
+    }
+
+    modalOverlay.addEventListener('click', () => {
+      formContainer.style.display = 'none';
+      modalOverlay.style.display = 'none';
+    });
+
+    function getNextCustomerId() {
+      let idNumber;
+      if (freedIds.length > 0) {
+        idNumber = freedIds.sort((a, b) => a - b).shift();
+      } else {
+        idNumber = nextCustomerId++;
       }
-
-      modalOverlay.addEventListener('click', () => {
-        formContainer.style.display = 'none';
-        modalOverlay.style.display = 'none';
-      });
-
-      function getNextCustomerId() {
-        let idNumber;
-        if (freedIds.length > 0) {
-          idNumber = freedIds.sort((a, b) => a - b).shift();
-        } else {
-          idNumber = nextCustomerId++;
-        }
-        return `C${idNumber.toString().padStart(3, '0')}`;
-      }
+      return `C${idNumber.toString().padStart(3, '0')}`;
+    }
 
 
 
-      function renderTable() {
-        customerTableBody.innerHTML = '';
-        customerData.forEach((cust, index) => {
-          const row = document.createElement('tr');
-          row.innerHTML = `
+    function renderTable() {
+      customerTableBody.innerHTML = '';
+      customerData.forEach((cust, index) => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
           <td>${cust.id}</td>
           <td>${cust.name}</td>
           <td>${cust.phone}</td>
           <td>${cust.address}</td>
         `;
-          row.setAttribute('data-index', index);
-          row.addEventListener('click', () => {
-            document.querySelectorAll('tr').forEach(r => r.classList.remove('selected'));
-            row.classList.add('selected');
-          });
-          customerTableBody.appendChild(row);
+        row.setAttribute('data-index', index);
+        row.addEventListener('click', () => {
+          document.querySelectorAll('tr').forEach(r => r.classList.remove('selected'));
+          row.classList.add('selected');
         });
-      }
-
-      deleteButton.addEventListener('click', () => {
-        const selectedRow = document.querySelector('tr.selected');
-        if (selectedRow) {
-          const index = selectedRow.getAttribute('data-index');
-          const removed = customerData.splice(index, 1)[0];
-
-          const idNumber = parseInt(removed.id.substring(1));
-          freedIds.push(idNumber);
-
-          renderTable();
-        } else {
-          alert('Please select a row to delete.');
-        }
+        customerTableBody.appendChild(row);
       });
+    }
 
-      function searchCustomer() {
-        const query = document.getElementById('searchInput').value.toLowerCase();
-        const rows = document.querySelectorAll('#customer-table tbody tr');
-        rows.forEach(row => {
-          const name = row.children[1].textContent.toLowerCase();
-          row.style.display = name.includes(query) ? '' : 'none';
-        });
+    deleteButton.addEventListener('click', () => {
+      const selectedRow = document.querySelector('tr.selected');
+      if (selectedRow) {
+        const index = selectedRow.getAttribute('data-index');
+        const removed = customerData.splice(index, 1)[0];
+
+        const idNumber = parseInt(removed.id.substring(1));
+        freedIds.push(idNumber);
+
+        renderTable();
+      } else {
+        alert('Please select a row to delete.');
       }
+    });
 
-      document.querySelectorAll('#customer-table th').forEach((header, colIndex) => {
-        if (colIndex > 1) return;
-
-        header.style.cursor = 'pointer';
-        header.addEventListener('click', () => {
-          const isAscending = header.classList.contains('asc');
-          document.querySelectorAll('#customer-table th').forEach(th => th.classList.remove('asc', 'desc'));
-          header.classList.add(isAscending ? 'desc' : 'asc');
-
-          customerData.sort((a, b) => {
-            const aValue = Object.values(a)[colIndex];
-            const bValue = Object.values(b)[colIndex];
-            return isAscending
-              ? aValue.toString().localeCompare(bValue.toString(), undefined, { numeric: true })
-              : bValue.toString().localeCompare(aValue.toString(), undefined, { numeric: true });
-          });
-
-          renderTable();
-        });
+    function searchCustomer() {
+      const query = document.getElementById('searchInput').value.toLowerCase();
+      const rows = document.querySelectorAll('#customer-table tbody tr');
+      rows.forEach(row => {
+        const name = row.children[1].textContent.toLowerCase();
+        row.style.display = name.includes(query) ? '' : 'none';
       });
-    </script>
-    </main>
-  </div>
+    }
+
+    document.querySelectorAll('#customer-table th').forEach((header, colIndex) => {
+      if (colIndex > 1) return;
+
+      header.style.cursor = 'pointer';
+      header.addEventListener('click', () => {
+        const isAscending = header.classList.contains('asc');
+        document.querySelectorAll('#customer-table th').forEach(th => th.classList.remove('asc', 'desc'));
+        header.classList.add(isAscending ? 'desc' : 'asc');
+
+        customerData.sort((a, b) => {
+          const aValue = Object.values(a)[colIndex];
+          const bValue = Object.values(b)[colIndex];
+          return isAscending
+            ? aValue.toString().localeCompare(bValue.toString(), undefined, { numeric: true })
+            : bValue.toString().localeCompare(aValue.toString(), undefined, { numeric: true });
+        });
+
+        renderTable();
+      });
+    });
+  </script>
+
 </body>
 
 </html>

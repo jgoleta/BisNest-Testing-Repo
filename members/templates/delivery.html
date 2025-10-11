@@ -5,20 +5,36 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Delivery Management</title>
-  <link rel="stylesheet" href="palette.css" />
   <style>
     @import url("./palette.css");
-
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
     }
 
+    body, html {
+      height: 100%;
+      overflow: hidden;
+    }
+
     body {
       font-family: 'Sen', sans-serif;
-      background: var(--page-bg);
-      color: var(--palette-text);
+      background: linear-gradient(135deg, #111, #fff);
+      color: #111;
+    }
+
+    nav.navigation-top {
+      background: #111;
+      padding: 0 20px;
+    }
+
+    .navigation-top {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1001;
     }
 
     .navigation-div {
@@ -50,83 +66,72 @@
     .search-input {
       flex: 1;
       padding: 10px 15px;
-      border: 1px solid #bbb;
+      border: 1px solid #ddd;
       border-radius: 25px;
       font-size: 16px;
-      background: #fff;
-      color: #111;
     }
 
-    h1 {
-      font-size: 35px;
-      margin-bottom: 20px;
-      text-align: center;
-      color: #111;
-    }
-
-    .table {
-      width: 100%;
-      border-collapse: collapse;
-      border-radius: 10px;
-      overflow: hidden;
-      background-color: #fff;
-      margin-top: 20px;
-      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.07);
-      color: #111;
-    }
-
-    .table th,
-    .table td {
-      padding: 12px;
-      text-align: center;
-      border-bottom: 1px solid #e0e0e0;
-    }
-
-    .table th {
-      background-color: #000000;
-      color: #fff;
-    }
-
-    .table tr:hover {
-      background-color: #f5f5f5;
-    }
-
-    .table tr.selected {
-      background-color: #222;
-      color: #fff;
-    }
-
-    .action-btn {
+    .search-button {
       background-color: #111;
       color: #fff;
       border: none;
-      padding: 5px 10px;
-      border-radius: 15px;
+      padding: 10px 20px;
+      border-radius: 25px;
       cursor: pointer;
-      font-size: 14px;
-      margin-right: 5px;
+      font-weight: bold;
     }
 
-    .delete-btn,
+    .delivery-table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: white;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .delivery-table th {
+      background-color: black;
+      color: white;
+      padding: 15px;
+      text-align: left;
+    }
+
+    .delivery-table td {
+      padding: 12px 15px;
+      border-bottom: 1px solid #eee;
+    }
+
+    .delivery-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .delivery-table tr:hover {
+      background-color: #f5f5f5;
+    }
+
     .delete-button {
-      background-color: #fff;
-      color: #111;
-      transition: background 0.3s, color 0.3s;
-    }
-
-    .delete-btn:hover,
-    .delete-button:hover {
       background-color: #111;
       color: #fff;
+      border: 1px solid #111;
+      padding: 8px 18px;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s, color 0.3s;
+    }
+    .delete-button:hover {
+      background-color: #fff;
+      color: #111;
+      border: 1px solid #111;
     }
 
     .form-container {
-      background: #fff;
+      background-color: #fff;
       border-radius: 10px;
       padding: 20px;
       margin-top: 30px;
-      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.07);
-      border: 1px solid #e0e0e0;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
 
     .form-title {
@@ -149,16 +154,34 @@
       display: block;
       margin-bottom: 5px;
       font-weight: bold;
-      color: #111;
     }
 
     .form-control {
       width: 100%;
       padding: 10px;
-      border: 1px solid #111;
+      border: 1px solid #ddd;
       border-radius: 5px;
-      background: #fff;
-      color: #111;
+    }
+
+    .status-select {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      background-color: white;
+      cursor: pointer;
+    }
+
+    .status-delivered {
+      color: #2ecc71;
+    }
+
+    .status-pending {
+      color: #f39c12;
+    }
+
+    .status-cancelled {
+      color: #e74c3c;
     }
 
     .form-actions {
@@ -262,80 +285,44 @@
     <span></span>
     <span></span>
     <span></span>
-  </label>
-
-
+    </label>
+  
+  
   <nav class="navigation-top">
     <div class="navigation-div">
-      <img src="https://i.ibb.co/60c2V5M5/485022833-1021832163206590-2049955099638617889-n.png" class="nav-logo"
-        alt="Logo" />
+      <img src="https://i.ibb.co/60c2V5M5/485022833-1021832163206590-2049955099638617889-n.png" class="nav-logo" alt="Logo" />
       <ul>
         <li><a href="{% url 'webpage12' %}">About</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
-      <button class="btn-signout" onclick="window.location.href='{% url 'webpage1' %}'">Sign Out</button>
+      <button class="nav-button" onclick="window.location.href='{% url 'webpage1' %}'">Sign Out</button>
     </div>
   </nav>
-
+  
   <nav class="sidebar">
     <ul>
-      <li><a href="{% url 'webpage3' %}"><svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-            width="20" height="20" fill="currentColor" style="vertical-align:middle;margin-right:8px">
-            <path d="M3 11.5L12 4l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1v-8.5z" />
-          </svg>Home</a></li>
-      <li><a href="{% url 'webpage2' %}"><svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-            width="20" height="20" fill="currentColor" style="vertical-align:middle;margin-right:8px">
-            <path d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8zm0 2c-5 0-9 2.5-9 6v1h18v-1c0-3.5-4-6-9-6z" />
-          </svg>Employee</a></li>
-      <li><a href="{% url 'webpage7' %}"><svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-            width="20" height="20" fill="currentColor" style="vertical-align:middle;margin-right:8px">
-            <path
-              d="M16 11c1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3 1.34 3 3 3zM8 11c1.66 0 3-1.34 3-3S9.66 5 8 5 5 6.34 5 8s1.34 3 3 3zM8 13c-2.33 0-7 1.17-7 3.5V19h14v-2.5C15 14.17 10.33 13 8 13zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5C23 14.17 18.33 13 16 13z" />
-          </svg>Customer</a></li>
-      <li><a href="{% url 'webpage8' %}"><svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-            width="20" height="20" fill="currentColor" style="vertical-align:middle;margin-right:8px">
-            <path d="M21 8l-9-5-9 5v8l9 5 9-5V8zM12 3v18" />
-          </svg>Product</a></li>
-      <li><a href="{% url 'webpage5' %}"><svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-            width="20" height="20" fill="currentColor" style="vertical-align:middle;margin-right:8px">
-            <path d="M7 3h10v4H7zM7 9h10v12H7zM9 11h6v2H9zM9 15h6v2H9z" />
-          </svg>Order</a></li>
-      <li><a href="{% url 'webpage4' %}"><svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-            width="20" height="20" fill="currentColor" style="vertical-align:middle;margin-right:8px">
-            <rect x="2" y="5" width="20" height="14" rx="2" />
-            <path d="M2 10h20" fill="#fff" />
-          </svg>Payment</a></li>
-      <li><a href="{% url 'webpage9' %}"><svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-            width="20" height="20" fill="currentColor" style="vertical-align:middle;margin-right:8px">
-            <path d="M3 7h13l4 4v6h-2a3 3 0 0 1-6 0H8a3 3 0 0 1-6 0V7zM16 8v4h3" />
-          </svg>Delivery</a></li>
-      <li><a href="{% url 'webpage11' %}"><svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-            width="20" height="20" fill="currentColor" style="vertical-align:middle;margin-right:8px">
-            <path d="M21 16V8l-9-5-9 5v8l9 5 9-5z" />
-          </svg>Supply</a></li>
-      <li><a href="{% url 'webpage10' %}"><svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-            width="20" height="20" fill="currentColor" style="vertical-align:middle;margin-right:8px">
-            <rect x="3" y="11" width="4" height="10" />
-            <rect x="10" y="7" width="4" height="14" />
-            <rect x="17" y="3" width="4" height="18" />
-          </svg>Sales Report</a></li>
+       <li><a href="{% url 'webpage3' %}"><svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="currentColor" style="vertical-align:middle;margin-right:8px"><path d="M3 11.5L12 4l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1v-8.5z"/></svg>Home</a></li>
+      <li><a href="{% url 'webpage2' %}"><svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="currentColor" style="vertical-align:middle;margin-right:8px"><path d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8zm0 2c-5 0-9 2.5-9 6v1h18v-1c0-3.5-4-6-9-6z"/></svg>Employee</a></li>
+      <li><a href="{% url 'webpage7' %}"><svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="currentColor" style="vertical-align:middle;margin-right:8px"><path d="M16 11c1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3 1.34 3 3 3zM8 11c1.66 0 3-1.34 3-3S9.66 5 8 5 5 6.34 5 8s1.34 3 3 3zM8 13c-2.33 0-7 1.17-7 3.5V19h14v-2.5C15 14.17 10.33 13 8 13zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5C23 14.17 18.33 13 16 13z"/></svg>Customer</a></li>
+      <li><a href="{% url 'webpage8' %}"><svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="currentColor" style="vertical-align:middle;margin-right:8px"><path d="M21 8l-9-5-9 5v8l9 5 9-5V8zM12 3v18"/></svg>Product</a></li>
+      <li><a href="{% url 'webpage5' %}"><svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="currentColor" style="vertical-align:middle;margin-right:8px"><path d="M7 3h10v4H7zM7 9h10v12H7zM9 11h6v2H9zM9 15h6v2H9z"/></svg>Order</a></li>
+      <li><a href="{% url 'webpage4' %}"><svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="currentColor" style="vertical-align:middle;margin-right:8px"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20" fill="#fff"/></svg>Payment</a></li>
+      <li><a href="{% url 'webpage9' %}"><svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="currentColor" style="vertical-align:middle;margin-right:8px"><path d="M3 7h13l4 4v6h-2a3 3 0 0 1-6 0H8a3 3 0 0 1-6 0V7zM16 8v4h3"/></svg>Delivery</a></li>
+      <li><a href="{% url 'webpage11' %}"><svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="currentColor" style="vertical-align:middle;margin-right:8px"><path d="M21 16V8l-9-5-9 5v8l9 5 9-5z"/></svg>Supply</a></li>
+      <li><a href="{% url 'webpage10' %}"><svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="currentColor" style="vertical-align:middle;margin-right:8px"><rect x="3" y="11" width="4" height="10"/><rect x="10" y="7" width="4" height="14"/><rect x="17" y="3" width="4" height="18"/></svg>Sales Report</a></li>
     </ul>
   </nav>
-
+  
   <div class="container">
-  <main class="main-content">
-    <div class="delivery-container">
-      <div>
-        <h1>Delivery Management</h1>
+    <main class="main-content">
+      <div class="page-header">
+        <h1 class="page-title">Delivery Management</h1>
+        <button class="action-button" id="addNewDeliveryBtn">+ Add New Delivery</button>
       </div>
 
-      <div class="search-bar">
-        <input type="text" class="search-input" id="searchInput" placeholder="Search Customer:">
-        <button class="toggle-form-button add-button btn btn-primary btn-add" id="addNewDeliveryBtn"
-          style="margin-left: auto;">+ Add Delivery</button>
-      </div>
+      <div class="modal-overlay" id="modalOverlay"></div>
 
-      <table class="table" id="deliveryTable">
+      <table class="delivery-table" id="deliveryTable">
         <thead>
           <tr>
             <th>Delivery ID</th>
@@ -357,15 +344,15 @@
             <td>{{ d.scheduled_date }}</td>
             <td>
               <select class="status-select status-{{ d.status|lower }}" onchange="updateStatus(this, '{{ d.id }}')">
-                <option value="Delivered" {% if d.status=="Delivered" %}selected{% endif %}>Delivered</option>
-                <option value="Pending" {% if d.status=="Pending" %}selected{% endif %}>Pending</option>
-                <option value="Cancelled" {% if d.status=="Cancelled" %}selected{% endif %}>Cancelled</option>
+                <option value="Delivered" {% if d.status == "Delivered" %}selected{% endif %}>Delivered</option>
+                <option value="Pending" {% if d.status == "Pending" %}selected{% endif %}>Pending</option>
+                <option value="Cancelled" {% if d.status == "Cancelled" %}selected{% endif %}>Cancelled</option>
               </select>
             </td>
             <td>
               <form action="{% url 'delete_delivery' d.id %}" method="post" style="display:inline;">
                 {% csrf_token %}
-                <button type="submit" class="delete-button btn btn-danger">Delete</button>
+                <button type="submit" class="delete-button">Delete</button>
               </form>
             </td>
           </tr>
@@ -373,95 +360,94 @@
         </tbody>
       </table>
 
-      <div class="form-container hidden" id="deliveryForm">
+      <div class="form-container" id="deliveryForm">
         <h2 class="form-title" id="formTitle">Add New Delivery</h2>
         <form method="POST">
           {% csrf_token %}
           {{ form.as_p }}
           <div class="form-group">
             <label for="id_status">Status:</label>
-            <select name="status" id="id_status" class="status-select form-control">
+            <select name="status" id="id_status" class="status-select">
               <option value="Pending">Pending</option>
               <option value="Delivered">Delivered</option>
               <option value="Cancelled">Cancelled</option>
             </select>
           </div>
           <div class="form-actions">
-            <button class="btn btn-secondary" style="background-color: #95a5a6;" id="cancelBtn" type="button">Cancel</button>
-            <button type="submit" class="btn btn-secondary">Save</button>
+            <button class="action-button" type="button" id="cancelBtn">Cancel</button>
+            <button type="submit" class="action-button">Save</button>
           </div>
         </form>
       </div>
-    </div>
-  </main>
-</div>
 
+    </main>
+  </div>
 
   <div class="notification" id="notification"></div>
 
   <script>
-    function getCookie(name) {
-      let cookieValue = null;
-      if (document.cookie && document.cookie !== '') {
-        const cookies = document.cookie.split(';');
-        for (let cookie of cookies) {
-          cookie = cookie.trim();
-          if (cookie.startsWith(name + '=')) {
-            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-            break;
-          }
+  function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+      const cookies = document.cookie.split(';');
+      for (let cookie of cookies) {
+        cookie = cookie.trim();
+        if (cookie.startsWith(name + '=')) {
+          cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+          break;
         }
       }
-      return cookieValue;
     }
+    return cookieValue;
+  }
 
-    const csrfToken = getCookie('csrftoken');
+  const csrfToken = getCookie('csrftoken');
 
-    function updateStatus(selectElement, deliveryId) {
-      const newStatus = selectElement.value;
-      selectElement.className = `status-select status-${newStatus.toLowerCase()}`;
+  function updateStatus(selectElement, deliveryId) {
+    const newStatus = selectElement.value;
+    selectElement.className = `status-select status-${newStatus.toLowerCase()}`;
 
-      fetch(`/update_delivery_status/${deliveryId}/`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'X-CSRFToken': csrfToken
-        },
-        body: JSON.stringify({ status: newStatus })
-      })
-        .then(response => response.json())
-        .then(data => {
-          if (data.success) {
-            showNotification('Status updated successfully!');
-          } else {
-            showNotification('Failed to update status', true);
-            selectElement.value = data.previous_status;
-            selectElement.className = `status-select status-${data.previous_status.toLowerCase()}`;
-          }
-        })
-        .catch(error => {
-          showNotification('Error updating status', true);
-          console.error('Error:', error);
-        });
-    }
+    fetch(`/update_delivery_status/${deliveryId}/`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRFToken': csrfToken
+      },
+      body: JSON.stringify({ status: newStatus })
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data.success) {
+        showNotification('Status updated successfully!');
+      } else {
+        showNotification('Failed to update status', true);
+        selectElement.value = data.previous_status;
+        selectElement.className = `status-select status-${data.previous_status.toLowerCase()}`;
+      }
+    })
+    .catch(error => {
+      showNotification('Error updating status', true);
+      console.error('Error:', error);
+    });
+  }
   </script>
 
   <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      const addBtn = document.getElementById('addNewDeliveryBtn');
-      const formContainer = document.getElementById('deliveryForm');
-      const modalOverlay = document.getElementById('modalOverlay');
-      const cancelBtn = document.getElementById('cancelBtn');
+  document.addEventListener('DOMContentLoaded', function() {
+    const addBtn = document.getElementById('addNewDeliveryBtn');
+    const formContainer = document.getElementById('deliveryForm');
+    const modalOverlay = document.getElementById('modalOverlay');
+    const cancelBtn = document.getElementById('cancelBtn');
 
-      function toggleForm() {
-        const isHidden = formContainer.style.display === 'none' || formContainer.style.display === '';
-        formContainer.style.display = isHidden ? 'block' : 'none';
-        modalOverlay.style.display = isHidden ? 'block' : 'none';
-      }
-      addBtn.addEventListener('click', toggleForm);
-      modalOverlay.addEventListener('click', toggleForm);
-      cancelBtn.addEventListener('click', toggleForm);
-    });
+    function toggleForm() {
+      const isHidden = formContainer.style.display === 'none' || formContainer.style.display === '';
+      formContainer.style.display = isHidden ? 'block' : 'none';
+      modalOverlay.style.display = isHidden ? 'block' : 'none';
+    }
+    addBtn.addEventListener('click', toggleForm);
+    modalOverlay.addEventListener('click', toggleForm);
+    cancelBtn.addEventListener('click', toggleForm);
+  });
   </script>
 
 
