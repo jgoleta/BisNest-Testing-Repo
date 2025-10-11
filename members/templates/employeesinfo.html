@@ -6,25 +6,35 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Employee Management</title>
   <style>
-    /* palette imported from palette.css (shared) */
-    @import url("./palette.css");
-
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
     }
 
-    body,
-    html {
+    html,
+    body {
       height: 100%;
       overflow: hidden;
     }
 
     body {
       font-family: 'Sen', sans-serif;
-      background: var(--page-bg);
-      color: var(--palette-text);
+      background: linear-gradient(135deg, #111, #fff);
+      color: #111;
+    }
+
+    nav.navigation-top {
+      background: #111;
+      padding: 0 20px;
+    }
+
+    .navigation-top {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1001;
     }
 
     .navigation-div {
@@ -43,8 +53,57 @@
       padding: 5px;
     }
 
+    nav.navigation-top ul {
+      list-style: none;
+      display: flex;
+      gap: 30px;
+    }
+
+    nav.navigation-top li a {
+      color: #fff;
+      font-size: 16px;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    nav.navigation-top li a:hover {
+      color: #bbb;
+    }
+
+    .nav-button {
+      background-color: #fff;
+      color: #111;
+      border: 1px solid #fff;
+      border-radius: 25px;
+      width: 130px;
+      height: 40px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    .nav-button:hover {
+      background-color: #8b8a8a;
+      color: #111;
+      border: 1px solid #111;
+    }
+
+    .container {
+      display: flex;
+      position: absolute;
+      top: 90px;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      overflow: hidden;
+    }
+
+    .sidebar ul {
+      list-style: none;
+    }
+
     .sidebar ul li {
-      padding: 5px 30px;
+      padding: 15px 20px;
     }
 
     .sidebar ul li a {
@@ -55,8 +114,35 @@
       gap: 10px;
     }
 
+    .sidebar ul li:hover {
+      background: linear-gradient(165deg, #fff, #979191);
+      border-radius: 10px;
+      margin-left: 10px;
+      transition: all 0.3s ease;
+    }
+
     .sidebar img {
       width: 30px;
+    }
+
+    .main-content {
+      flex: 1;
+      overflow-y: auto;
+      padding: 40px;
+      background: #fff;
+      height: 100%;
+    }
+
+    .employee-container {
+      overflow: auto;
+      max-width: 1100px;
+      height: 600px;
+      margin: 60px auto;
+      padding: 40px;
+      background-color: #fff;
+      border-radius: 16px;
+      box-shadow: 2px 2px 8px #111;
+      border: 1px solid #e0e0e0;
     }
 
     h1 {
@@ -66,33 +152,48 @@
       color: #111;
     }
 
-    .search-bar {
-      margin: 20px 0;
+    .header-button-wrapper {
       display: flex;
-      gap: 10px;
+      justify-content: space-between;
       flex-wrap: wrap;
+      gap: 20px;
+      margin-bottom: 20px;
     }
 
-    .employee-form label,
-    .employee-form input,
-    .employee-form textarea,
+    .button-container {
+      margin-left: auto;
+    }
+
+    .toggle-form-button,
+    .add-button,
+    .delete-btn,
+    .submit-button,
     .search-button,
-    .reset-button {
-      display: none !important;
+    .reset-button,
+    .delete-button {
+      padding: 12px 20px;
+      font-weight: bold;
+      border: 1px solid #fff;
+      border-radius: 50px;
+      background-color: #111;
+      color: #fff;
+      cursor: pointer;
+      transition: background 0.3s, color 0.3s;
     }
 
-    .modal-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      background: rgba(0, 0, 0, 0.4);
-      z-index: 1001;
-      display: none;
+    .toggle-form-button:hover,
+    .add-button:hover,
+    .delete-btn:hover,
+    .submit-button:hover,
+    .search-button:hover,
+    .reset-button:hover,
+    .delete-button:hover {
+      background-color: #fff;
+      color: #111;
+      border: 1px solid #111;
     }
 
-    .employee-form-container {
+    .form-container {
       display: none;
       position: fixed;
       top: 50%;
@@ -108,21 +209,32 @@
       max-width: 90vw;
     }
 
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.4);
+      z-index: 1001;
+      display: none;
+    }
+
     @media (max-width: 800px) {
-      .employee-form-container {
+      .form-container {
         width: 95vw;
         padding: 10px;
       }
     }
 
-    .employee-form-container label {
+    .form-container label {
       display: block;
       margin-top: 12px;
       font-weight: 600;
       color: #111;
     }
 
-    .employee-form-container input {
+    .form-container input {
       width: 100%;
       margin-top: 6px;
       padding: 10px;
@@ -132,86 +244,71 @@
       color: #111;
     }
 
-    .employee-form-container .submit-wrapper {
+    .submit-wrapper {
       text-align: right;
-      margin-top: 18px;
     }
 
-    .employee-form-container button {
-      padding: 10px 24px;
-      font-weight: bold;
-      border: 1px solid #111;
+    .search-bar {
+      margin: 20px 0;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .search-bar input {
+      padding: 10px 14px;
+      border: 1px solid #bbb;
       border-radius: 8px;
-      background-color: #111;
-      color: #fff;
-      cursor: pointer;
-      transition: background 0.3s, color 0.3s;
       font-size: 15px;
-    }
-
-    .employee-form-container button:hover {
-      background-color: #fff;
+      max-width: 300px;
+      flex: 1;
+      background: #fff;
       color: #111;
-      border: 1px solid #111;
     }
 
     .table {
       width: 100%;
-      border-collapse: collapse;
-      border-radius: 10px;
+      border-collapse: separate;
+      border-spacing: 0;
+      border-radius: 12px;
       overflow: hidden;
       background-color: #fff;
       margin-top: 20px;
       box-shadow: 0 6px 18px rgba(0, 0, 0, 0.07);
       color: #111;
     }
-
     .table th,
     .table td {
       padding: 14px 16px;
       text-align: center;
-      border-bottom: 1px solid #e0e0e0;
+      border: none;
       font-size: 15px;
     }
-
     .table th {
       background-color: #000;
       color: #fff;
       font-size: 16px;
     }
-
     .table tr:last-child td {
       border-bottom: none;
     }
 
-    .delete-button {
-      background-color: #fff;
-      color: #111;
-      border: 1px solid #111;
-      padding: 8px 18px;
-      border-radius: 6px;
-      font-weight: bold;
-      cursor: pointer;
-      transition: background 0.3s, color 0.3s;
+    tr:hover {
+      background-color: #f5f5f5;
     }
 
-    .delete-button:hover {
-      background-color: #111;
+    tr.selected {
+      background-color: #777;
       color: #fff;
+      font-weight: bold;
     }
 
-    @media (max-width: 700px) {
-      .form {
-        flex-direction: column;
-        gap: 10px;
-        padding: 12px 6px 8px 6px;
-      }
+    th.asc::after {
+      content: ' ▲';
+    }
 
-      .table th,
-      .table td {
-        padding: 8px 6px;
-        font-size: 13px;
-      }
+    th.desc::after {
+      content: ' ▼';
     }
 
     .notification {
@@ -221,11 +318,14 @@
       padding: 15px 25px;
       background-color: #2ecc71;
       color: #fff;
-      border-radius: 5px;
-      box-shadow: 0 2px 4px #111;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
       z-index: 1000;
       opacity: 0;
-      transition: opacity 0.5s ease;
+      transition: opacity 0.5s, background 0.3s, color 0.3s;
+      font-size: 18px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
     }
 
     .notification.show {
@@ -234,20 +334,6 @@
 
     .notification.error {
       background-color: #ff0000;
-    }
-
-    body,
-    html {
-      height: 100%;
-      overflow: hidden;
-    }
-
-    .navigation-top {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      z-index: 1001;
     }
 
     .burger {
@@ -275,6 +361,100 @@
       transform-origin: center;
     }
 
+    /* Animate lines when sidebar is open */
+    #sidebarToggle:checked+.burger span:nth-child(1) {
+      transform: rotate(45deg) translate(5px, 5px);
+    }
+
+    #sidebarToggle:checked+.burger span:nth-child(2) {
+      opacity: 0;
+    }
+
+    #sidebarToggle:checked+.burger span:nth-child(3) {
+      transform: rotate(-45deg) translate(6px, -6px);
+    }
+
+
+    .sidebar {
+      position: fixed;
+      top: 90px;
+      left: -250px;
+      width: 220px;
+      height: calc(100% - 90px);
+      background-color: #f5f5f5;
+      overflow-y: auto;
+      transition: left 0.3s ease;
+      z-index: 2000;
+    }
+
+    #sidebarToggle:checked~.sidebar {
+      left: 0;
+    }
+
+    .overlay {
+      display: none;
+      position: fixed;
+      top: 90px;
+      left: 0;
+      width: 100%;
+      height: calc(100% - 90px);
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 1500;
+      opacity: 0;
+      transition: all 0.3s;
+      visibility: hidden;
+    }
+
+    #sidebarToggle:checked~.overlay {
+      display: block;
+      opacity: 1;
+      visibility: visible;
+    }   
+    .dropdown {
+      position: relative;
+    }
+
+    .dropdown-label {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 10px;
+      cursor: pointer;
+    }
+
+    .dropdown-label .arrow {
+      transition: transform 0.3s ease;
+      font-size: 30px;
+    }
+
+
+    .dropdown-toggle:checked + .dropdown-label .arrow {
+      transform: rotate(180deg);
+    }
+
+    .dropdown-menu {
+      display: none;
+      flex-direction: column;
+      background: #f2f0f0;
+      padding-left: 0px;
+    }
+
+    .dropdown-menu li a {
+      padding: 10px 0;
+      color: #111;
+      text-decoration: none;
+      display: block;
+    }
+
+    .dropdown-toggle:checked + .dropdown-label + .dropdown-menu {
+      display: flex;
+    }
+
+    .dropdown-menu li a:hover {
+      color: #000;
+      font-weight: bold;
+    }
+
   </style>
 </head>
 
@@ -295,152 +475,108 @@
         <li><a href="{% url 'webpage12' %}">About</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
-      <button class="btn-signout" onclick="window.location.href='{% url 'webpage1' %}'"><svg class="signout-icon"
-          xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
-          <path d="M16 13v-2H7V8l-5 4 5 4v-3zM20 3h-8v2h8v14h-8v2h8a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2z" />
-        </svg>Sign Out</button>
+      <button class="nav-button" onclick="window.location.href='{% url 'webpage1' %}'">Sign Out</button>
     </div>
   </nav>
 
   <nav class="sidebar">
     <ul>
-      <li><a href="{% url 'webpage3' %}"><svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20"
-            height="20" fill="currentColor" style="vertical-align:middle;margin-right:8px">
-            <path d="M3 11.5L12 4l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1v-8.5z" />
-          </svg>Home</a></li>
-      <li><a href="{% url 'webpage2' %}"><svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-            width="20" height="20" fill="currentColor" style="vertical-align:middle;margin-right:8px">
-            <path d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8zm0 2c-5 0-9 2.5-9 6v1h18v-1c0-3.5-4-6-9-6z" />
-          </svg>Employee</a></li>
-      <li><a href="{% url 'webpage7' %}"><svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-            width="20" height="20" fill="currentColor" style="vertical-align:middle;margin-right:8px">
-            <path
-              d="M16 11c1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3 1.34 3 3 3zM8 11c1.66 0 3-1.34 3-3S9.66 5 8 5 5 6.34 5 8s1.34 3 3 3zM8 13c-2.33 0-7 1.17-7 3.5V19h14v-2.5C15 14.17 10.33 13 8 13zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5C23 14.17 18.33 13 16 13z" />
-          </svg>Customer</a></li>
-      <li><a href="{% url 'webpage8' %}"><svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20"
-            height="20" fill="currentColor" style="vertical-align:middle;margin-right:8px">
-            <path d="M21 8l-9-5-9 5v8l9 5 9-5V8zM12 3v18" />
-          </svg>Product</a></li>
-      <li><a href="{% url 'webpage5' %}"><svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20"
-            height="20" fill="currentColor" style="vertical-align:middle;margin-right:8px">
-            <path d="M7 3h10v4H7zM7 9h10v12H7zM9 11h6v2H9zM9 15h6v2H9z" />
-          </svg>Order</a></li>
-      <li><a href="{% url 'webpage4' %}"><svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20"
-            height="20" fill="currentColor" style="vertical-align:middle;margin-right:8px">
-            <rect x="2" y="5" width="20" height="14" rx="2" />
-            <path d="M2 10h20" fill="#fff" />
-          </svg>Payment</a></li>
-      <li><a href="{% url 'webpage9' %}"><svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-            width="20" height="20" fill="currentColor" style="vertical-align:middle;margin-right:8px">
-            <path d="M3 7h13l4 4v6h-2a3 3 0 0 1-6 0H8a3 3 0 0 1-6 0V7zM16 8v4h3" />
-          </svg>Delivery</a></li>
-      <li><a href="{% url 'webpage11' %}"><svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20"
-            height="20" fill="currentColor" style="vertical-align:middle;margin-right:8px">
-            <path d="M21 16V8l-9-5-9 5v8l9 5 9-5z" />
-          </svg>Supply</a></li>
-      <li><a href="{% url 'webpage10' %}"><svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20"
-            height="20" fill="currentColor" style="vertical-align:middle;margin-right:8px">
-            <rect x="3" y="11" width="4" height="10" />
-            <rect x="10" y="7" width="4" height="14" />
-            <rect x="17" y="3" width="4" height="18" />
-          </svg>Sales Report</a></li>
+      <li><a href="{% url 'webpage3' %}"><img src="https://i.ibb.co/pvpZssRq/Home-logo.png" alt="">Home</a></li>
+      <li><a href="{% url 'webpage2' %}"><img src="https://i.ibb.co/n8LVnKQC/Employee.png" alt="">Employee</a></li>
+      <li><a href="{% url 'webpage7' %}"><img src="https://i.ibb.co/PZdTmb35/Customer.png" alt="">Customer</a></li>
+      <li><a href="{% url 'webpage8' %}"><img src="https://i.ibb.co/rRx31wRN/Product.png" alt="">Product</a></li>
+      <li class="dropdown">
+        <input type="checkbox" id="orderDropdown" class="dropdown-toggle" hidden>
+        <label for="orderDropdown" class="dropdown-label">
+          <img src="https://i.ibb.co/ZR2xsV1q/Order.png" alt="">
+          <span class="label-text">Order</span>
+          <span class="arrow">&#9662;</span>
+        </label>
+        <ul class="dropdown-menu">
+          <li><a href="{% url 'webpage5' %}"><img src="https://i.ibb.co/ZR2xsV1q/Order.png" alt="">Order</a></li>
+          <li><a href="{% url 'webpage4' %}"><img src="https://i.ibb.co/MKS50nw/Payment.png" alt="">Payment</a></li>
+          <li><a href="{% url 'webpage9' %}"><img src="https://i.ibb.co/hFz1vbwj/Delivery.png" alt="">Delivery</a></li>
+        </ul>
+      </li>
+      <li><a href="{% url 'webpage11' %}"><img src="https://i.ibb.co/9Hhv1XT5/Supply.png" alt="">Supply</a></li>
+      <li><a href="{% url 'webpage10' %}"><img src="https://i.ibb.co/bMgBFjcB/sales-logo.png" alt="">Sales Report</a>
+      </li>
     </ul>
   </nav>
 
-  <div class="container">
-    <main class="main-content">
-      <section class="employee-container">
-        <h1>Employee Management</h1>
-        <div class="search-bar">
-          <input type="text" id="searchInput" placeholder="Search Employee Name:" onkeyup="searchEmployee()">
-          <button class="toggle-form-button add-button btn btn-primary btn-add" id="addEmployeeBtn"
-            style="margin-left: auto;">Add Employee</button>
+  <main class="main-content">
+    <div class="employee-container">
+      <h1>Employee Management</h1>
+      <div class="search-bar">
+        <input type="text" id="searchInput" placeholder="Search Employee Name:" onkeyup="searchEmployee()">
+        <div class="button-container">
+          <button class="toggle-form-button" onclick="toggleForm()">Add Employee</button>
         </div>
-        <div class="modal-overlay" id="modalOverlay"></div>
-        <div class="employee-form-container" id="employeeFormContainer">
-          <form method="POST" id="employeeForm">
-            {% csrf_token %}
-            {{ form.as_p }}
-          </form>
-          <div class="submit-wrapper">
-            <button type="button" id="modalSubmitBtn" class="btn btn-secondary">Submit</button>
-          </div>
-        </div>
-        <table class="table">
-          <thead>
-            <tr>
-              <th>Employee ID</th>
-              <th>Name</th>
-              <th>Position</th>
-              <th>Schedule</th>
-              <th>Daily Salary</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            {% for emp in employees %}
-            <tr>
-              <td>{{ emp.id }}</td>
-              <td>{{ emp.name }}</td>
-              <td>{{ emp.position }}</td>
-              <td>{{ emp.schedule }}</td>
-              <td>{{ emp.salary }}</td>
-              <td>
-                <form action="{% url 'delete_employee' emp.id %}" method="post" style="display:inline;">
-                  {% csrf_token %}
-                  <button type="submit" class="delete-button">Delete</button>
-                </form>
-              </td>
-            </tr>
-            {% endfor %}
-          </tbody>
-        </table>
-      </section>
-      <div class="notification" id="notification"></div>
-      <script>
-        document.addEventListener('DOMContentLoaded', function () {
-          const modalOverlay = document.getElementById('modalOverlay');
-          const employeeFormContainer = document.getElementById('employeeFormContainer');
-          const employeeForm = document.getElementById('employeeForm');
-          const addEmployeeBtn = document.getElementById('addEmployeeBtn');
-          const modalSubmitBtn = document.getElementById('modalSubmitBtn');
+      </div>
 
-          function toggleEmployeeForm() {
-            const isHidden = employeeFormContainer.style.display === 'none' || employeeFormContainer.style.display === '';
-            employeeFormContainer.style.display = isHidden ? 'block' : 'none';
-            modalOverlay.style.display = isHidden ? 'block' : 'none';
-          }
-          addEmployeeBtn.addEventListener('click', toggleEmployeeForm);
-          modalOverlay.addEventListener('click', toggleEmployeeForm);
-          
-          modalSubmitBtn.addEventListener('click', function () {
-            employeeForm.submit();
-          });
-          
-          function showNotification(message, error = false) {
-            const notification = document.getElementById('notification');
-            notification.textContent = message;
-            notification.classList.add('show');
-            if (error) {
-              notification.classList.add('error');
-            }
-            setTimeout(() => {
-              notification.classList.remove('show');
-              notification.classList.remove('error');
-            }, 3000);
-          }
-          
-          window.searchEmployee = function () {
-            const value = document.getElementById('searchInput').value.toLowerCase();
-            document.querySelectorAll('tbody tr').forEach(row => {
-              const name = row.children[1].textContent.toLowerCase();
-              row.style.display = name.includes(value) ? '' : 'none';
-            });
-          }
-        });
-      </script>
-    </main>
-  </div>
+      <div class="form-container" id="formContainer">
+        <form method="POST">
+          {% csrf_token %}
+          {{ form.as_p }}
+          <div class="submit-wrapper">
+            <button type="submit" class="submit-button">Submit</button>
+          </div>
+        </form>
+      </div>
+      <div class="modal-overlay" id="modalOverlay" style="display: none;"></div>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Employee ID</th>
+            <th>Employee Name</th>
+            <th>Position</th>
+            <th>Schedule</th>
+            <th>Daily Salary</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for emp in employees %}
+          <tr>
+            <td>{{ emp.id }}</td>
+            <td>{{ emp.name }}</td>
+            <td>{{ emp.position }}</td>
+            <td>{{ emp.schedule }}</td>
+            <td>{{ emp.salary }}</td>
+            <td>
+              <form action="{% url 'delete_employee' emp.id %}" method="post" style="display:inline;">
+                {% csrf_token %}
+                <button type="submit" class="delete-button">Delete</button>
+              </form>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+    </div>
+    <div class="notification" id="notification"></div>
+    <script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const formContainer = document.getElementById('formContainer');
+    const toggleBtn = document.querySelector('.toggle-form-button');
+    const modalOverlay = document.getElementById('modalOverlay');
+
+    function toggleForm() {
+      const isHidden = formContainer.style.display === 'none' || formContainer.style.display === '';
+      formContainer.style.display = isHidden ? 'block' : 'none';
+      modalOverlay.style.display = isHidden ? 'block' : 'none';
+    }
+
+    toggleBtn.addEventListener('click', toggleForm);
+
+    modalOverlay.addEventListener('click', () => {
+      formContainer.style.display = 'none';
+      modalOverlay.style.display = 'none';
+    });
+  });
+</script>
+
 </body>
 
 </html>
