@@ -22,7 +22,23 @@
             --warning: #f59e0b;
             --danger: #ef4444;
         }
+         * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
+        body,
+        html {
+            height: 100%;
+            overflow: hidden;
+        }
+
+        body {
+            font-family: "Sen", sans-serif;
+            background-color: var(--page-bg);
+            color: var(--palette-text);
+        }
         /*Navigation*/
         .navigation-top {
             position: fixed !important;
