@@ -22,7 +22,8 @@
             --warning: #f59e0b;
             --danger: #ef4444;
         }
-         * {
+
+        * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
@@ -39,6 +40,7 @@
             background-color: var(--page-bg);
             color: var(--palette-text);
         }
+
         /*Navigation*/
         .navigation-top {
             position: fixed !important;
@@ -91,10 +93,11 @@
             color: var(--palette-accent) !important;
         }
 
-        .nav-icon {
-            width: 20px !important;
-            height: 20px !important;
-            display: inline-block !important;
+        .web-name {
+            font-size: 28px !important;
+            font-weight: 800 !important;
+            color: var(--palette-navbar) !important;
+            margin-left: -10% !important;
         }
 
         /*End Navigation*/
@@ -239,13 +242,9 @@
             visibility: visible;
         }
 
-        .web-name {
-            font-size: 28px !important;
-            font-weight: 800 !important;
-            margin-left: 25% !important;
-            margin-top: 10% !important;
-            padding-bottom: 20px !important;
-            color: var(--palette-header) !important
+        .line {
+            margin-left: 28px;
+            padding-bottom: 10px;
         }
 
         /*End Sidebar*/
@@ -296,10 +295,7 @@
             border: 1px solid #ef4444 !important;
         }
 
-        .button-container {
-            margin-left: auto;
-        }
-
+        .toggle-form-button,
         .add-button,
         .delete-btn,
         .submit-button {
@@ -313,13 +309,16 @@
             transition: background 0.3s, color 0.3s;
         }
 
+
+        .toggle-form-button:hover,
         .add-button:hover,
         .delete-btn:hover,
         .submit-button:hover {
-            background-color: #374151;
-            color: var(--palette-header);
-            border: 1px solid #374151;
+            background-color: #fff;
+            color: #111;
+            border: 1px solid #111;
         }
+
         /*End Button*/
 
         /*Main Content*/
@@ -345,39 +344,16 @@
         }
 
         /*End Main Content*/
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        body,
-        html {
-            height: 100%;
-            overflow: hidden;
-        }
-
-        body {
-            font-family: 'Sen', sans-serif;
-            background: linear-gradient(135deg, #111, #fff);
-            color: #111;
-        }
-
-        .container {
-            display: flex;
-            position: absolute;
-            top: 90px;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            overflow: hidden;
-        }
 
         h1 {
             font-size: 35px;
             margin-bottom: 20px;
             text-align: center;
             color: #111;
+        }
+
+        .button-container {
+            margin-left: auto;
         }
 
         .search-bar {
@@ -480,6 +456,28 @@
             font-size: 16px;
         }
 
+        .table tr:last-child td {
+            border-bottom: none;
+        }
+
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+
+        tr.selected {
+            background-color: #777;
+            color: #fff;
+            font-weight: bold;
+        }
+
+        th.asc::after {
+            content: ' ▲';
+        }
+
+        th.desc::after {
+            content: ' ▼';
+        }
+
         .notification {
             position: fixed;
             top: 20px;
@@ -503,16 +501,12 @@
         }
 
 
-        body,
-        html {
-            height: 100%;
-            overflow: hidden;
-        }
+        
     </style>
 </head>
 
 <body>
-<!--Navigation-->
+    <div class="bg-shape"></div>
     <input type="checkbox" id="sidebarToggle" style="display: none;">
     <label for="sidebarToggle" class="burger">
         <span></span>
@@ -523,21 +517,17 @@
 
     <nav class="navigation-top">
         <div class="navigation-div">
+            <h1 class="web-name" style="padding-top: 20px;">BisNest</h1>
             <ul style="margin-left: 45%;">
-                <li><a style="color: #1e293b;" href="about.html">About</a></li>
+                <li><a style="color: #1e293b;" href="{% url 'webpage12' %}">About</a></li>
                 <li><a style="color: #1e293b;" href="#contact">Contact</a></li>
             </ul>
-            <img src="https://i.ibb.co/60c2V5M5/485022833-1021832163206590-2049955099638617889-n.png" class="nav-logo"
-                alt="Logo" />
         </div>
     </nav>
-    <!--End Navigation-->
 
-    <!--Sidebar-->
     <nav class="sidebar">
         <ul>
             <ul>
-                <h1 class="web-name">BisNest</h1>
                 <li><a href="{% url 'webpage3' %}"><svg class="nav-icon" xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 24 24" width="20" height="20" fill="currentColor"
                             style="vertical-align:middle;margin-right:8px">
@@ -589,7 +579,7 @@
                         </svg>Sales Report</a></li>
             </ul>
             <ul>
-                <div style="margin-left: 28px; padding-bottom: 10px;">_______________________</div>
+                <div class="line">_______________________</div>
                 <li><button class="btn-signout" onclick="window.location.href='login.html'"><svg class="signout-icon"
                             xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
                             <path d="M16 13v-2H7V8l-5 4 5 4v-3zM20 3h-8v2h8v14h-8v2h8a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2z" />
@@ -597,16 +587,14 @@
             </ul>
         </ul>
     </nav>
-    <!--End Navigation-->
 
-    <!--Main Container-->
     <main class="main-content">
         <div class="customer-container">
             <h1>Customer Management</h1>
             <div class="search-bar">
                 <input type="text" id="searchInput" placeholder="Search Customer Name:" onkeyup="searchCustomer()">
                 <div class="button-container">
-                    <button class="add-button" onclick="toggleForm()">Add Customer</button>
+                    <button class="toggle-form-button" onclick="toggleForm()">Add Customer</button>
                 </div>
             </div>
 
@@ -653,8 +641,6 @@
             </div>
         </div>
     </main>
-    <!--End Main Container-->
-
     <div class="notification" id="notification"></div>
     <script>
         const customerForm = document.querySelector('.customer-form');
@@ -687,6 +673,8 @@
             }
             return `C${idNumber.toString().padStart(3, '0')}`;
         }
+
+
 
         function renderTable() {
             customerTableBody.innerHTML = '';
