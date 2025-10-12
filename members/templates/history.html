@@ -321,22 +321,23 @@
 
     /*Main Content*/
     .page-title {
-      font-size: 35px;
-      margin-top: 20px;
+      font-size: clamp(1.5rem, 2vw, 3rem);
+      margin-top: 2vh;
       text-align: center;
       color: #ffffff;
       font-weight: bolder;
       border: #0e0202 1px solid;
-      background-color:#1e293b;
-      max-width: 1700px;
-      border-radius: 16px;
-      height: 200px;
-      margin-bottom: -190px;
-      margin-left: 3.8%;
-      margin-right: 3.8%;
-      padding-top: 15px;
+      background-color: #1e293b;
+      width: 90vw;
+      border-radius: 1rem;
+      height: 15vh;
+      margin-bottom: -12.5vh;
+      margin-left: auto;
+      margin-right: auto;
+      padding-top: 1.5vh;
+      overflow: auto;
     }
-    
+
     .main-content {
       flex: 1;
       overflow-y: auto;
@@ -348,16 +349,15 @@
 
     .main-container {
       overflow: auto;
-      max-width: 1700px;
-      height: 700px;
-      margin: 60px auto;
-      padding: 40px;
+      max-width: 90vw;
+      height: 70vh;
+      margin: 5vh auto;
+      padding: 2vw;
       background-color: #fff;
-      border-radius: 16px;
-      box-shadow: 1px 8px 8px #111;
+      box-shadow: 0.1vw 0.5vw 0.5vw #111;
       border: 1px solid #e0e0e0;
+      border-radius: 1rem;
     }
-
     /*End Main Content*/
 
     /*Order Form & Table*/
@@ -644,11 +644,8 @@
   <div class="notification" id="notification"></div>
   <script>
     document.addEventListener("DOMContentLoaded", () => {
-      const formContainer = document.querySelector('.order-form-container');
-      const searchOrderId = document.getElementById('search-order-id');
-      const searchProduct = document.getElementById('search-product');
-      const searchDate = document.getElementById('search-date');
-      const orderTableBody = document.querySelector('#order-table tbody');
+      const formContainer = document.getElementById('formContainer');
+      const toggleBtn = document.querySelector('.toggle-form-button');
       const modalOverlay = document.getElementById('modalOverlay');
 
       function toggleForm() {
@@ -657,59 +654,7 @@
         modalOverlay.style.display = isHidden ? 'block' : 'none';
       }
 
-      window.toggleForm = toggleForm;
-
-      function filterTable() {
-        const idQuery = searchOrderId.value.trim().toUpperCase();
-        const productQuery = searchProduct.value.trim().toLowerCase();
-        const dateQuery = searchDate.value;
-        const rows = orderTableBody.querySelectorAll('tr');
-
-        rows.forEach(row => {
-          const orderId = row.cells[0].textContent.toUpperCase();
-          const productName = row.cells[4].textContent.toLowerCase();
-          const date = row.cells[6].textContent;
-          const matchId = !idQuery || orderId.includes(idQuery);
-          const matchProduct = !productQuery || productName.includes(productQuery);
-          const matchDate = !dateQuery || date === dateQuery;
-          row.style.display = matchId && matchProduct && matchDate ? '' : 'none';
-        });
-      }
-
-      window.filterTable = filterTable;
-
-      function resetFilters() {
-        searchOrderId.value = '';
-        searchProduct.value = '';
-        searchDate.value = '';
-        const rows = orderTableBody.querySelectorAll('tr');
-        rows.forEach(row => row.style.display = '');
-      }
-
-      window.resetFilters = resetFilters;
-
-      document.querySelectorAll('tr').forEach(row => {
-        row.addEventListener('click', () => {
-          document.querySelectorAll('tr').forEach(r => r.classList.remove('selected'));
-          row.classList.add('selected');
-        });
-      });
-
-      document.querySelectorAll('th').forEach(th => {
-        th.addEventListener('click', () => {
-          const index = Array.from(th.parentElement.children).indexOf(th);
-          const rows = Array.from(orderTableBody.querySelectorAll('tr'));
-          const isAsc = th.classList.contains('asc');
-          document.querySelectorAll('th').forEach(header => header.classList.remove('asc', 'desc'));
-          th.classList.add(isAsc ? 'desc' : 'asc');
-          rows.sort((a, b) => {
-            const aValue = a.cells[index].textContent;
-            const bValue = b.cells[index].textContent;
-            return isAsc ? bValue.localeCompare(aValue) : aValue.localeCompare(bValue);
-          });
-          rows.forEach(row => orderTableBody.appendChild(row));
-        });
-      });
+      toggleBtn.addEventListener('click', toggleForm);
 
       modalOverlay.addEventListener('click', () => {
         formContainer.style.display = 'none';
