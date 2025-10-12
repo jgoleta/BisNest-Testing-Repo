@@ -49,6 +49,13 @@
             height: calc(100vh - 90px);
             overflow-y: auto;
         }
+
+         h1 {
+            font-size: 35px;
+            margin-bottom: 20px;
+            text-align: center;
+            color: #111;
+        }
         
         /*Navigation*/
         .navigation-top {
@@ -107,6 +114,7 @@
             font-weight: 800 !important;
             color: var(--palette-navbar) !important;
             margin-left: -10% !important;
+            padding-top: 20px !important;
         }
 
         /*End Navigation*/
@@ -599,7 +607,7 @@
         }
 
         document.getElementById('addOrderBtn').addEventListener('click', () => {
-            window.location.href = "{% url 'webpage5' %}";
+            window.location.href = 'order.html';
         });
 
         document.getElementById('generateReportBtn').addEventListener('click', () => {
