@@ -274,12 +274,12 @@
     .delete-button,
     .delete-modal-btn,
     .delete-btn {
-      background: #ef4444 !important;
+      background: #d63c3c !important;
       color: #fff !important;
       padding: 12px 20px;
       font-weight: bold;
-      border: 1px solid #fff;
-      border-radius: 50px;
+      border: none;
+      border-radius: 10px;
       background-color: #111;
       color: #fff;
       cursor: pointer;
@@ -289,29 +289,29 @@
     .delete-button:hover,
     .delete-modal-btn:hover,
     .delete-btn:hover {
-      background: #eb3030 !important;
+      background: #b40202 !important;
       color: #ffffff !important;
-      border: 1px solid #eb3030 !important;
+      border: none;
     }
 
     .toggle-form-button,
     .add-button,
-    .delete-btn,
     .submit-button {
       padding: 12px 20px;
       font-weight: bold;
-      border: 1px solid #fff;
-      border-radius: 50px;
+      border: 1px solid #1e293b;
+      border-radius: 10px;
       background-color: var(--palette-navbar);
       color: #fff;
       cursor: pointer;
       transition: background 0.3s, color 0.3s;
+      width: 100px;
+      box-shadow: #111827 0px 2px 7px;
     }
 
 
     .toggle-form-button:hover,
     .add-button:hover,
-    .delete-btn:hover,
     .submit-button:hover {
       background-color: #374151;
       border: #374151 1px solid;
@@ -354,8 +354,9 @@
       box-shadow: 0vw 0vw 1vw #111;
       border: 1px solid #e0e0e0;
     }
+
     /*End Main Content*/
-    
+
     .button-container {
       margin-left: auto;
     }
@@ -574,9 +575,9 @@
       <ul>
         <div class="line">_______________________</div>
         <li><a href="{% url 'webpage1' %}" class="btn-signout"><svg class="signout-icon"
-                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
-                            <path d="M16 13v-2H7V8l-5 4 5 4v-3zM20 3h-8v2h8v14h-8v2h8a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2z" />
-                        </svg>Sign Out</a></li>
+              xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M16 13v-2H7V8l-5 4 5 4v-3zM20 3h-8v2h8v14h-8v2h8a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2z" />
+            </svg>Sign Out</a></li>
       </ul>
     </ul>
   </nav>
@@ -587,7 +588,7 @@
       <div class="search-bar">
         <input type="text" id="searchInput" placeholder="Search Employee Name:" onkeyup="searchEmployee()">
         <div class="button-container">
-          <button class="toggle-form-button" onclick="toggleForm()">Add Employee</button>
+          <button class="toggle-form-button" onclick="toggleForm()">+ New</button>
         </div>
       </div>
 
