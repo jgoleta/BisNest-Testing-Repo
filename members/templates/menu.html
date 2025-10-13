@@ -287,23 +287,33 @@
             fill: currentColor !important;
         }
 
-        .dashboard-button {
+        .dashboard-button,
+        .dashboard-button-order {
             padding: 10px 15px;
             margin-left: 5px;
             width: auto;
             font-weight: bold;
-            border: 1px solid #fff;
-            border-radius: 50px;
-            background-color: var(--palette-navbar);
-            color: #fff;
+            border: 0.5px solid #ffffff;
+            border-radius: 10px;
+            background-color: var(--palette-bg-light);
+            color: #000000;
             cursor: pointer;
             transition: background 0.3s, color 0.3s;
             font-size: medium;
+            box-shadow: #111827 0px 3px 7px;
         }
-
+        .dashboard-button-order {
+            background-color: #1e293b !important; 
+            color: #fff !important; 
+            border: none !important;
+        }
+        .dashboard-button-order:hover {
+            background-color: #4f46e5 !important; 
+            border: none !important;
+        }
         .dashboard-button:hover {
-            background-color: #374151;
-            border: #374151 1px solid;
+            background-color: #e2e6e9;
+            border: #e2e6e9 1px solid;
         }
 
         .dashboard-button-container {
@@ -493,9 +503,9 @@
         <main class="main-content">
             <h1 class="page-title">Dashboard</h1>
             <ul class="dashboard-button-container">
-                <li href="{% url 'webpage5' %}" class="dashboard-button" id="addOrderBtn">Add Order</li>
                 <li class="dashboard-button" id="generateReportBtn">Generate Report</li>
                 <li class="dashboard-button" id="refreshBtn">Refresh Data</li>
+                <li href="{% url 'webpage5' %}" class="dashboard-button-order" id="addOrderBtn">New Order</li>
             </ul>
 
             <div class="stats-grid">
