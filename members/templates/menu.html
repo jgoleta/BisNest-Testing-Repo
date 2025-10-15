@@ -505,7 +505,7 @@
             <ul class="dashboard-button-container">
                 <li class="dashboard-button" id="generateReportBtn">Generate Report</li>
                 <li class="dashboard-button" id="refreshBtn">Refresh Data</li>
-                <li href="{% url 'webpage5' %}" class="dashboard-button-order" id="addOrderBtn">New Order</li>
+                <li href="{% url 'webpage5' %}" onclick="" class="dashboard-button-order" id="addOrderBtn">New Order</li>
             </ul>
 
             <div class="stats-grid">
@@ -629,7 +629,7 @@
         }
 
         document.getElementById('addOrderBtn').addEventListener('click', () => {
-            window.location.href = 'order.html';
+            window.location.href = '{% url 'webpage5' %}';
         });
 
         document.getElementById('generateReportBtn').addEventListener('click', () => {
