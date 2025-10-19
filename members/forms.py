@@ -98,7 +98,7 @@ class SupplyForm(forms.ModelForm):
 class SalesReportForm(forms.ModelForm):
     class Meta:
         model = SalesReport
-        fields = ['date', 'product_name', 'kilos_sold', 'price_per_kilo']
+        fields = ['date', 'product_name', 'quantity_sold', 'price']
         widgets = {
             'date': forms.DateInput(attrs={'type': 'date'}),
             'product_name': forms.Select(choices=[
