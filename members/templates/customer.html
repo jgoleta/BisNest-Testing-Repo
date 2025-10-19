@@ -358,6 +358,7 @@
             box-shadow: 0vw 0vw 1vw #111;
             border: 1px solid #e0e0e0;
         }
+
         /*End Main Content*/
 
 
@@ -505,6 +506,12 @@
         .notification.error {
             background-color: #0e0202;
         }
+
+        .form-title {
+            font-size: 20px;
+            margin-bottom: 20px;
+            color: #111;
+        }
     </style>
 </head>
 
@@ -624,6 +631,7 @@
                         </tr>
                     </thead>
                     <tbody class="table-body">
+                        <h2 class="form-title" id="formTitle">Customer Information</h2>
                         {% for cust in customers %}
                         <tr>
                             <td>{{ cust.id }}</td>
