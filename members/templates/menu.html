@@ -40,7 +40,7 @@
             background-color: var(--page-bg);
             color: var(--palette-text);
         }
-        
+
         .main-content {
             margin-top: 90px;
             margin-left: 0;
@@ -50,13 +50,13 @@
             overflow-y: auto;
         }
 
-         h1 {
+        h1 {
             font-size: 35px;
             margin-bottom: 20px;
             text-align: center;
             color: #111;
         }
-        
+
         /*Navigation*/
         .navigation-top {
             position: fixed !important;
@@ -120,7 +120,7 @@
         /*End Navigation*/
 
         /*Sidebar*/
-         #sidebarToggle:checked+.burger span:nth-child(1) {
+        #sidebarToggle:checked+.burger span:nth-child(1) {
             transform: rotate(45deg) translate(5px, 5px) !important;
         }
 
@@ -263,6 +263,7 @@
             margin-left: 28px;
             padding-bottom: 10px;
         }
+
         /*End Sidebar*/
 
         /*Button*/
@@ -302,15 +303,18 @@
             font-size: medium;
             box-shadow: #111827 0px 3px 7px;
         }
+
         .dashboard-button-order {
-            background-color: #1e293b !important; 
-            color: #fff !important; 
+            background-color: #1e293b !important;
+            color: #fff !important;
             border: none !important;
         }
+
         .dashboard-button-order:hover {
-            background-color: #4f46e5 !important; 
+            background-color: #4f46e5 !important;
             border: none !important;
         }
+
         .dashboard-button:hover {
             background-color: #e2e6e9;
             border: #e2e6e9 1px solid;
@@ -327,7 +331,7 @@
         /*End Button*/
 
 
-        /*Dashboard Content*/
+        /*Dashboard Unique Style*/
         .page-title {
             text-align: center;
             font-size: 44px;
@@ -344,7 +348,7 @@
             box-shadow: 0vw 0vw 0.4vw #111;
             margin-top: 5px;
         }
-        
+
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -412,6 +416,7 @@
             box-shadow: 0 2px 4px #111;
             border: 1px solid #e0e0e0;
         }
+
         /*End Dashboard Content*/
     </style>
 </head>
@@ -428,18 +433,18 @@
 
     <nav class="navigation-top">
         <div class="navigation-div">
-          <h1 class="web-name">BisNest</h1>
+            <h1 class="web-name">BisNest</h1>
             <ul style="margin-left: 45%;">
                 <li><a style="color: #1e293b;" href="{% url 'webpage12' %}">About</a></li>
                 <li><a style="color: #1e293b;" href="#contact">Contact</a></li>
             </ul>
         </div>
     </nav>
-    
+
     <nav class="sidebar">
         <ul>
             <ul>
-                
+
                 <li><a href="{% url 'webpage3' %}"><svg class="nav-icon" xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 24 24" width="20" height="20" fill="currentColor"
                             style="vertical-align:middle;margin-right:8px">
@@ -505,7 +510,8 @@
             <ul class="dashboard-button-container">
                 <li class="dashboard-button" id="generateReportBtn">Generate Report</li>
                 <li class="dashboard-button" id="refreshBtn">Refresh Data</li>
-                <li href="{% url 'webpage5' %}" onclick="" class="dashboard-button-order" id="addOrderBtn">New Order</li>
+                <li href="{% url 'webpage5' %}" onclick="" class="dashboard-button-order" id="addOrderBtn">New Order
+                </li>
             </ul>
 
             <div class="stats-grid">
@@ -649,5 +655,3 @@
 </body>
 
 </html>
-
-
