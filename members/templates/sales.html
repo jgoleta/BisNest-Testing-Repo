@@ -541,8 +541,8 @@
                     <tr>
                         <th>Date</th>
                         <th>Product Name</th>
-                        <th>Quantity Sold</th>
-                            <th>Price per Kilo</th>
+                        <th>Kilos Sold</th>
+                        <th>Price (Kg)</th>
                         <th>Total (₱)</th>
                         <th>Action</th>
                     </tr>
@@ -552,8 +552,8 @@
                     <tr>
                         <td>{{ sale.date }}</td>
                         <td>{{ sale.product_name }}</td>
-                            <td>{{ sale.quantity_sold }}</td>
-                            <td>₱{{ sale.price }}</td>
+                        <td>{{ sale.kilos_sold }} kg</td>
+                        <td>₱{{ sale.price_per_kilo }}</td>
                         <td class="row-total">₱{{ sale.total }}</td>
                         <td>
                             <form method="POST" action="{% url 'delete_sale' sale.id %}">
