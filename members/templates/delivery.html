@@ -284,6 +284,7 @@
       color: #fff;
       cursor: pointer;
       transition: background 0.3s, color 0.3s;
+      
     }
 
     .delete-button:hover,
@@ -381,23 +382,28 @@
 
     .delivery-table {
       width: 100%;
-      border-collapse: collapse;
-      background-color: white;
-      border-radius: 10px;
+      border-collapse: separate;
+      border-spacing: 0;
+      border-radius: 12px;
       overflow: hidden;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      background-color: #fff;
+      margin-top: 20px;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.07);
+      color: #111;
+    }
+
+    .delivery-table th,
+    .delivery-table td {
+      padding: 14px 16px;
+      text-align: center;
+      border: none;
+      font-size: 15px;
     }
 
     .delivery-table th {
       background-color: var(--palette-navbar);
-      color: white;
-      padding: 15px;
-      text-align: left;
-    }
-
-    .delivery-table td {
-      padding: 12px 15px;
-      border-bottom: 1px solid #eee;
+      color: #fff;
+      font-size: 16px;
     }
 
     .delivery-table tr:last-child td {
@@ -453,11 +459,6 @@
       border-radius: 5px;
       background-color: white;
       cursor: pointer;
-    }
-
-    .status-select {
-      width: 120px !important;
-      margin-left: -40px;
     }
 
     .status-delivered {
