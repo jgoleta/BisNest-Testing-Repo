@@ -357,6 +357,7 @@
 
     /*End Main Content*/
 
+    /*Employee Unique Style*/
     .button-container {
       margin-left: auto;
     }
@@ -599,6 +600,7 @@
       </div>
 
       <div class="employee-form-container" id="formContainer">
+        <h2 class="form-title" id="formTitle">Employee Information</h2>
         <form class="employee-form" method="POST">
           {% csrf_token %}
           {{ form.as_p }}
@@ -620,7 +622,7 @@
           </tr>
         </thead>
         <tbody>
-          <h2 class="form-title" id="formTitle">Employee Information</h2>
+
           {% for emp in employees %}
           <tr>
             <td>{{ emp.id }}</td>

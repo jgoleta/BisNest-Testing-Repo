@@ -361,7 +361,7 @@
 
         /*End Main Content*/
 
-
+        /*Customer Unique Style*/
         .search-bar {
             margin: 10px 0;
             margin-top: -10px;
@@ -610,6 +610,7 @@
 
             <div class="modal-overlay" id="modalOverlay" style="display:none;"></div>
             <div class="customer-form-container" id="formContainer">
+                <h2 class="form-title" id="formTitle">Customer Information</h2>
                 <form class="customer-form" method="POST">
                     {% csrf_token %}
                     {{ form.as_p }}
@@ -631,7 +632,7 @@
                         </tr>
                     </thead>
                     <tbody class="table-body">
-                        <h2 class="form-title" id="formTitle">Customer Information</h2>
+                        
                         {% for cust in customers %}
                         <tr>
                             <td>{{ cust.id }}</td>
