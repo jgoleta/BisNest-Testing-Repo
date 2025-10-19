@@ -445,13 +445,19 @@
       border-radius: 5px;
     }
 
-    .status-select {
+    .status-select,
+    .status-select-form {
       width: 100%;
       padding: 10px;
       border: 1px solid #ddd;
       border-radius: 5px;
       background-color: white;
       cursor: pointer;
+    }
+
+    .status-select {
+      width: 120px !important;
+      margin-left: -40px;
     }
 
     .status-delivered {
@@ -661,7 +667,7 @@
           {{ form.as_p }}
           <div class="form-group">
             <label for="id_status">Status:</label>
-            <select name="status" id="id_status" class="status-select">
+            <select name="status" id="id_status" class="status-select-form">
               <option value="Pending">Pending</option>
               <option value="Delivered">Delivered</option>
               <option value="Cancelled">Cancelled</option>
