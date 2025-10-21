@@ -52,17 +52,9 @@ class OrderForm(forms.ModelForm):
         fields = '__all__'
         widgets = {
             'order_id': forms.TextInput(attrs={'readonly': True, 'class': 'form-control'}),
-            'customer_id': forms.TextInput(attrs={'class': 'form-control'}),
-            'employee_id': forms.TextInput(attrs={'class': 'form-control'}),
-            'product_name': forms.Select(attrs={'class': 'form-control'}, choices=[
-                ('Whole Chicken', 'Whole Chicken'),
-                ('Chicken Feet', 'Chicken Feet'),
-                ('Chicken Head', 'Chicken Head'),
-                ('Chicken Liver', 'Chicken Liver'),
-                ('Chicken Intestine', 'Chicken Intestine'),
-                ('Chicken Blood', 'Chicken Blood'),
-                ('Chicken Gizzard', 'Chicken Gizzard'),
-            ]),
+            'customer_name': forms.TextInput(attrs={'class': 'form-control'}),
+            'employee_name': forms.TextInput(attrs={'class': 'form-control'}),
+            'product_name': forms.Select(attrs={'class': 'form-control'}),
             'amount': forms.NumberInput(attrs={'step': 0.01, 'class': 'form-control'}),
             'date': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
         }
