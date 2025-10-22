@@ -39,7 +39,7 @@ def login_view(request):
         user = authenticate(request, username=username, password=password) if username else None
         if user is not None:
             login(request, user)
-            return redirect('webpage3')  
+            return redirect('menuPage')  
         else:
             messages.error(request, 'Invalid email or password.')
     return render(request, 'login.html')
@@ -48,7 +48,7 @@ def logout_view(request):
     logout(request)
     return redirect('login_view')
 
-def webpage1(request):
+def loginPage(request):
     return render(request, 'login.html')
     #if request.method == "GET":
     #    return render(request, 'login.html')
@@ -56,14 +56,14 @@ def webpage1(request):
    
     #if request.method == "POST":
     #    logout(request)  
-    #    return redirect('webpage1') 
+    #    return redirect('loginPage') 
 
-def webpage2(request):
+def employeesInfoPage(request):
     if request.method == 'POST':
         form = MemberForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('webpage2')  
+            return redirect('employeesInfoPage')  
     else:
         form = MemberForm()
 
@@ -76,18 +76,18 @@ def webpage2(request):
 def delete_employee(request, employee_id):
     employee = get_object_or_404(Member, pk=employee_id)
     employee.delete()
-    return redirect('webpage2')
+    return redirect('employeesInfoPage')
 
-def webpage3(request):
+def menuPage(request):
     return render(request, 'menu.html')
 
 
-def webpage4(request):
+def paymentPage(request):
     if request.method == 'POST':
         form = PaymentForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('webpage4')
+            return redirect('paymentPage')
     else:
         form = PaymentForm(initial={
             'payment_id': f'P{Payment.objects.count()+1:04d}'  
@@ -102,9 +102,9 @@ def webpage4(request):
 def delete_payment(request, payment_id):
     payment = get_object_or_404(Payment, pk=payment_id)
     payment.delete()
-    return redirect('webpage4')
+    return redirect('paymentPage')
 
-def webpage5(request):
+def orderHistoryPage(request):
     if request.method == 'POST':
         print("🔸 POST received:", request.POST)
         form = OrderForm(request.POST)
@@ -123,7 +123,7 @@ def webpage5(request):
             product_name = form.cleaned_data.get('product_name')
             order.product_id = product_map.get(product_name, 'P0')
             order.save()
-            return redirect('webpage5')
+            return redirect('orderHistoryPage')
         else:
             print("❌ INVALID form")
             print(form.errors)
@@ -141,18 +141,18 @@ def webpage5(request):
 def delete_order(request, order_id):
     order = get_object_or_404(Order, pk=order_id)
     order.delete()
-    return redirect('webpage5')
+    return redirect('orderHistoryPage')
 
 
-def webpage6(request):
+def signupPage(request):
     return render(request, 'signup.html')
 
-def webpage7(request):
+def customerInfoPage(request):
     if request.method == 'POST':
         form = CustomerForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('webpage7')
+            return redirect('customerInfoPage')
     else:
         form = CustomerForm()
 
@@ -165,17 +165,17 @@ def webpage7(request):
 def delete_customer(request, customer_id):
     customer = get_object_or_404(Customer, pk=customer_id)
     customer.delete()
-    return redirect('webpage7')
+    return redirect('customerInfoPage')
 
-def webpage8(request):
+def productPage(request):
     return render(request, 'product.html')
 
-def webpage9(request):
+def deliveryPage(request):
     if request.method == 'POST':
         form = DeliveryForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('webpage9')
+            return redirect('deliveryPage')
     else:
         form = DeliveryForm()
 
@@ -188,14 +188,14 @@ def webpage9(request):
 def delete_delivery(request, delivery_id):
     delivery = get_object_or_404(Delivery, pk=delivery_id)
     delivery.delete()
-    return redirect('webpage9')
+    return redirect('deliveryPage')
 
-def webpage10(request):
+def salesPage(request):
     if request.method == 'POST':
         form = SalesReportForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('webpage10')
+            return redirect('salesPage')
     else:
         form = SalesReportForm()
 
@@ -208,14 +208,14 @@ def webpage10(request):
 def delete_sale(request, sale_id):
     sale = get_object_or_404(SalesReport, pk=sale_id)
     sale.delete()
-    return redirect('webpage10')
+    return redirect('salesPage')
 
-def webpage11(request):
+def supplyPage(request):
     if request.method == 'POST':
         form = SupplyForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('webpage11')
+            return redirect('supplyPage')
     else:
         form = SupplyForm(initial={
             'supply_id': f"SUP{Supply.objects.count() + 1:04d}"
@@ -227,13 +227,13 @@ def webpage11(request):
         'supplies': supplies
     })
 
-def webpage12(request):
+def aboutPage(request):
     return render(request, 'about.html')
 
 def delete_supply(request, supply_id):
     supply = get_object_or_404(Supply, pk=supply_id)
     supply.delete()
-    return redirect('webpage11')
+    return redirect('supplyPage')
 
 def register_view(request):
     if request.method == 'POST':
