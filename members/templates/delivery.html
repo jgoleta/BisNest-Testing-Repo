@@ -643,10 +643,10 @@
             <td>{{ d.address }}</td>
             <td>{{ d.scheduled_date }}</td>
             <td>
-              <select class="status-select status-{{ d.status|lower }}" onchange="updateStatus(this, '{{ d.id }}')">
-                <option value="Delivered" {% if d.status == "Delivered" %}selected{% endif %}>Delivered</option>
+              <select class="status-select status-{{ d.status|lower }}" onchange="updateStatus(this, '{{ d.id }}')">           
                 <option value="Pending" {% if d.status == "Pending" %}selected{% endif %}>Pending</option>
                 <option value="Cancelled" {% if d.status == "Cancelled" %}selected{% endif %}>Cancelled</option>
+                <option value="Delivered" {% if d.status == "Delivered" %}selected{% endif %}>Delivered</option>
               </select>
             </td>
             <td>
