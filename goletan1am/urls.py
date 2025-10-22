@@ -33,7 +33,7 @@ urlpatterns = [
     path('sales', index.salesPage, name='salesPage'),
     path('supply', index.supplyPage, name='supplyPage'),
     path('about', index.aboutPage, name='aboutPage'),
-    path('employee-info/', index.webpage2, name='employee_info'),
+    path('employee-info/', index.employeesInfoPage, name='employee_info'),
     path('employee-info/delete/<int:employee_id>/', index.delete_employee, name='delete_employee'),
     path('customer/delete/<int:customer_id>/', index.delete_customer, name='delete_customer'),
     path('delivery/delete/<int:delivery_id>/', index.delete_delivery, name='delete_delivery'),
@@ -46,3 +46,4 @@ urlpatterns = [
     path('delete-sale/<int:sale_id>/', index.delete_sale, name='delete_sale'),
     path('update_delivery_status/<int:delivery_id>/', index.update_delivery_status, name='update_delivery_status'),
 ]
+
