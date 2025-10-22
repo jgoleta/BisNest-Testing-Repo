@@ -760,7 +760,7 @@
             const rows = table.getElementsByTagName("tr");
 
             for (let i = 0; i < rows.length; i++) {
-                const nameCell = rows[i].getElementsByTagName("td")[1]; // 2nd column = Name
+                const nameCell = rows[i].getElementsByTagName("td")[1]; 
                 if (nameCell) {
                     const nameText = nameCell.textContent || nameCell.innerText;
                     if (nameText.toLowerCase().indexOf(filter) > -1) {
