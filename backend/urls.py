@@ -45,5 +45,6 @@ urlpatterns = [
     path('logout/', index.logout_view, name='logout_view'),
     path('delete-sale/<int:sale_id>/', index.delete_sale, name='delete_sale'),
     path('update_delivery_status/<int:delivery_id>/', index.update_delivery_status, name='update_delivery_status'),
+    path('auth-status/', index.auth_status, name='auth_status'),  # Debug endpoint
 ]
 
