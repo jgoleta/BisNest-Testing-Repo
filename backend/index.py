@@ -7,6 +7,8 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import json
 from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
+
 
 @csrf_exempt
 def update_delivery_status(request, delivery_id):
