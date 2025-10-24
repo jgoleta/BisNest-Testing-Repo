@@ -41,7 +41,7 @@ def login_view(request):
         user = authenticate(request, username=username, password=password) if username else None
         if user is not None:
             login(request, user)
-            return redirect('menuPage')  
+            return redirect('menu')  
         else:
             messages.error(request, 'Invalid email or password.')
     return render(request, 'login.html')
