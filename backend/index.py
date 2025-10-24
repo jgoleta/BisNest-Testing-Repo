@@ -48,7 +48,7 @@ def login_view(request):
 
 def logout_view(request):
     logout(request)
-    return redirect('login_view')
+    return redirect('loginPage')
 
 def loginPage(request):
     return render(request, 'login.html')
