@@ -28,7 +28,7 @@ urlpatterns = [
     path('payment/', views.payment_view, name='payment'),              # 🔒 protected
     path('customer/', views.customer_view, name='customer'),           # 🔒 protected
     path('product/', views.product_view, name='product'),              # 🔒 protected
-    path('about/', views.about_view, name='about'),                    # 🔒 protected
+    path('about/', index.aboutPage, name='about'),                    # 🔒 protected
 
     # --- Data Operations (Still from backend.index) ---
     path('employee-info/', index.employeesInfoPage, name='employee_info'),
