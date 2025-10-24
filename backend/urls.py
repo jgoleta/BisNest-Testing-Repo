@@ -42,7 +42,7 @@ urlpatterns = [
     path('update_delivery_status/<int:delivery_id>/', index.update_delivery_status, name='update_delivery_status'),
 
     # --- Reports / Misc ---
-    path('sales/', index.salesPage, name='salesPage'),
-    path('supply/', index.supplyPage, name='supplyPage'),
-    path('delivery/', index.deliveryPage, name='deliveryPage'),
+    path('sales/', index.salesPage, name='sales'),
+    path('supply/', index.supplyPage, name='supply'),
+    path('delivery/', index.deliveryPage, name='delivery'),
 ]
