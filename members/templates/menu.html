@@ -435,7 +435,7 @@
         <div class="navigation-div">
             <h1 class="web-name">BisNest</h1>
             <ul style="margin-left: 45%;">
-                <li><a style="color: #1e293b;" href="{% url 'aboutPage' %}">About</a></li>
+                <li><a style="color: #1e293b;" href="{% url 'about' %}">About</a></li>
                 <li><a style="color: #1e293b;" href="#contact">Contact</a></li>
             </ul>
         </div>
@@ -635,7 +635,7 @@
         }
 
         document.getElementById('addOrderBtn').addEventListener('click', () => {
-            window.location.href = '{% url 'orderHistoryPage' %}';
+            window.location.href = "{% url 'orderHistoryPage' %}";
         });
 
         document.getElementById('generateReportBtn').addEventListener('click', () => {
