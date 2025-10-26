@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from members.models import Member, Customer, Delivery, Payment, Order, Supply, SalesReport
-from members.forms import SupplyForm, MemberForm, CustomerForm, DeliveryForm, PaymentForm, OrderForm, SalesReportForm
+from members.models import Employee, Customer, Delivery, Payment, Order, Supply, SalesReport
+from members.forms import SupplyForm, EmployeeForm, CustomerForm, DeliveryForm, PaymentForm, OrderForm, SalesReportForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.http import JsonResponse
@@ -62,21 +62,21 @@ def loginPage(request):
 
 def employeesInfoPage(request):
     if request.method == 'POST':
-        form = MemberForm(request.POST)
+        form = EmployeeForm(request.POST)
         if form.is_valid():
             form.save()
             return redirect('employeesInfoPage')  
     else:
-        form = MemberForm()
+        form = EmployeeForm()
 
-    employees = Member.objects.all() 
+    employees = Employee.objects.all() 
     return render(request, 'employeesinfo.html', {
         'form': form,
         'employees': employees
     })
 
 def delete_employee(request, employee_id):
-    employee = get_object_or_404(Member, pk=employee_id)
+    employee = get_object_or_404(Employee, pk=employee_id)
     employee.delete()
     return redirect('employeesInfoPage')
 
@@ -89,7 +89,7 @@ def paymentPage(request):
         form = PaymentForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('paymentPage')
+            return redirect('payment')
     else:
         form = PaymentForm(initial={
             'payment_id': f'P{Payment.objects.count()+1:04d}'  
@@ -104,7 +104,7 @@ def paymentPage(request):
 def delete_payment(request, payment_id):
     payment = get_object_or_404(Payment, pk=payment_id)
     payment.delete()
-    return redirect('paymentPage')
+    return redirect('payment')
 
 def orderHistoryPage(request):
     if request.method == 'POST':
@@ -154,7 +154,7 @@ def customerInfoPage(request):
         form = CustomerForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('customerInfoPage')
+            return redirect('customer')
     else:
         form = CustomerForm()
 
@@ -167,7 +167,7 @@ def customerInfoPage(request):
 def delete_customer(request, customer_id):
     customer = get_object_or_404(Customer, pk=customer_id)
     customer.delete()
-    return redirect('customerInfoPage')
+    return redirect('customer')
 
 def productPage(request):
     return render(request, 'product.html')

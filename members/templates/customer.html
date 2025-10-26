@@ -5,514 +5,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Customer | BisNest</title>
-    <style>
-        :root {
-            --palette-navbar: #1e293b;
-            --palette-sidebar: #414957;
-            --palette-header: #ffffff;
-            --palette-accent: #6366f1;
-            --palette-accent-dark: #4f46e5;
-            --palette-bg-light: #f8fafc;
-            --page-bg: #ffffff;
-            --palette-text: #111827;
-            --elev-1: 0 10px 30px rgba(16, 24, 40, 0.06);
-            --elev-2: 0 18px 40px rgba(16, 24, 40, 0.09);
-            --muted: rgba(17, 24, 39, 0.45);
-            --success: #16a34a;
-            --warning: #f59e0b;
-            --danger: #ef4444;
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        body,
-        html {
-            height: 100%;
-            overflow: hidden;
-        }
-
-        body {
-            font-family: "Sen", sans-serif;
-            background-color: var(--page-bg);
-            color: var(--palette-text);
-        }
-
-        /*Navigation*/
-        .navigation-top {
-            position: fixed !important;
-            top: 0 !important;
-            left: 0 !important;
-            right: 0 !important;
-            z-index: 1001 !important;
-        }
-
-        nav.navigation-top {
-            background: var(--palette-header) !important;
-            padding: 0 20px !important;
-            height: 90px !important;
-            color: var(--palette-navbar) !important;
-            box-shadow: 0px 4px 9px #1e293b !important;
-        }
-
-        .navigation-div {
-            max-width: 1200px !important;
-            margin: auto !important;
-            height: 90px !important;
-            display: flex !important;
-            align-items: center !important;
-            justify-content: space-between !important;
-        }
-
-        .nav-logo {
-            height: 60px !important;
-            border-radius: 50% !important;
-            background-color: var(--palette-header);
-            padding: 5px !important;
-            margin-left: 50% !important;
-            border: #111827 1px solid !important;
-        }
-
-        nav.navigation-top ul {
-            list-style: none !important;
-            display: flex !important;
-            gap: 30px !important;
-        }
-
-        nav.navigation-top li a {
-            color: var(--palette-header);
-            font-size: 16px !important;
-            text-decoration: none !important;
-            font-weight: 600 !important;
-        }
-
-        nav.navigation-top li a:hover {
-            color: var(--palette-accent) !important;
-        }
-
-        .web-name {
-            font-size: 28px !important;
-            font-weight: 800 !important;
-            color: var(--palette-navbar) !important;
-            margin-left: -10% !important;
-        }
-
-        /*End Navigation*/
-
-        /*Sidebar*/
-        #sidebarToggle:checked+.burger span:nth-child(1) {
-            transform: rotate(45deg) translate(5px, 5px) !important;
-        }
-
-        #sidebarToggle:checked+.burger span:nth-child(2) {
-            opacity: 0 !important;
-        }
-
-        #sidebarToggle:checked+.burger span:nth-child(3) {
-            transform: rotate(-45deg) translate(6px, -6px) !important;
-        }
-
-        .sidebar {
-            background: var(--palette-sidebar) !important;
-            color: var(--palette-header) !important;
-        }
-
-        .sidebar {
-            background: var(--palette-sidebar) !important;
-            color: var(--palette-header) !important;
-        }
-
-        .sidebar ul li a {
-            color: var(--palette-header) !important;
-        }
-
-        .sidebar {
-            position: fixed !important;
-            top: 90px !important;
-            left: -300px !important;
-            width: 300px !important;
-            height: calc(100% - 90px) !important;
-            background-color: var(--palette-navbar) !important;
-            color: var(--palette-header);
-            overflow-y: auto !important;
-            transition: left 0.3s ease !important;
-            z-index: 2000 !important;
-            border-right: none !important;
-            border-bottom-right-radius: 40px !important;
-            border-top-right-radius: 40px !important;
-        }
-
-        #sidebarToggle:checked~.sidebar {
-            left: 0 !important;
-        }
-
-        .sidebar ul {
-            padding: 8px !important;
-            list-style: none !important;
-        }
-
-        .sidebar ul li {
-            border-radius: 10px !important;
-            margin: 6px 6px !important;
-            padding: 5px 30px !important;
-        }
-
-        .sidebar ul li a {
-            padding: 10px 12px !important;
-            display: flex !important;
-            align-items: center !important;
-            gap: 12px !important;
-            color: inherit !important;
-            text-decoration: none !important;
-        }
-
-        .sidebar ul li:hover {
-            background: linear-gradient(165deg,
-                    rgba(255, 255, 255, 0.2),
-                    rgba(241, 236, 230, 0.2)) !important;
-            text-decoration: none !important;
-            border-radius: 10px !important;
-            margin-left: 4px !important;
-            transition: background 0.45s ease,
-                transform 0.35s cubic-bezier(0.2, 0.9, 0.3, 1) !important;
-            transform: translateX(6px) !important;
-        }
-
-        .sidebar ul li.active,
-        .sidebar ul li a.active {
-            background: var(--palette-accent-dark) !important;
-            color: var(--palette-header) !important;
-            box-shadow: 0 8px 22px rgba(79, 70, 229, 0.16) !important;
-            border-left: none !important;
-            text-decoration: none !important;
-        }
-
-        .sidebar ul li.selected {
-            background: var(--palette-accent-dark) !important;
-            color: var(--palette-header) !important;
-            box-shadow: 0 8px 22px rgba(79, 70, 229, 0.16) !important;
-            border-left: none !important;
-        }
-
-        .burger {
-            width: 30px !important;
-            height: 24px !important;
-            display: flex !important;
-            flex-direction: column !important;
-            justify-content: space-between !important;
-            position: fixed !important;
-            top: 35px !important;
-            left: 50px !important;
-            z-index: 2001 !important;
-            cursor: pointer !important;
-            padding: 0 !important;
-            background: none !important;
-            border: none !important;
-        }
-
-        .burger span {
-            height: 4px !important;
-            width: 100% !important;
-            background: var(--palette-navbar) !important;
-            border-radius: 2px !important;
-            transition: 0.3s !important;
-            transform-origin: center !important;
-        }
-
-        .overlay {
-            display: none;
-            position: fixed;
-            top: 90px;
-            left: 0;
-            width: 100%;
-            height: calc(100% - 90px);
-            background: rgba(0, 0, 0, 0.5);
-            z-index: 1500;
-            opacity: 0;
-            transition: all 0.3s;
-            visibility: hidden;
-        }
-
-        #sidebarToggle:checked~.overlay {
-            display: block;
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .line {
-            margin-left: 28px;
-            padding-bottom: 10px;
-        }
-
-        /*End Sidebar*/
-
-        /*Button*/
-        .btn-signout {
-            display: inline-flex !important;
-            align-items: center !important;
-            gap: 8px !important;
-            background: transparent !important;
-            border: none !important;
-            color: var(--palette-header);
-            min-width: 120px !important;
-            padding: 8px 12px !important;
-            font-size: medium;
-            cursor: pointer;
-        }
-
-        .btn-signout .signout-icon {
-            width: 18px !important;
-            height: 18px !important;
-            display: inline-block !important;
-            vertical-align: middle !important;
-            fill: currentColor !important;
-        }
-
-        .delete-button,
-        .delete-modal-btn,
-        .delete-btn {
-            background: #d63c3c !important;
-            color: #fff !important;
-            padding: 12px 20px;
-            font-weight: bold;
-            border: none;
-            border-radius: 10px;
-            background-color: #111;
-            color: #fff;
-            cursor: pointer;
-            transition: background 0.3s, color 0.3s;
-        }
-
-        .delete-button:hover,
-        .delete-modal-btn:hover,
-        .delete-btn:hover {
-            background: #b40202 !important;
-            color: #ffffff !important;
-            border: none;
-        }
-
-        .toggle-form-button,
-        .add-button,
-        .submit-button {
-            padding: 12px 20px;
-            font-weight: bold;
-            border: none;
-            border-radius: 10px;
-            background-color: var(--palette-navbar);
-            color: #fff;
-            cursor: pointer;
-            transition: background 0.3s, color 0.3s;
-            width: 100px;
-            box-shadow: #111827 0px 2px 7px;
-        }
-
-
-        .toggle-form-button:hover,
-        .add-button:hover,
-        .submit-button:hover {
-            background-color: #4f46e5 !important;
-            border: none !important;
-        }
-
-        .button-container {
-            margin-left: auto;
-        }
-
-        /*End Button*/
-
-        /*Main Content*/
-        .page-title {
-            text-align: center;
-            font-size: 44px;
-            max-width: 90vw;
-            height: 11vh;
-            margin: 5vh auto;
-            padding: 2vw;
-            background-color: #1e293b;
-            color: #fff;
-            margin-bottom: -4.5%;
-            margin-top: 20px;
-            border-radius: 16px;
-            padding-top: 15px;
-        }
-
-        .main-content {
-            flex: 1;
-            overflow-y: auto;
-            padding: 40px;
-            background: #fff;
-            height: 100%;
-            margin-top: 80px;
-        }
-
-        .main-container {
-            overflow: auto;
-            max-width: 90vw;
-            height: 70vh;
-            margin: 5vh auto;
-            padding: 2vw;
-            background-color: #fff;
-            box-shadow: 0vw 0vw 1vw #111;
-            border: 1px solid #e0e0e0;
-        }
-
-        /*End Main Content*/
-
-        /*Customer Unique Style*/
-        .search-bar {
-            margin: 10px 0;
-            margin-top: -10px;
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
-
-        .search-bar input {
-            padding: 10px 14px;
-            border: 1px solid #bbb;
-            border-radius: 8px;
-            font-size: 15px;
-            max-width: 300px;
-            flex: 1;
-            background: #fff;
-            color: #111;
-        }
-
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background: rgba(0, 0, 0, 0.4);
-            z-index: 1001;
-            display: none;
-        }
-
-        .customer-form-container {
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 1002;
-            background: #fff;
-            padding: 25px;
-            border-radius: 10px;
-            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.07);
-            border: 1px solid #e0e0e0;
-            width: 750px;
-            max-width: 90vw;
-        }
-
-        @media (max-width: 800px) {
-            .customer-form-container {
-                width: 95vw;
-                padding: 10px;
-            }
-        }
-
-        .customer-form label {
-            display: block;
-            margin-top: 12px;
-            font-weight: 600;
-            color: #111;
-        }
-
-        .customer-form input,
-        .customer-form textarea {
-            width: 100%;
-            margin-top: 6px;
-            padding: 10px;
-            border-radius: 6px;
-            border: 1px solid #bbb;
-            background: #fff;
-            color: #111;
-        }
-
-        .submit-wrapper {
-            text-align: right;
-        }
-
-        .table {
-            width: 100%;
-            border-collapse: separate;
-            border-spacing: 0;
-            border-radius: 12px;
-            overflow: hidden;
-            background-color: #fff;
-            margin-top: 20px;
-            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.07);
-            color: #111;
-        }
-
-        .table th,
-        .table td {
-            padding: 14px 16px;
-            text-align: center;
-            border: none;
-            font-size: 15px;
-        }
-
-        .table th {
-            background-color: var(--palette-navbar);
-            color: #fff;
-            font-size: 16px;
-        }
-
-        .table tr:last-child td {
-            border-bottom: none;
-        }
-
-        tr:hover {
-            background-color: #f5f5f5;
-        }
-
-        tr.selected {
-            background-color: #777;
-            color: #fff;
-            font-weight: bold;
-        }
-
-        th.asc::after {
-            content: ' ▲';
-        }
-
-        th.desc::after {
-            content: ' ▼';
-        }
-
-        .notification {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            padding: 15px 25px;
-            background-color: #2ecc71;
-            color: #fff;
-            border-radius: 5px;
-            box-shadow: 0 2px 4px #111;
-            z-index: 1000;
-            opacity: 0;
-            transition: opacity 0.5s ease;
-        }
-
-        .notification.show {
-            opacity: 1;
-        }
-
-        .notification.error {
-            background-color: #0e0202;
-        }
-
-        .form-title {
-            font-size: 20px;
-            margin-bottom: 20px;
-            color: #111;
-        }
-    </style>
+        <link rel="stylesheet" href="../static/css/centralStyle.css">
+        <link rel="stylesheet" href="../static/css/customerStyle.css">
 </head>
 
 <body>
@@ -527,7 +21,7 @@
 
     <nav class="navigation-top">
         <div class="navigation-div">
-            <h1 class="web-name">BisNest</h1>
+            <h1 class="page-name">Customer Management</h1>
             <ul style="margin-left: 45%;">
                 <li><a style="color: #1e293b;" href="{% url 'about' %}">About</a></li>
                 <li><a style="color: #1e293b;" href="#contact">Contact</a></li>
@@ -589,7 +83,7 @@
                         </svg>Sales Report</a></li>
             </ul>
             <ul>
-                <div class="line">_______________________</div>
+                <hr>
                 <li><a href="{% url 'logout_view' %}" class="btn-signout"><svg class="signout-icon"
                             xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
                             <path d="M16 13v-2H7V8l-5 4 5 4v-3zM20 3h-8v2h8v14h-8v2h8a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2z" />
@@ -599,28 +93,28 @@
     </nav>
 
     <main class="main-content">
-        <h1 class="page-title">Customer Management</h1>
-        <div class="main-container">
-            <div class="search-bar">
-                <input type="text" id="searchInput" placeholder="Search Customer Name:" onkeyup="searchCustomer()">
-                <div class="button-container">
-                    <button class="toggle-form-button" onclick="toggleForm()">+ New</button>
+
+        <div class="search-bar">
+            <input type="text" id="searchInput" placeholder="Search Customer Name:" onkeyup="searchCustomer()">
+            <div class="button-container">
+                <button class="toggle-form-button" onclick="toggleForm()">+ New</button>
+            </div>
+        </div>
+
+        <div class="modal-overlay" id="modalOverlay" style="display:none;"></div>
+        <div class="customer-form-container" id="formContainer">
+            <h2 class="form-title" id="formTitle">Customer Information</h2>
+            <form class="customer-form" method="POST">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <div class="submit-wrapper">
+                    <button type="submit" class="submit-button">Submit</button>
                 </div>
-            </div>
+            </form>
+        </div>
 
-            <div class="modal-overlay" id="modalOverlay" style="display:none;"></div>
-            <div class="customer-form-container" id="formContainer">
-                <h2 class="form-title" id="formTitle">Customer Information</h2>
-                <form class="customer-form" method="POST">
-                    {% csrf_token %}
-                    {{ form.as_p }}
-                    <div class="submit-wrapper">
-                        <button type="submit" class="submit-button">Submit</button>
-                    </div>
-                </form>
-            </div>
-
-            <div class="customer-table-container">
+        <div class="customer-table-container">
+            <div class="table-wrapper">
                 <table class="table">
                     <thead>
                         <tr>
@@ -632,7 +126,7 @@
                         </tr>
                     </thead>
                     <tbody class="table-body">
-                        
+
                         {% for cust in customers %}
                         <tr>
                             <td>{{ cust.id }}</td>
@@ -640,10 +134,35 @@
                             <td>{{ cust.phone }}</td>
                             <td>{{ cust.address }}</td>
                             <td>
+                                <button type="button" class="edit-button" data-id="{{ cust.id }}"
+                                    data-name="{{ cust.name }}" data-phone="{{ cust.phone }}"
+                                    data-address="{{ cust.address }}" title="Edit customer" aria-label="Edit customer"
+                                    style="margin-right:8px;">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+                                        <path
+                                            d="M3 21v-3.75L14.81 5.44a2 2 0 0 1 2.83 0l0.92 0.92a2 2 0 0 1 0 2.83L6.75 21H3z"
+                                            stroke="currentColor" stroke-width="1" stroke-linecap="round"
+                                            stroke-linejoin="round" />
+                                        <path
+                                            d="M20.71 7.04a1 1 0 0 0 0-1.41l-2.34-2.34a1 1 0 0 0-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"
+                                            stroke="currentColor" stroke-width="1" stroke-linecap="round"
+                                            stroke-linejoin="round" />
+                                    </svg>
+                                </button>
+
                                 <form action="{% url 'delete_customer' cust.id %}" method="post"
                                     style="display:inline;">
                                     {% csrf_token %}
-                                    <button type="submit" class="delete-button">Delete</button>
+                                    <button type="submit" class="delete-button" title="Delete customer">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                            fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                                            <path
+                                                d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z" />
+                                            <path
+                                                d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z" />
+                                        </svg>
+                                    </button>
                                 </form>
                             </td>
                         </tr>
@@ -652,6 +171,7 @@
                 </table>
             </div>
         </div>
+
     </main>
     <div class="notification" id="notification"></div>
     <script>
@@ -760,7 +280,7 @@
             const rows = table.getElementsByTagName("tr");
 
             for (let i = 0; i < rows.length; i++) {
-                const nameCell = rows[i].getElementsByTagName("td")[1]; 
+                const nameCell = rows[i].getElementsByTagName("td")[1];
                 if (nameCell) {
                     const nameText = nameCell.textContent || nameCell.innerText;
                     if (nameText.toLowerCase().indexOf(filter) > -1) {
@@ -771,8 +291,46 @@
                 }
             }
         }
+
+        // --- Edit customer functionality ---
+        document.addEventListener('click', function (e) {
+            const editBtn = e.target.closest('.edit-button');
+            if (!editBtn) return;
+            // populate modal form with data attributes
+            const id = editBtn.getAttribute('data-id');
+            const name = editBtn.getAttribute('data-name');
+            const phone = editBtn.getAttribute('data-phone');
+            const address = editBtn.getAttribute('data-address');
+
+            // show form modal
+            formContainer.style.display = 'block';
+            modalOverlay.style.display = 'block';
+
+            // set form title and values
+            document.getElementById('formTitle').textContent = 'Edit Customer';
+            // if the form fields have ids match the form, set them
+            const nameInput = document.querySelector('.customer-form input[name="name"]');
+            const phoneInput = document.querySelector('.customer-form input[name="phone"]');
+            const addressInput = document.querySelector('.customer-form textarea[name="address"]');
+            if (nameInput) nameInput.value = name || '';
+            if (phoneInput) phoneInput.value = phone || '';
+            if (addressInput) addressInput.value = address || '';
+
+            // ensure a hidden input for edit id exists
+            let editIdInput = document.querySelector('.customer-form input[name="edit_id"]');
+            if (!editIdInput) {
+                editIdInput = document.createElement('input');
+                editIdInput.type = 'hidden';
+                editIdInput.name = 'edit_id';
+                document.querySelector('.customer-form').appendChild(editIdInput);
+            }
+            editIdInput.value = id;
+
+            // scroll modal into view
+            formContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        });
     </script>
-    
+
 
 </body>
 
