@@ -65,7 +65,7 @@ def employeesInfoPage(request):
         form = EmployeeForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('employeesInfoPage')  
+            return redirect('employeesinfo')  
     else:
         form = EmployeeForm()
 
@@ -78,7 +78,7 @@ def employeesInfoPage(request):
 def delete_employee(request, employee_id):
     employee = get_object_or_404(Employee, pk=employee_id)
     employee.delete()
-    return redirect('employeesInfoPage')
+    return redirect('employeesinfo')
 
 def menuPage(request):
     return render(request, 'menu.html')
@@ -262,4 +262,5 @@ def register_view(request):
         return redirect('login_view')
 
     return redirect('login_view')
+
 
